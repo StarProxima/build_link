@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:build_link/ui/widgets/heatmap_calendar/heatmap_calendar.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,23 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
   bool isOpacityMode = true;
 
   Map<DateTime, int> heatMapDatasets = {};
+
+  @override
+  void initState() {
+    Random r = Random();
+    DateTime now = DateTime.now();
+    heatMapDatasets = {
+      for (int i = 0; i < 100; i++)
+        DateTime(
+          now.year,
+          now.month,
+          now.day,
+        ).add(
+          Duration(days: i),
+        ): r.nextInt(15)
+    };
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -66,15 +84,18 @@ class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
                 child: HeatMapCalendar(
                   flexible: true,
                   size: 50,
-                  onClick: (_) {
-                    log(_.toString());
-                  },
+                  // colorTipHelper: const [
+                  //   Text('Меньше '),
+                  //   Text(' Больше'),
+                  // ],
+                  showColorTip: false,
+                  onClick: (_) {},
                   selectedColor: Colors.black,
                   datasets: heatMapDatasets,
                   colorMode:
                       isOpacityMode ? ColorMode.opacity : ColorMode.color,
                   colorsets: const {
-                    1: Colors.red,
+                    1: Colors.amber,
                     3: Colors.orange,
                     5: Colors.yellow,
                     7: Colors.green,
