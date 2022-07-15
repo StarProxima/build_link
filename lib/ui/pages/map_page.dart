@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:build_link/data/app_styles.dart';
 import 'package:build_link/data/geolocation.dart';

@@ -37,8 +37,8 @@ class BarChart3State extends State<BarChart3> {
         break;
     }
     return SideTitleWidget(
-      child: Text(text, style: style),
       axisSide: meta.axisSide,
+      child: Text(text, style: style),
     );
   }
 
@@ -53,11 +53,11 @@ class BarChart3State extends State<BarChart3> {
       fontSize: 10,
     );
     return SideTitleWidget(
+      axisSide: meta.axisSide,
       child: Text(
         meta.formattedValue,
         style: style,
       ),
-      axisSide: meta.axisSide,
     );
   }
 
@@ -134,7 +134,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(2000000000, 12000000000, normal),
                 BarChartRodStackItem(12000000000, 17000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 24000000000,
               rodStackItems: [
@@ -142,7 +142,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(13000000000, 14000000000, normal),
                 BarChartRodStackItem(14000000000, 24000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 23000000000.5,
               rodStackItems: [
@@ -150,7 +150,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(6000000000.5, 18000000000, normal),
                 BarChartRodStackItem(18000000000, 23000000000.5, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 29000000000,
               rodStackItems: [
@@ -158,7 +158,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(9000000000, 15000000000, normal),
                 BarChartRodStackItem(15000000000, 29000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 32000000000,
               rodStackItems: [
@@ -166,7 +166,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(2000000000.5, 17000000000.5, normal),
                 BarChartRodStackItem(17000000000.5, 32000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
         ],
       ),
       BarChartGroupData(
@@ -180,7 +180,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(11000000000, 18000000000, normal),
                 BarChartRodStackItem(18000000000, 31000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 35000000000,
               rodStackItems: [
@@ -188,7 +188,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(14000000000, 27000000000, normal),
                 BarChartRodStackItem(27000000000, 35000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 31000000000,
               rodStackItems: [
@@ -196,7 +196,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(8000000000, 24000000000, normal),
                 BarChartRodStackItem(24000000000, 31000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 15000000000,
               rodStackItems: [
@@ -204,7 +204,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(6000000000.5, 12000000000.5, normal),
                 BarChartRodStackItem(12000000000.5, 15000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 17000000000,
               rodStackItems: [
@@ -212,7 +212,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(9000000000, 15000000000, normal),
                 BarChartRodStackItem(15000000000, 17000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
         ],
       ),
       BarChartGroupData(
@@ -226,7 +226,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(6000000000, 23000000000, normal),
                 BarChartRodStackItem(23000000000, 34000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 32000000000,
               rodStackItems: [
@@ -234,7 +234,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(7000000000, 24000000000, normal),
                 BarChartRodStackItem(24000000000, 32000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 14000000000.5,
               rodStackItems: [
@@ -242,7 +242,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(1000000000.5, 12000000000, normal),
                 BarChartRodStackItem(12000000000, 14000000000.5, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 20000000000,
               rodStackItems: [
@@ -250,7 +250,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(4000000000, 15000000000, normal),
                 BarChartRodStackItem(15000000000, 20000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 24000000000,
               rodStackItems: [
@@ -258,7 +258,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(4000000000, 15000000000, normal),
                 BarChartRodStackItem(15000000000, 24000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
         ],
       ),
       BarChartGroupData(
@@ -272,7 +272,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(1000000000.5, 12000000000, normal),
                 BarChartRodStackItem(12000000000, 14000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 27000000000,
               rodStackItems: [
@@ -280,7 +280,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(7000000000, 25000000000, normal),
                 BarChartRodStackItem(25000000000, 27000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 29000000000,
               rodStackItems: [
@@ -288,7 +288,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(6000000000, 23000000000, normal),
                 BarChartRodStackItem(23000000000, 29000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 16000000000.5,
               rodStackItems: [
@@ -296,7 +296,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(9000000000, 15000000000, normal),
                 BarChartRodStackItem(15000000000, 16000000000.5, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
           BarChartRodData(
               toY: 15000000000,
               rodStackItems: [
@@ -304,7 +304,7 @@ class BarChart3State extends State<BarChart3> {
                 BarChartRodStackItem(7000000000, 12000000000.5, normal),
                 BarChartRodStackItem(12000000000.5, 15000000000, light),
               ],
-              borderRadius: const BorderRadius.all(Radius.zero)),
+              borderRadius: const BorderRadius.all(Radius.zero),),
         ],
       ),
     ];

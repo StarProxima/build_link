@@ -120,7 +120,7 @@ class _BarChart1State extends State<BarChart1> {
                     final index = e.key;
                     final data = e.value;
                     return generateBarGroup(
-                        index, data.color, data.value, data.shadowValue);
+                        index, data.color, data.value, data.shadowValue,);
                   }).toList(),
                   maxY: 20,
                   barTouchData: BarTouchData(
@@ -146,9 +146,9 @@ class _BarChart1State extends State<BarChart1> {
                                     color: Colors.black26,
                                     blurRadius: 12,
                                   )
-                                ]),
+                                ],),
                           );
-                        }),
+                        },),
                     touchCallback: (event, response) {
                       if (event.isInterestedForInteractions &&
                           response != null &&
