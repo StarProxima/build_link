@@ -1,10 +1,9 @@
-// ignore_for_file: empty_catches
-
 import 'dart:async';
 import 'dart:developer';
 
 import 'package:build_link/data/app_styles.dart';
 import 'package:build_link/data/geolocation.dart';
+import 'package:build_link/ui/widgets/search_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'dart:math' as math;
@@ -125,6 +124,13 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
             mapController: mapController,
             options: MapOptions(
               interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+              onPositionChanged: (_, __) {
+                try {
+                  if (searchFocus.hasFocus) {
+                    searchFocus.unfocus();
+                  }
+                } catch (e) {}
+              },
               zoom: 17,
               maxZoom: 18,
               minZoom: 7,
@@ -158,34 +164,48 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
             ],
           ),
           widget.isFullScreen
-              ? Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Theme.of(context).scaffoldBackgroundColor,
-                        elevation: 5,
-                        fixedSize: const Size(50, 50),
-                        shape: const CircleBorder(),
+              ? Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 16,
+                        ),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).scaffoldBackgroundColor,
+                            elevation: 5,
+                            fixedSize: const Size(50, 50),
+                            shape: const CircleBorder(),
+                          ),
+                          child: Icon(
+                            Icons.near_me_outlined,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          onPressed: () async {
+                            if (myCoord != null) {
+                              animatedMoveToCoord(
+                                myCoord!,
+                              );
+                            }
+                            searchMyCoord();
+                          },
+                        ),
                       ),
-                      child: Icon(
-                        Icons.near_me_outlined,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      onPressed: () async {
-                        if (myCoord != null) {
-                          animatedMoveToCoord(
-                            myCoord!,
-                          );
-                        }
-                        searchMyCoord();
-                      },
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: SearchPanel(
+                        onEditiningComplite: (_) {},
+                        leading: const BackButton(
+                          color: Colors.black,
+                        ),
+                        focus: searchFocus,
+                      ),
+                    ),
+                  ],
                 )
               : const SizedBox(),
         ],

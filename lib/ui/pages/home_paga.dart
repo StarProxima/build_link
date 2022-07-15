@@ -16,6 +16,7 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(title: const Text('Build-link')),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('Платформа для агентства недвижимости и агента'),
             TextButton(
