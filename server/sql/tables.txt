@@ -28,13 +28,11 @@ CREATE TABLE IF NOT EXISTS public.deal
     id_agent integer NOT NULL,
     id_object integer,
     name character(200) COLLATE pg_catalog."default" NOT NULL,
-    date_start date NOT NULL,
-    date_end date,
     note text COLLATE pg_catalog."default",
+    date_start timestamp without time zone NOT NULL,
+    date_end timestamp without time zone,
     CONSTRAINT deal_pkey PRIMARY KEY (id)
-)
-
-TABLESPACE pg_default;
+);
 
 ALTER TABLE IF EXISTS public.deal
     OWNER to "user";
