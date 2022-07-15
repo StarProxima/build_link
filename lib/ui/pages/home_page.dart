@@ -1,3 +1,4 @@
+import 'package:build_link/ui/pages/charts_page.dart';
 import 'package:build_link/ui/pages/map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
@@ -33,6 +34,18 @@ class _HomepageState extends State<Homepage> {
                 );
               },
               child: const Text('Карта'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ChartsPage();
+                    },
+                  ),
+                );
+              },
+              child: const Text('Диаграммы'),
             ),
           ],
         ),
