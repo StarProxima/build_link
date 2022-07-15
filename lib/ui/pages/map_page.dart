@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:build_link/data/app_styles.dart';
 import 'package:build_link/data/geolocation.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
@@ -27,11 +28,10 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
   MapController mapController = MapController();
   final TextEditingController searchController = TextEditingController();
-  late StreamSubscription subscription;
+
   // List<Suggestion> items = [];
 
-  bool load = false;
-  bool isMove = false;
+  LatLng? myCoord;
 
   void clearItems() {
     //items.clear();
@@ -45,13 +45,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
     }
     await Future.delayed(const Duration(milliseconds: 300));
     if (value != searchController.text) return;
-    if (load) return;
-    load = true;
-    // items = await GeocoderRepository.search(
-    //   value,
-    //   Coord(mapController.center.latitude, mapController.center.longitude),
-    // );
-    load = false;
+
     setState(() {});
   }
 
@@ -100,38 +94,24 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
   void searchMyCoord() async {
     LatLng? coord = await getCurrentCoord();
     if (coord != null && mounted) {
-      //UserProvider.of(context)?.coordModel.coord = coord;
+      if (myCoord == null) {
+        myCoord = coord;
+        animatedMoveToCoord(coord);
+      } else {
+        myCoord = coord;
+      }
+      setState(() {});
     }
   }
 
   @override
-  void initState() {
-    mapController.onReady.then((_) {
-      subscription = mapController.mapEventStream.listen((MapEvent mapEvent) {
-        if (mapEvent is MapEventMoveStart) {
-          isMove = true;
-          setState(() {});
-        }
-        if (mapEvent is MapEventMoveEnd) {
-          isMove = false;
-          setState(() {});
-        }
-      });
-    });
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
-    // if (widget.isEditor) searchMyCoord();
-
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
     mapController.dispose();
-    subscription.cancel();
     super.dispose();
   }
 
@@ -144,21 +124,11 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
           FlutterMap(
             mapController: mapController,
             options: MapOptions(
-              interactiveFlags: InteractiveFlag.pinchZoom |
-                  InteractiveFlag.drag |
-                  InteractiveFlag.doubleTapZoom,
+              interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
               zoom: 17,
               maxZoom: 18,
               minZoom: 7,
               crs: const Epsg3395(),
-              onPositionChanged: (position, _isMove) {
-                try {
-                  if (searchFocus.hasFocus) {
-                    clearItems();
-                    searchFocus.unfocus();
-                  }
-                } catch (e) {}
-              },
               center: widget.initialPosition,
             ),
             layers: [
@@ -167,59 +137,57 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                     'https://core-renderer-tiles.maps.yandex.net/tiles?l=map&x={x}&y={y}&z={z}&scale=2&lang=ru_RU',
                 subdomains: ['a', 'b', 'c'],
               ),
-              // MarkerLayerOptions(
-              //   markers: widget.isEditor
-              //       ? [
-              //           // Marker(
-              //           //   point: UserProvider.of(context)!
-              //           //       .coordModel
-              //           //       .coord
-              //           //       .toLatLng(),
-              //           //   builder: (context) {
-              //           //     return const Center(
-              //           //       child: Image(
-              //           //         height: 20,
-              //           //         width: 20,
-              //           //         image: AppImages.userpin,
-              //           //       ),
-              //           //     );
-              //           //   },
-              //           // ),
-              //         ]
-              //       : [],
-              // )
+              MarkerLayerOptions(
+                markers: widget.isFullScreen && myCoord != null
+                    ? [
+                        Marker(
+                          point: myCoord!,
+                          builder: (context) {
+                            return Center(
+                              child: Image(
+                                image: AppImages.userpin,
+                                height: 20,
+                                width: 20,
+                              ),
+                            );
+                          },
+                        ),
+                      ]
+                    : [],
+              )
             ],
           ),
-          // widget.isFullScreen
-          //     ? Align(
-          //         alignment: Alignment.bottomRight,
-          //         child: Padding(
-          //           padding: const EdgeInsets.symmetric(
-          //             horizontal: 16,
-          //             vertical: 16,
-          //           ),
-          //           child: ElevatedButton(
-          //             style: ElevatedButton.styleFrom(
-          //               primary: Theme.of(context).scaffoldBackgroundColor,
-          //               elevation: 5,
-          //               fixedSize: const Size(50, 50),
-          //               shape: const CircleBorder(),
-          //             ),
-          //             child: Icon(
-          //               Icons.near_me_outlined,
-          //               color: Theme.of(context).primaryColor,
-          //             ),
-          //             onPressed: () async {
-          //               animatedMoveToCoord(
-          //                 mapController.center,
-          //               );
-
-          //               searchMyCoord();
-          //             },
-          //           ),
-          //         ),
-          //       )
-          //     : const SizedBox(),
+          widget.isFullScreen
+              ? Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 16,
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).scaffoldBackgroundColor,
+                        elevation: 5,
+                        fixedSize: const Size(50, 50),
+                        shape: const CircleBorder(),
+                      ),
+                      child: Icon(
+                        Icons.near_me_outlined,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      onPressed: () async {
+                        if (myCoord != null) {
+                          animatedMoveToCoord(
+                            myCoord!,
+                          );
+                        }
+                        searchMyCoord();
+                      },
+                    ),
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );
