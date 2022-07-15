@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:build_link/data/util/widget_util.dart';
 import 'package:build_link/ui/widgets/heatmap_calendar/heatmap_calendar_page.dart';
 import 'package:build_link/ui/widgets/heatmap_calendar/heatmap_color_tip.dart';
@@ -64,6 +66,8 @@ class HeatMapCalendar extends StatefulWidget {
   /// Paratmeter gives clicked [DateTime] value.
   final Function(DateTime)? onClick;
 
+  final Color? selectedColor;
+
   /// Show color tip which represents the color range at the below.
   ///
   /// Default value is true.
@@ -103,6 +107,7 @@ class HeatMapCalendar extends StatefulWidget {
     this.colorTipHelper,
     this.colorTipCount,
     this.colorTipSize,
+    this.selectedColor,
   }) : super(key: key);
 
   @override
@@ -112,6 +117,8 @@ class HeatMapCalendar extends StatefulWidget {
 class _HeatMapCalendar extends State<HeatMapCalendar> {
   // The DateTime value of first day of the current month.
   DateTime? _currentDate;
+
+  DateTime? _selectedDate;
 
   @override
   void initState() {
@@ -222,7 +229,14 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
             datasets: widget.datasets,
             colorsets: widget.colorsets,
             borderRadius: widget.borderRadius,
-            onClick: widget.onClick,
+            selectedDate: _selectedDate,
+            onClick: (date) {
+              widget.onClick?.call(date);
+              setState(() {
+                _selectedDate = date;
+              });
+            },
+            selectedColor: widget.selectedColor,
           ),
           if (widget.showColorTip == true)
             HeatMapColorTip(

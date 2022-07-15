@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:build_link/data/models/heatmap_color.dart';
 import 'package:flutter/material.dart';
 
@@ -7,10 +9,12 @@ class HeatMapContainer extends StatelessWidget {
   final double? fontSize;
   final double? borderRadius;
   final Color? backgroundColor;
+  final Color? heatColor;
   final Color? selectedColor;
   final Color? textColor;
   final EdgeInsets? margin;
   final bool? showText;
+  final DateTime? selectedDate;
   final Function(DateTime dateTime)? onClick;
 
   const HeatMapContainer({
@@ -21,10 +25,12 @@ class HeatMapContainer extends StatelessWidget {
     this.fontSize,
     this.borderRadius,
     this.backgroundColor,
-    this.selectedColor,
+    this.heatColor,
     this.textColor,
     this.onClick,
+    this.selectedDate,
     this.showText,
+    this.selectedColor,
   }) : super(key: key);
 
   @override
@@ -44,7 +50,7 @@ class HeatMapContainer extends StatelessWidget {
             height: size,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: selectedColor,
+              color: selectedDate == date ? selectedColor : heatColor,
               borderRadius:
                   BorderRadius.all(Radius.circular(borderRadius ?? 5)),
             ),

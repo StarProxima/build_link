@@ -108,7 +108,7 @@ class HeatMapColumn extends StatelessWidget {
             // we have to color the matched HeatMapContainer.
             //
             // If datasets is null or doesn't contains the equal DateTime value, send null.
-            selectedColor: datasets?.keys.contains(
+            heatColor: datasets?.keys.contains(
                       DateTime(
                         startDate.year,
                         startDate.month,
