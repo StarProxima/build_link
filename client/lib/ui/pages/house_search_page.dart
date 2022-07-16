@@ -24,7 +24,7 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
     super.initState();
     HouseRepository.searchHouses().then((value) {
       setState(() {
-        findedHouses = value;
+        findedHouses = value ?? [];
       });
     });
   }

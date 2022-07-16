@@ -40,4 +40,8 @@ class House {
       min_date: json["min_date"] != null ? json["min_date"].trimRight() : "",
     );
   }
+
+  String get title {
+    return "$roomCount-к квартира $squareMeters м²";
+  }
 }
