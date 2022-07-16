@@ -39,7 +39,8 @@ class _MainPageState extends State<MainPage> {
                 state: 'FEWf',
                 planUrl: ""),
           ),
-          HouseSearchPage(),
+          const HouseSearchPage(),
+          const ChartsPage(),
         ].elementAt(index);
       },
     };
@@ -84,6 +85,7 @@ class _MainPageState extends State<MainPage> {
                 _buildOffstageNavigator(1),
                 _buildOffstageNavigator(2),
                 _buildOffstageNavigator(3),
+                _buildOffstageNavigator(4),
               ],
             ),
           ),

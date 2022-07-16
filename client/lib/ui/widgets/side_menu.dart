@@ -51,6 +51,15 @@ class _SideMenuState extends State<SideMenu> {
             padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
             child: AccountCard(name: 'Хахок Рустам', role: 'Агент'),
           ),
+          SideMenuButton(
+            appIcon: AppIcons.search,
+            label: 'Поиск',
+            onTap: () {
+              selectedPageIndex = 3;
+              widget.onChangePage(3);
+            },
+            isSelected: selectedPageIndex == 3,
+          ),
           const Space(space: 6),
           SideMenuButton(
             appIcon: AppIcons.mydeal,
@@ -85,13 +94,13 @@ class _SideMenuState extends State<SideMenu> {
             space: 6,
           ),
           SideMenuButton(
-            appIcon: AppIcons.search,
-            label: 'Поиск',
+            appIcon: AppIcons.comment_check,
+            label: 'Статистика',
             onTap: () {
-              selectedPageIndex = 3;
-              widget.onChangePage(3);
+              selectedPageIndex = 4;
+              widget.onChangePage(4);
             },
-            isSelected: selectedPageIndex == 3,
+            isSelected: selectedPageIndex == 4,
           ),
         ],
       ),
