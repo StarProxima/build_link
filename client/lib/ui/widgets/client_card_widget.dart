@@ -1,3 +1,4 @@
+import 'package:build_link/data/styles/app_styles.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 
@@ -22,19 +23,20 @@ class ClientCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: AppColors.background,
-          border: Border.all(
-            color: AppColors.divider,
-            width: 1,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.shadow,
-              offset: Offset.zero,
-              blurRadius: 24,
-            )
-          ]),
+        color: AppColors.background,
+        border: Border.all(
+          color: AppColors.divider,
+          width: 1,
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadow,
+            offset: Offset.zero,
+            blurRadius: 24,
+          )
+        ],
+      ),
       clipBehavior: Clip.antiAlias,
       child: TextButton(
         style: AppButtonStyle.cardButton,
@@ -47,10 +49,13 @@ class ClientCardWidget extends StatelessWidget {
               space: 16,
             ),
             cardTitle,
-            const Space(space: 6),
+            const Space(space: 8),
             cardInfo,
             const Space(space: 8),
-            Divider(height: 1, color: AppColors.divider),
+            Container(
+              height: 1,
+              color: AppColors.divider,
+            ),
             homeStatus
           ],
         ),
@@ -72,6 +77,11 @@ class ClientCardWidget extends StatelessWidget {
               fontSize: 20,
             ),
           ),
+          const Spacer(),
+          const AppIcon(
+            AppIcons.next,
+            size: 24,
+          ),
         ],
       ),
     );
@@ -82,34 +92,58 @@ class ClientCardWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Column(
         children: [
-          cardLabel(client.phoneNumber),
+          cardLabel(
+            const AppIcon(
+              AppIcons.phone,
+              size: 20,
+            ),
+            client.phoneNumber,
+          ),
           const Space(
             space: 6,
           ),
-          cardLabel(client.note),
+          cardLabel(
+            const AppIcon(
+              AppIcons.info,
+              size: 20,
+            ),
+            client.note,
+          ),
           const Space(
             space: 6,
           ),
-          cardLabel(client.state),
+          cardLabel(
+            const AppIcon(
+              AppIcons.state,
+              size: 20,
+            ),
+            client.state,
+          ),
         ],
       ),
     );
   }
 
-  Widget cardLabel(String text) {
+  Widget cardLabel(AppIcon icon, String text) {
     return Container(
-      constraints: const BoxConstraints(minHeight: 24),
+      height: 24,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          icon,
+          const Space(
+            space: 12,
+            orientation: Axis.horizontal,
+          ),
           Expanded(
             child: Text(
               text,
-              maxLines: 3,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: AppFontStyles.label.copyWith(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
-                color: AppColors.textDisable,
+                color: AppColors.text,
               ),
             ),
           ),
@@ -119,28 +153,30 @@ class ClientCardWidget extends StatelessWidget {
   }
 
   Widget get homeStatus {
-    return Container(
-      height: 40,
-      padding: const EdgeInsets.only(left: 16, right: 16),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(12),
-          bottomRight: Radius.circular(12),
-        ),
-        color: AppColors.backgroundDark,
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Row(
-        children: [
-          Text(
-            "Нет квартир",
-            style: AppFontStyles.label.copyWith(
-              fontSize: 12,
-              color: AppColors.textDisable,
-              fontWeight: FontWeight.w500,
-            ),
+    return Expanded(
+      child: Container(
+        constraints: const BoxConstraints(minHeight: double.infinity),
+        padding: const EdgeInsets.only(left: 16, right: 16),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(12),
+            bottomRight: Radius.circular(12),
           ),
-        ],
+          color: AppColors.backgroundDark,
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Row(
+          children: [
+            Text(
+              "Нет квартир",
+              style: AppFontStyles.label.copyWith(
+                fontSize: 12,
+                color: AppColors.textDisable,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

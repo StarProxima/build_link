@@ -20,6 +20,7 @@ dependencies:
     git:
       url: https://github.com/fleaflet/flutter_map.git
   geolocator: ^9.0.0
+  flutter_staggered_grid_view: ^0.6.2
 
 dev_dependencies:
   flutter_test:

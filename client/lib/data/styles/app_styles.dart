@@ -32,4 +32,8 @@ enum AppIcons {
   search,
   icon,
   build_link,
+  next,
+  phone,
+  state,
+  info,
 }

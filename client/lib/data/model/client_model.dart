@@ -1,6 +1,4 @@
 class ClientModel {
-  int clientID;
-  int agentID;
   String firstName;
   String lastName;
   String patronymic;
@@ -9,8 +7,6 @@ class ClientModel {
   String state;
 
   ClientModel(
-    this.clientID,
-    this.agentID,
     this.firstName,
     this.lastName,
     this.patronymic,
@@ -21,14 +17,12 @@ class ClientModel {
 
   static ClientModel fromJson(dynamic json) {
     return ClientModel(
-      json["id"],
-      json["id_agent"],
-      json["firstname"],
-      json["lastname"],
-      json["patronymic"],
-      json["number"],
-      json["note"],
-      json["state"],
+      (json["firstname"] as String).trimRight(),
+      (json["lastname"] as String).trimRight(),
+      (json["patronymic"] as String).trimRight(),
+      (json["number"] as String).trimRight(),
+      (json["note"] as String).trimRight(),
+      (json["status"] as String).trimRight(),
     );
   }
 }
