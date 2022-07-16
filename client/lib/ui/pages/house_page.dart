@@ -71,7 +71,7 @@ class _HousePageState extends State<HousePage> {
                   text: widget.house.state == "f" ? 'Свободна' : 'Занята',
                 ),
                 HousePageField(
-                  icon: const AppIcon(AppIcons.info),
+                  icon: const AppIcon(AppIcons.room_count),
                   text: widget.house.roomCount.toString() +
                       (widget.house.roomCount < 5
                           ? (widget.house.roomCount == 1
@@ -80,15 +80,15 @@ class _HousePageState extends State<HousePage> {
                           : " комнат"),
                 ),
                 HousePageField(
-                  icon: const AppIcon(AppIcons.state),
+                  icon: const AppIcon(AppIcons.diagonal_arrows),
                   text: "Площадь: ${widget.house.squareMeters} м^2",
                 ),
+                // HousePageField(
+                //   icon: const AppIcon(AppIcons.state),
+                //   text: widget.house.state == "f" ? 'Свободна' : 'Занята',
+                // ),
                 HousePageField(
-                  icon: const AppIcon(AppIcons.state),
-                  text: widget.house.state == "f" ? 'Свободна' : 'Занята',
-                ),
-                HousePageField(
-                  icon: const AppIcon(AppIcons.state),
+                  icon: const AppIcon(AppIcons.vertical_arrows),
                   text: 'Высота потолков: ${widget.house.ceilingHeight} м',
                 ),
                 HousePageField(
@@ -96,7 +96,7 @@ class _HousePageState extends State<HousePage> {
                   text: 'Цена: ${widget.house.cost} руб',
                 ),
                 HousePageField(
-                  icon: const AppIcon(AppIcons.state),
+                  icon: const AppIcon(AppIcons.check),
                   text: widget.house.repair
                       ? "Сделан ремонт"
                       : "Ремонт не сделан",

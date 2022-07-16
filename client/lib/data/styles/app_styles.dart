@@ -37,4 +37,9 @@ enum AppIcons {
   state,
   back,
   info,
+  vertical_arrows,
+  pin,
+  room_count,
+  check,
+  diagonal_arrows,
 }
