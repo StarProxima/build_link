@@ -69,9 +69,7 @@ CREATE TABLE IF NOT EXISTS public.cards
     id_agent integer NOT NULL,
     status character(50) NOT NULL,
     CONSTRAINT clients_pkey PRIMARY KEY (id)
-)
-
-TABLESPACE pg_default;
+);
 
 ALTER TABLE IF EXISTS public.cards
     OWNER to "user";

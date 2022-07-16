@@ -15,30 +15,30 @@ try:
     # Выполнение SQL-запроса
     cursor.execute("""
     INSERT INTO public.objects(
-        name, address, square_meters, room_count, ceiling_height, repair, cost, status)
-        VALUES ('Квартира 1', 'Ул. Морозова 1, кв. 1', 35.4, 2, 2.6, true, 5000000, 'f');
+	    address, square_meters, room_count, ceiling_height, repair, cost, status, max_date, min_date)
+	    VALUES ( 'Ул. Морозова 1, кв. 1', 35.4, 2, 2.6, true, 5000000, 'free', '2026-08-08', '2024-08-08');
 
     INSERT INTO public.objects(
-        name, address, square_meters, room_count, ceiling_height, repair, cost, status)
-        VALUES ('Дорогая квартира 2', 'Ул. Морозова 1, кв. 2', 75.2, 7, 3.6, true, 50000000, 'f');
+        address, square_meters, room_count, ceiling_height, repair, cost, status, max_date, min_date)
+        VALUES ( 'Ул. Морозова 1, кв. 2', 75.2, 7, 3.6, true, 50000000, 'free', '2026-08-08', '2024-08-08');
 
     INSERT INTO public.objects(
-        name, address, square_meters, room_count, ceiling_height, repair, cost, status)
-        VALUES ('Студия 1', 'Ул. Морозова 1, кв. 3', 21.4, 1, 2.7, true, 3000000, 'b');
+        address, square_meters, room_count, ceiling_height, repair, cost, status, max_date, min_date)
+        VALUES ( 'Ул. Морозова 1, кв. 3', 21.4, 1, 2.7, true, 3000000, 'reservation', '2026-08-08', '2024-08-08');
 
     INSERT INTO public.objects(
-        name, address, square_meters, room_count, ceiling_height, repair, cost, status)
-        VALUES ('Квартира 2', 'Ул. Морозова 1, кв. 4', 29.4, 2, 2.3, false, 3000000, 'f');
+        address, square_meters, room_count, ceiling_height, repair, cost, status, max_date, min_date)
+        VALUES ('Ул. Морозова 1, кв. 4', 29.4, 2, 2.3, false, 3000000, 'free', '2026-08-08', '2024-08-08');
         
     INSERT INTO public.objects(
-        name, address, square_meters, room_count, ceiling_height, repair, cost, status)
-        VALUES ('Квартира 3', 'Ул. Морозова 1, кв. 5', 55.4, 4, 2.3, true, 9000000, 'r');
+        address, square_meters, room_count, ceiling_height, repair, cost, status, max_date, min_date)
+        VALUES ( 'Ул. Морозова 1, кв. 5', 55.4, 4, 2.3, true, 9000000, 'removed', '2026-08-08', '2024-08-08');
 
     INSERT INTO public.agents(
-        firstname, lastname, patronymic, type, id_agency)
+        firstname, lastname, patronymic, type, ig_agency)
         VALUES ( 'Боб', 'Бобов', 'Бобович', 'a', 1);
     INSERT INTO public.agents(
-        firstname, lastname, patronymic, type, id_agency)
+        firstname, lastname, patronymic, type, ig_agency)
         VALUES ( 'Павел', 'Павлов', 'Павлович', 'a', 1);
     INSERT INTO public.agents(
         firstname, lastname, patronymic, type)
@@ -67,6 +67,16 @@ try:
     INSERT INTO public.deal(
         id_agent, id_object, name, date_start, date_end, note)
         VALUES ( 1, 1, 'Показ квартиры', '2022-05-08 12:35:29', '2007-05-08 14:35:29', 'Описание');
+    
+    UPDATE public.objects SET
+    description = 'Двухкомнатная квартира в центре города. Больница, школа и магазины около подъезда.'::text, housing_complex = 'Весёлые истории' WHERE
+    id = 4;
+    UPDATE public.objects SET
+    description = 'Квартира в центре города. Больница, школа и магазины около подъезда.'::text, housing_complex = 'Весёлые истории' WHERE
+    id = 5;
+    UPDATE public.objects SET
+    description = 'Студия в центре города. Больница, школа и магазины около подъезда.'::text, housing_complex = 'Аквариум' WHERE
+    id = 3;
     """)
     # Получить результат
     records = cursor.fetchall()

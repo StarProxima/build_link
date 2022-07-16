@@ -19,14 +19,14 @@ try:
         id_object integer NOT NULL,
         id_ad integer NOT NULL,
         CONSTRAINT ad_object_pkey PRIMARY KEY (id_object, id_ad)
-    );
+    )
 
     CREATE TABLE IF NOT EXISTS public.ad
     (
         id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
         url character(2100) COLLATE pg_catalog."default",
         CONSTRAINT ad_pkey PRIMARY KEY (id)
-    );
+    )
 
     CREATE TABLE public.agencies
     (
@@ -108,23 +108,26 @@ try:
     ALTER TABLE IF EXISTS public.agents
         OWNER to "user";
 
-    CREATE TABLE public.objects
+
+    CREATE TABLE IF NOT EXISTS public.objects
     (
-        id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-        name character(200) NOT NULL,
-        address character(300) NOT NULL,
+        id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+        address character(300) COLLATE pg_catalog."default" NOT NULL,
         square_meters real NOT NULL,
         room_count smallint,
         ceiling_height real,
         repair boolean,
         cost real,
-        status character(50) NOT NULL,
-        PRIMARY KEY (id)
-    );
+        status character(50) COLLATE pg_catalog."default" NOT NULL,
+        max_date date,
+        min_date date,
+        description text COLLATE pg_catalog."default",
+        housing_complex character(100) COLLATE pg_catalog."default",
+        CONSTRAINT objects_pkey PRIMARY KEY (id)
+    )
 
     ALTER TABLE IF EXISTS public.objects
         OWNER to "user";
-    
     """)
     # Получить результат
     records = cursor.fetchall()
