@@ -1,5 +1,6 @@
 import 'package:build_link/data/styles/icons.dart';
 import 'package:build_link/ui/widgets/action_card_button.dart';
+import 'package:build_link/ui/widgets/house_tag_card.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,7 @@ class _HousePageState extends State<HousePage> {
                   height: 8,
                 ),
                 Text(
-                  "Информация:",
+                  "Информация",
                   style: AppTextStyles.titleMedium,
                 ),
                 const SizedBox(
@@ -61,7 +62,7 @@ class _HousePageState extends State<HousePage> {
                 GridView(
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 300,
+                    maxCrossAxisExtent: 280,
                     mainAxisExtent: 40,
                   ),
                   children: [
@@ -106,10 +107,32 @@ class _HousePageState extends State<HousePage> {
                   ],
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 Text(
-                  "Действия:",
+                  "Теги",
+                  style: AppTextStyles.titleMedium,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: const [
+                    HouseTagCard('Вид на море'),
+                    HouseTagCard('Рядом аптека'),
+                    HouseTagCard('Подземная парковка'),
+                    HouseTagCard('Рядом детский сад'),
+                    HouseTagCard('Большая детская площадка'),
+                    HouseTagCard('Парковая зона'),
+                  ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  "Действия",
                   style: AppTextStyles.titleMedium,
                 ),
               ],
@@ -183,7 +206,7 @@ class _HousePageState extends State<HousePage> {
               vertical: 16,
             ),
             child: Text(
-              "Фотографии:",
+              "Фотографии",
               style: AppTextStyles.titleMedium,
             ),
           ),
