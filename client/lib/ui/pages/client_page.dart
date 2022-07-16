@@ -54,15 +54,15 @@ class _ClientPageState extends State<ClientPage> {
           SingleChildScrollView(
             child: Column(
               children: [
-                cardLabel(
-                  const AppIcon(AppIcons.phone, size: 24),
-                  widget.client.phoneNumber,
+                ClientCardLabel(
+                  icon: const AppIcon(AppIcons.phone, size: 24),
+                  text: widget.client.phoneNumber,
                 ),
-                cardLabel(
-                  const AppIcon(AppIcons.info, size: 24),
-                  widget.client.note,
+                ClientCardLabel(
+                  icon: const AppIcon(AppIcons.info, size: 24),
+                  text: widget.client.note,
                 ),
-                clientHomes
+                const ClienHomes(),
               ],
             ),
           ),
@@ -70,8 +70,15 @@ class _ClientPageState extends State<ClientPage> {
       ),
     );
   }
+}
 
-  Widget cardLabel(AppIcon icon, String text) {
+class ClientCardLabel extends StatelessWidget {
+  const ClientCardLabel({Key? key, required this.icon, required this.text})
+      : super(key: key);
+  final Widget icon;
+  final String text;
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       height: 48,
       child: Row(
@@ -102,8 +109,13 @@ class _ClientPageState extends State<ClientPage> {
       ),
     );
   }
+}
 
-  Widget get clientHomes {
+class ClienHomes extends StatelessWidget {
+  const ClienHomes({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         Container(

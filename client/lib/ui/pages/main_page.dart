@@ -5,7 +5,6 @@ import 'package:build_link/ui/pages/clients_page.dart';
 import 'package:build_link/ui/pages/house_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/repositories/house_repository.dart';
 import '../widgets/side_menu.dart';
 
 class MainPage extends StatefulWidget {
@@ -28,9 +27,9 @@ class _MainPageState extends State<MainPage> {
               ceilingHeight: 2.7,
               cost: 3500000,
               description: "",
-              housing_complex : "Вишняки",
-              max_date : "2026-08-08",
-              min_date : "2024-08-08",
+              housing_complex: "Вишняки",
+              max_date: "2026-08-08",
+              min_date: "2024-08-08",
               repair: true,
               roomCount: 3,
               squareMeters: 48,
