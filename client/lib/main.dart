@@ -1,7 +1,9 @@
-import 'package:build_link/model/client_model.dart';
-import 'package:build_link/styles/colors.dart';
-import 'package:build_link/ui/client_card_widget.dart';
+import 'package:build_link/ui/pages/main_page.dart';
+import 'package:build_link/ui/widgets/client_card_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'data/model/client_model.dart';
+import 'data/styles/colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
           hoverColor: AppColors.backgroundDark,
         ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MainPage(),
     );
   }
 }
@@ -57,7 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(16),
               child: ClientCardWidget(
                 client: ClientModel(
-                    0, 0, "Хахук", "Рустам", "Нальбиевич", "8-918-226-04-47", "Текст", "Подписание договора"),
+                    0,
+                    0,
+                    "Хахук",
+                    "Рустам",
+                    "Нальбиевич",
+                    "8-918-226-04-47",
+                    "Текст\nочень длинный\nтекст dasd a asd da da sada as dasd asdasdasd dadasdasda dsadsadasdas",
+                    "Подписание договора"),
                 onPress: () {},
               ),
             ),

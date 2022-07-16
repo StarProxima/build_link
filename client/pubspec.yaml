@@ -11,9 +11,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
   cupertino_icons: ^1.0.2
+  flutter_svg: ^1.1.1+1
+  latlong2: ^0.8.1
+  fl_chart: ^0.55.0
+  syncfusion_flutter_datepicker: ^20.2.38
+  flutter_map:
+    git:
+      url: https://github.com/fleaflet/flutter_map.git
+  geolocator: ^9.0.0
 
 dev_dependencies:
   flutter_test:
@@ -24,3 +30,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/images/

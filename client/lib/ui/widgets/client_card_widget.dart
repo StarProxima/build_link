@@ -1,9 +1,10 @@
-import 'package:build_link/model/client_model.dart';
-import 'package:build_link/styles/colors.dart';
-import 'package:build_link/styles/fonts.dart';
-import 'package:build_link/styles/styles.dart';
-import 'package:build_link/ui/space.dart';
+import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
+
+import '../../data/model/client_model.dart';
+import '../../data/styles/colors.dart';
+import '../../data/styles/fonts.dart';
+import '../../data/styles/styles.dart';
 
 class ClientCardWidget extends StatelessWidget {
   final ClientModel client;
@@ -96,16 +97,20 @@ class ClientCardWidget extends StatelessWidget {
   }
 
   Widget cardLabel(String text) {
-    return SizedBox(
-      height: 24,
+    return Container(
+      constraints: const BoxConstraints(minHeight: 24),
       child: Row(
         children: [
-          Text(
-            text,
-            style: AppFontStyles.label.copyWith(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: AppColors.textDisable,
+          Expanded(
+            child: Text(
+              text,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: AppFontStyles.label.copyWith(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: AppColors.textDisable,
+              ),
             ),
           ),
         ],
