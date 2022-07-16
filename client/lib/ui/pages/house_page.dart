@@ -47,7 +47,7 @@ class _HousePageState extends State<HousePage> {
                       ),
                     ),
                     Text(
-                      widget.house.name,
+                      "${widget.house.roomCount}-к квартира ${widget.house.squareMeters} м²" ,
                       style: AppTextStyles.titleLarge,
                       overflow: TextOverflow.ellipsis,
                     )
