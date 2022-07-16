@@ -61,17 +61,8 @@ class _SideMenuState extends State<SideMenu> {
           ),
           const Space(space: 6),
           SideMenuButton(
-            appIcon: AppIcons.user_plus,
-            label: 'Поиск',
-            onTap: () {
-              selectedPageIndex = 0;
-              widget.onChangePage(0);
-            },
-            isSelected: selectedPageIndex == 0,
-          ),
-          SideMenuButton(
             appIcon: AppIcons.mydeal,
-            label: 'Мои заказы',
+            label: 'Мои клиенты',
             onTap: () {
               selectedPageIndex = 1;
               widget.onChangePage(1);

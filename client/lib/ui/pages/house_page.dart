@@ -1,5 +1,6 @@
 import 'package:build_link/data/styles/icons.dart';
 import 'package:build_link/ui/widgets/action_card_button.dart';
+import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -11,16 +12,14 @@ class HousePage extends StatefulWidget {
   final House house;
   final int index;
 
-  const HousePage({Key? key, required this.house, required this.index})
-      : super(key: key);
+  const HousePage({Key? key, required this.house, required this.index}) : super(key: key);
 
   @override
   State<HousePage> createState() => _HousePageState();
 }
 
 class _HousePageState extends State<HousePage> {
-  final TextStyle textStyle =
-      AppTextStyles.title.copyWith(fontWeight: FontWeight.w500, fontSize: 20);
+  final TextStyle textStyle = AppTextStyles.title.copyWith(fontWeight: FontWeight.w500, fontSize: 20);
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +72,7 @@ class _HousePageState extends State<HousePage> {
                       icon: const AppIcon(AppIcons.room_count),
                       text: widget.house.roomCount.toString() +
                           (widget.house.roomCount < 5
-                              ? (widget.house.roomCount == 1
-                                  ? " комната"
-                                  : " комнаты")
+                              ? (widget.house.roomCount == 1 ? " комната" : " комнаты")
                               : " комнат"),
                     ),
                     HousePageField(
@@ -99,9 +96,7 @@ class _HousePageState extends State<HousePage> {
                     ),
                     HousePageField(
                       icon: const AppIcon(AppIcons.check),
-                      text: widget.house.repair
-                          ? "Сделан ремонт"
-                          : "Ремонт не сделан",
+                      text: widget.house.repair ? "Сделан ремонт" : "Ремонт не сделан",
                     ),
                   ],
                 ),
@@ -116,7 +111,7 @@ class _HousePageState extends State<HousePage> {
             ),
           ),
           SizedBox(
-            height: 110,
+            height: 104,
             child: ScrollConfiguration(
               behavior: ScrollConfiguration.of(context).copyWith(
                 dragDevices: {
@@ -135,38 +130,47 @@ class _HousePageState extends State<HousePage> {
                     icon: AppIcon(
                       AppIcons.calendar,
                       color: AppColors.accent,
+                      size: 24,
                     ),
                     onTap: () {},
                   ),
+                  const Space(space: 8, orientation: Axis.horizontal),
                   ActionCardButton(
                     text: 'Забронировать квартиру',
                     icon: AppIcon(
                       AppIcons.comment_check,
                       color: AppColors.accent,
+                      size: 24,
                     ),
                     onTap: () {},
                   ),
+                  const Space(space: 8, orientation: Axis.horizontal),
                   ActionCardButton(
                     text: 'Добавить пользователю',
                     icon: AppIcon(
                       AppIcons.user_plus,
                       color: AppColors.accent,
+                      size: 24,
                     ),
                     onTap: () {},
                   ),
+                  const Space(space: 8, orientation: Axis.horizontal),
                   ActionCardButton(
                     text: 'Сформировать презентацию',
                     icon: AppIcon(
                       AppIcons.image_alt,
                       color: AppColors.accent,
+                      size: 24,
                     ),
                     onTap: () {},
                   ),
+                  const Space(space: 8, orientation: Axis.horizontal),
                   ActionCardButton(
                     text: 'Ипотечный калькулятор',
                     icon: AppIcon(
                       AppIcons.calendar,
                       color: AppColors.accent,
+                      size: 24,
                     ),
                     onTap: () {},
                   ),
