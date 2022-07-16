@@ -45,7 +45,6 @@ def hello1():
     id = request.args.get('id')
     rows = getRequest("""SELECT name, address, square_meters, room_count, ceiling_height, repair, cost, status
 	FROM public.objects where id =""" + str(id))
-    cards = []
-    for row in rows:
-        cards.append({'name':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],})
+    row = rows[0]
+    cards = {'name':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],}
     return json.dumps(cards)
