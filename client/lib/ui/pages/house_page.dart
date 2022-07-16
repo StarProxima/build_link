@@ -1,6 +1,7 @@
 import 'package:build_link/data/styles/icons.dart';
 import 'package:build_link/ui/widgets/action_card_button.dart';
 import 'package:build_link/ui/widgets/space.dart';
+import 'package:build_link/ui/widgets/house_tag_card.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -12,14 +13,16 @@ class HousePage extends StatefulWidget {
   final House house;
   final int index;
 
-  const HousePage({Key? key, required this.house, required this.index}) : super(key: key);
+  const HousePage({Key? key, required this.house, required this.index})
+      : super(key: key);
 
   @override
   State<HousePage> createState() => _HousePageState();
 }
 
 class _HousePageState extends State<HousePage> {
-  final TextStyle textStyle = AppTextStyles.title.copyWith(fontWeight: FontWeight.w500, fontSize: 20);
+  final TextStyle textStyle =
+      AppTextStyles.title.copyWith(fontWeight: FontWeight.w500, fontSize: 20);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,7 @@ class _HousePageState extends State<HousePage> {
                   height: 16,
                 ),
                 Text(
-                  "Информация:",
+                  "Информация",
                   style: AppTextStyles.titleMedium,
                 ),
                 const SizedBox(
@@ -63,7 +66,7 @@ class _HousePageState extends State<HousePage> {
                 GridView(
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 300,
+                    maxCrossAxisExtent: 280,
                     mainAxisExtent: 40,
                   ),
                   children: [
@@ -75,7 +78,9 @@ class _HousePageState extends State<HousePage> {
                       icon: const AppIcon(AppIcons.room_count),
                       text: widget.house.roomCount.toString() +
                           (widget.house.roomCount < 5
-                              ? (widget.house.roomCount == 1 ? " комната" : " комнаты")
+                              ? (widget.house.roomCount == 1
+                                  ? " комната"
+                                  : " комнаты")
                               : " комнат"),
                     ),
                     HousePageField(
@@ -99,15 +104,39 @@ class _HousePageState extends State<HousePage> {
                     ),
                     HousePageField(
                       icon: const AppIcon(AppIcons.check),
-                      text: widget.house.repair ? "Сделан ремонт" : "Ремонт не сделан",
+                      text: widget.house.repair
+                          ? "Сделан ремонт"
+                          : "Ремонт не сделан",
                     ),
                   ],
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 Text(
-                  "Действия:",
+                  "Теги",
+                  style: AppTextStyles.titleMedium,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: const [
+                    HouseTagCard('Вид на море'),
+                    HouseTagCard('Рядом аптека'),
+                    HouseTagCard('Подземная парковка'),
+                    HouseTagCard('Рядом детский сад'),
+                    HouseTagCard('Большая детская площадка'),
+                    HouseTagCard('Парковая зона'),
+                  ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  "Действия",
                   style: AppTextStyles.titleMedium,
                 ),
               ],
@@ -190,7 +219,7 @@ class _HousePageState extends State<HousePage> {
               vertical: 16,
             ),
             child: Text(
-              "Фотографии:",
+              "Фотографии",
               style: AppTextStyles.titleMedium,
             ),
           ),

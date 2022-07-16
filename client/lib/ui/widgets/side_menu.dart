@@ -125,7 +125,7 @@ class SideMenuButton extends StatelessWidget {
             primary: isSelected ? AppColors.accent : AppColors.text,
             textStyle: AppTextStyles.label.copyWith(
               color: isSelected ? AppColors.accent : AppColors.text,
-              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+              fontWeight: FontWeight.w600,
             ),
             alignment: Alignment.centerLeft,
             shape: const RoundedRectangleBorder(),
