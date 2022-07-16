@@ -1,4 +1,4 @@
-import 'package:build_link/data/styles/app_styles.dart';
+import 'package:build_link/data/styles/icons.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class _ClientPageState extends State<ClientPage> {
                 ),
                 Text(
                   "${widget.client.firstName} ${widget.client.lastName}",
-                  style: AppFontStyles.title.copyWith(
+                  style: AppTextStyles.title.copyWith(
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
                     color: AppColors.text,
@@ -54,10 +54,14 @@ class _ClientPageState extends State<ClientPage> {
           SingleChildScrollView(
             child: Column(
               children: [
-                cardLabel(const AppIcon(AppIcons.phone, size: 24),
-                    widget.client.phoneNumber,),
                 cardLabel(
-                    const AppIcon(AppIcons.info, size: 24), widget.client.note,),
+                  const AppIcon(AppIcons.phone, size: 24),
+                  widget.client.phoneNumber,
+                ),
+                cardLabel(
+                  const AppIcon(AppIcons.info, size: 24),
+                  widget.client.note,
+                ),
                 clientHomes
               ],
             ),
@@ -87,7 +91,7 @@ class _ClientPageState extends State<ClientPage> {
             child: Text(
               text,
               overflow: TextOverflow.ellipsis,
-              style: AppFontStyles.label.copyWith(
+              style: AppTextStyles.label.copyWith(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: AppColors.text,
@@ -109,7 +113,7 @@ class _ClientPageState extends State<ClientPage> {
             children: [
               Text(
                 "Выбранные квартиры",
-                style: AppFontStyles.title.copyWith(
+                style: AppTextStyles.title.copyWith(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
                   color: AppColors.text,

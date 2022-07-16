@@ -1,4 +1,3 @@
-
 import 'package:build_link/data/model/client_model.dart';
 import 'package:build_link/data/repositories/house_repository.dart';
 import 'package:build_link/data/styles/colors.dart';
@@ -54,7 +53,7 @@ class _ClientsPageState extends State<ClientsPage> {
                 height: 48,
                 child: Text(
                   "Мои клиенты",
-                  style: AppFontStyles.title.copyWith(
+                  style: AppTextStyles.title.copyWith(
                     color: AppColors.text,
                     fontSize: 32,
                     fontWeight: FontWeight.w700,
@@ -75,26 +74,31 @@ class _ClientsPageState extends State<ClientsPage> {
                       client: clients[index],
                       onPress: () {
                         Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (_, __, ___) {
-                                return ClientPage(client: clients[index]);
-                              },
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child,) {
-                                const begin = Offset(0.0, 1.0);
-                                const end = Offset.zero;
-                                final tween = Tween(begin: begin, end: end)
-                                    .chain(CurveTween(curve: Curves.easeOut));
-                                final offsetAnimation = animation.drive(tween);
-                                return SlideTransition(
-                                  position: offsetAnimation,
-                                  child: child,
-                                );
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (_, __, ___) {
+                              return ClientPage(client: clients[index]);
+                            },
+                            transitionsBuilder: (
+                              context,
+                              animation,
+                              secondaryAnimation,
+                              child,
+                            ) {
+                              const begin = Offset(0.0, 1.0);
+                              const end = Offset.zero;
+                              final tween = Tween(begin: begin, end: end)
+                                  .chain(CurveTween(curve: Curves.easeOut));
+                              final offsetAnimation = animation.drive(tween);
+                              return SlideTransition(
+                                position: offsetAnimation,
+                                child: child,
+                              );
 
-                                //return child;
-                              },
-                            ),);
+                              //return child;
+                            },
+                          ),
+                        );
                       },
                     );
                   },

@@ -11,8 +11,8 @@ void main() {
 }
 
 Future testWindowFunctions() async {
-  await DesktopWindow.setMinWindowSize(Size(900, 400));
-  await DesktopWindow.setMaxWindowSize(Size(4000, 4000));
+  await DesktopWindow.setMinWindowSize(const Size(900, 400));
+  await DesktopWindow.setMaxWindowSize(const Size(4000, 4000));
 }
 
 class MyApp extends StatelessWidget {

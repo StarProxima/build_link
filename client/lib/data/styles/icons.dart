@@ -43,4 +43,9 @@ enum AppIcons {
   check,
   diagonal_arrows,
   forum,
+  rub,
+  user_plus,
+  comment_check,
+  image_alt,
+  user,
 }
