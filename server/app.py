@@ -4,7 +4,9 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from flask import Flask
 from flask import request
 import json
+import natasha
 
+import pymorphy2 as pm
 app = Flask(__name__)
 
 def getRequest(sql_request):
@@ -29,6 +31,31 @@ def getRequest(sql_request):
             cursor.close()
             connection.close()
     return records
+
+def extractValues(note):
+    realValues = [-1,-1,-1,-1]
+
+    segmenter = natasha.Segmenter()
+    emb = natasha.NewsEmbedding()
+    morph_tagger = natasha.NewsMorphTagger(emb)
+    syntax_parser = natasha.NewsSyntaxParser(emb)
+    doc = natasha.Doc(note)
+    doc.segment(segmenter)
+    doc.tag_morph(morph_tagger)
+    doc.parse_syntax(syntax_parser)
+
+    sent = doc.sents[0]
+
+    for i in range(len(sent.syntax.tokens)):
+        if (sent.morph.tokens[i].pos == "NUM"):
+            parent_id = int(sent.syntax.tokens[i].head_id[2:])-1
+            similar = sent.syntax.tokens[parent_id].foundSimilar()
+            if similar != "":
+                realValues[similar] = int(sent.syntax.tokens[i].text)
+
+    print(1)
+
+#extractValues("Двухкомнатная квартира 2 ребёнка в центре города 20 квадратов")
 
 @app.route('/getCards')
 def hello0():
