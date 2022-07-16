@@ -154,6 +154,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
           13: Color(0xFF7B90DA),
           14: Color(0xFF667AC5),
         },
+        selectedBorder: Border.all(width: 3, color: Colors.red),
         datasets: heatMapDatasets,
         onClick: (value) {
           choosedDay = DateTime(value.year, value.month, value.day);

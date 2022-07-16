@@ -17,6 +17,7 @@ class HeatMapContainer extends StatelessWidget {
   final bool? showText;
   final DateTime? selectedDate;
   final Function(DateTime dateTime)? onClick;
+  final Border? selectedBorder;
 
   const HeatMapContainer({
     Key? key,
@@ -33,6 +34,7 @@ class HeatMapContainer extends StatelessWidget {
     this.showText,
     this.selectedColor,
     this.selectedTextColor,
+    this.selectedBorder
   }) : super(key: key);
 
   @override
@@ -52,6 +54,7 @@ class HeatMapContainer extends StatelessWidget {
             height: size,
             alignment: Alignment.center,
             decoration: BoxDecoration(
+              border: selectedDate == date ? selectedBorder : null,
               color: selectedDate == date ? selectedColor : heatColor,
               borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 5)),
             ),

@@ -66,6 +66,8 @@ class HeatMapCalendarPage extends StatelessWidget {
   final Color? selectedColor;
   final Color? selectedTextColor;
 
+   final Border? selectedBorder;
+
   HeatMapCalendarPage({
     Key? key,
     required this.baseDate,
@@ -83,6 +85,7 @@ class HeatMapCalendarPage extends StatelessWidget {
     this.onClick,
     this.selectedColor,
     this.selectedTextColor,
+    this.selectedBorder,
   })  : separatedDate = DateUtil.separatedMonth(baseDate),
         maxValue = DatasetsUtil.getMaxValue(
           DatasetsUtil.filterMonth(datasets, baseDate),
@@ -112,6 +115,7 @@ class HeatMapCalendarPage extends StatelessWidget {
             onClick: onClick,
             selectedColor: selectedColor,
             selectedTextColor: selectedTextColor,
+            selectedBorder: selectedBorder,
             datasets: Map.from(datasets ?? {})
               ..removeWhere(
                 (key, value) => !(key.isAfter(date.keys.first) && key.isBefore(date.values.first) ||

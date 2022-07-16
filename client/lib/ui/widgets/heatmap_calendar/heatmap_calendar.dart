@@ -61,6 +61,8 @@ class HeatMapCalendar extends StatefulWidget {
   /// Default value is [ColorMode.opacity].
   final ColorMode colorMode;
 
+  final Border? selectedBorder;
+
   /// Function that will be called when a block is clicked.
   ///
   /// Paratmeter gives clicked [DateTime] value.
@@ -110,6 +112,7 @@ class HeatMapCalendar extends StatefulWidget {
     this.colorTipSize,
     this.selectedColor,
     this.selectedTextColor,
+    this.selectedBorder,
   }) : super(key: key);
 
   @override
@@ -235,6 +238,7 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
             colorsets: widget.colorsets,
             borderRadius: widget.borderRadius,
             selectedDate: _selectedDate,
+            selectedBorder: widget.selectedBorder,
             onClick: (date) {
               widget.onClick?.call(date);
               setState(() {
