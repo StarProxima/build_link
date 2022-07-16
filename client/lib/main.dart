@@ -1,4 +1,5 @@
 import 'package:build_link/model/client_model.dart';
+import 'package:build_link/styles/colors.dart';
 import 'package:build_link/ui/client_card_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        buttonTheme: ButtonThemeData(
+          splashColor: AppColors.backgroundDark,
+          hoverColor: AppColors.backgroundDark,
+        ),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -53,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: ClientCardWidget(
                 client: ClientModel(
                     0, 0, "Хахук", "Рустам", "Нальбиевич", "8-918-226-04-47", "Текст", "Подписание договора"),
+                onPress: () {},
               ),
             ),
           ],

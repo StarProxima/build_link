@@ -1,38 +1,50 @@
 import 'package:build_link/model/client_model.dart';
 import 'package:build_link/styles/colors.dart';
 import 'package:build_link/styles/fonts.dart';
+import 'package:build_link/styles/styles.dart';
 import 'package:build_link/ui/space.dart';
 import 'package:flutter/material.dart';
 
 class ClientCardWidget extends StatelessWidget {
   final ClientModel client;
+  final Function onPress;
 
   const ClientCardWidget({
     Key? key,
     required this.client,
+    required this.onPress,
   }) : super(
           key: key,
         );
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {
-        //action
-      },
-      child: Container(
-        padding: const EdgeInsets.only(top: 16),
-        decoration: BoxDecoration(
+    return Container(
+      decoration: BoxDecoration(
           color: AppColors.background,
           border: Border.all(
             color: AppColors.divider,
             width: 1,
           ),
           borderRadius: const BorderRadius.all(Radius.circular(12)),
-        ),
-        clipBehavior: Clip.antiAlias,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.shadow,
+              offset: Offset.zero,
+              blurRadius: 24,
+            )
+          ]),
+      clipBehavior: Clip.antiAlias,
+      child: TextButton(
+        style: AppButtonStyle.cardButton,
+        onPressed: () {
+          onPress();
+        },
         child: Column(
           children: [
+            const Space(
+              space: 16,
+            ),
             cardTitle,
             const Space(space: 6),
             cardInfo,
@@ -69,47 +81,32 @@ class ClientCardWidget extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, right: 16),
       child: Column(
         children: [
-          Row(
-            children: [
-              Text(
-                client.phoneNumber,
-                style: AppFontStyles.label.copyWith(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.text,
-                ),
-              )
-            ],
-          ),
+          cardLabel(client.phoneNumber),
           const Space(
             space: 6,
           ),
-          Row(
-            children: [
-              Text(
-                client.note,
-                style: AppFontStyles.label.copyWith(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.text,
-                ),
-              )
-            ],
-          ),
+          cardLabel(client.note),
           const Space(
             space: 6,
           ),
-          Row(
-            children: [
-              Text(
-                client.state,
-                style: AppFontStyles.label.copyWith(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.text,
-                ),
-              )
-            ],
+          cardLabel(client.state),
+        ],
+      ),
+    );
+  }
+
+  Widget cardLabel(String text) {
+    return SizedBox(
+      height: 24,
+      child: Row(
+        children: [
+          Text(
+            text,
+            style: AppFontStyles.label.copyWith(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: AppColors.textDisable,
+            ),
           ),
         ],
       ),
