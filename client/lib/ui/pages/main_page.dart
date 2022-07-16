@@ -27,14 +27,6 @@ class _MainPageState extends State<MainPage> {
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
-          ),
-          Scaffold(
-            body: Center(
-              child: Text(
-                'Profile',
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-            ),
           )
         ].elementAt(index);
       },
@@ -69,10 +61,10 @@ class _MainPageState extends State<MainPage> {
               });
             },
           ),
-          // Container(
-          //   width: 1,
-          //   color: AppColors.divider,
-          // ),
+          Container(
+            width: 1,
+            color: AppColors.divider,
+          ),
           Expanded(
             child: Stack(
               children: [

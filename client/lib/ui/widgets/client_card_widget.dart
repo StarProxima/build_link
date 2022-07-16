@@ -29,13 +29,6 @@ class ClientCardWidget extends StatelessWidget {
           width: 1,
         ),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow,
-            offset: Offset.zero,
-            blurRadius: 24,
-          )
-        ],
       ),
       clipBehavior: Clip.antiAlias,
       child: TextButton(
@@ -125,7 +118,7 @@ class ClientCardWidget extends StatelessWidget {
   }
 
   Widget cardLabel(AppIcon icon, String text) {
-    return Container(
+    return SizedBox(
       height: 24,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
