@@ -33,6 +33,34 @@ def getRequest(sql_request):
             connection.close()
     return records
 
+def makeWhere(ends):
+    where = "where "
+    if (ends[0][0] != -1 or ends[0][1] != -1) :
+      if (ends[0][0] == -1):
+        ends[0][0] = 0
+      if (ends[0][1] == -1):
+        ends[0][1] = 100000000000
+      where += "square_meters <= "+ str(ends[0][1])+" and square_meters >= "+ str(ends[0][0])+" and  "
+    if (ends[1][0] != -1 or ends[1][1] != -1):
+      if (ends[1][0] == -1):
+        ends[1][0] = 0
+      if (ends[1][1] == -1):
+        ends[1][1] = 100000000000
+      where += "room_count <= "+ str(ends[1][1])+" and room_count >= "+ str(ends[1][0])+" and  "
+    if (ends[2][0] != -1 or ends[2][1] != -1) :
+      if (ends[2][0] == -1):
+        ends[2][0] = 0
+      if (ends[2][1] == -1):
+        ends[2][1] = 100000000000
+      where += "cost <= "+ str(ends[2][1])+" and cost >= "+ str(ends[2][0])+" and  "
+    if (ends[3][0] != -1 or ends[3][1] != -1) :
+      if (ends[3][0] == -1):
+        ends[3][0] = 0
+      if (ends[3][1] == -1):
+        ends[3][1] = 100000000000
+      where += "ceiling_height <= "+ str(ends[3][1])+" and ceiling_height >= "+ str(ends[3][0])+" and  "
+    return where[0: len(where) - 6]
+
 def foundSimilar(text, nameValues):
     for i in range(len(nameValues)):
         for keyWord in nameValues[i]:
@@ -44,7 +72,7 @@ def foundSimilar(text, nameValues):
 def extractValues(note):
     note = note.replace('-', ' ')
 
-    realValues = [-1,-1,-1,-1]
+    realValues = [[-1,-1],[-1,-1],[-1,-1],[-1,-1]]
     nameValues = [["квадратные метры", "площадь", "квадратов", "кв м"],["комнаты", "комнатная", "квартира"],["цена","стоимость","рублей","миллионов","млн","тысяч"],["высота потолков","потолки"],]
     facts = note.split("\n")
    
@@ -74,15 +102,12 @@ def extractValues(note):
                     type = foundSimilar(words[j], nameValues)
         if (count != -1 and type != -1):
             if (supType == 0):
-                realValues[type] = (count, -1)
+                realValues[type] = [count, -1]
             elif (supType == 1):
-                realValues[type] = (-1, count)
+                realValues[type] = [-1, count]
             else:
-                realValues[type] = (count, count)
-    
-    print(1)
-
-extractValues("менее 1 комнатная\n 2 миллиона\n 25 и больше квадратов\n потолки не менее 3 м")
+                realValues[type] = [count, count]
+    return realValues
 
 @app.route('/getCards')
 def hello0():
@@ -122,3 +147,17 @@ def hello3():
         cards.append(row[2])
     print(cards)
     return json.dumps(cards)
+
+@app.route('/autoSearch')
+def hello4():
+    note = request.args.get('note')
+    ends = extractValues(note)
+    where = makeWhere(ends)
+    rows = getRequest("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date, plan, id
+	FROM public.objects """ + str(where))
+    cards = []
+    for row in rows:
+        cards.append({'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10]), 'plan':str(row[11]), 'id':str(row[12])})
+    return json.dumps(cards)
+
+hello4()
