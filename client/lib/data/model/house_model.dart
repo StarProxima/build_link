@@ -28,13 +28,13 @@ class House {
   static House fromJson(dynamic json) {
     return House(
       description: json["description"] != null ? json["description"].trimRight() : "",
-      address: json["address"] != null ? json["address"].trimRight(): "",
+      address: json["address"] != null ? json["address"].trimRight() : "",
       squareMeters: json["square_meters"],
       roomCount: json["room_count"],
       ceilingHeight: json["ceiling_height"],
       repair: json["repair"],
       cost: json["cost"],
-      state: json["status"] != null ? json["status"].trimRight(): "",
+      state: json["status"] != null ? json["status"].trimRight() : "",
       housing_complex: json["housing_complex"] != null ? json["housing_complex"].trimRight() : "",
       max_date: json["max_date"] != null ? json["max_date"].trimRight() : "",
       min_date: json["min_date"] != null ? json["min_date"].trimRight() : "",

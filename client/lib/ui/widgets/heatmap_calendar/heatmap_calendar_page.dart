@@ -66,7 +66,7 @@ class HeatMapCalendarPage extends StatelessWidget {
   final Color? selectedColor;
   final Color? selectedTextColor;
 
-   final Border? selectedBorder;
+  final Border? selectedBorder;
 
   HeatMapCalendarPage({
     Key? key,

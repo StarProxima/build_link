@@ -1,11 +1,34 @@
+import 'package:build_link/data/model/house_model.dart';
+import 'package:build_link/data/repositories/house_repository.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
 import 'package:build_link/ui/widgets/filter_field.dart';
+import 'package:build_link/ui/widgets/house_card.dart';
 import 'package:build_link/ui/widgets/house_tag_card.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 
-class HouseSearchPage extends StatelessWidget {
+class HouseSearchPage extends StatefulWidget {
+  @override
+  State<HouseSearchPage> createState() => _HouseSearchPageState();
+}
+
+class _HouseSearchPageState extends State<HouseSearchPage> {
+  List<House> findedHouses = [];
+
+  final ScrollController cardsController = ScrollController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    HouseRepository.searchHouses().then((value) {
+      setState(() {
+        findedHouses = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -94,9 +117,20 @@ class HouseSearchPage extends StatelessWidget {
                     orientation: Axis.horizontal,
                   ),
                   Expanded(
-                    child: Container(
-                      constraints: const BoxConstraints(minWidth: double.infinity),
-                      color: AppColors.backgroundDark,
+                    child: LayoutBuilder(
+                      builder: ((context, constraints) {
+                        return ListView.separated(
+                          controller: cardsController,
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            return HouseCard();
+                          },
+                          separatorBuilder: (context, index) {
+                            return const Space(space: 8);
+                          },
+                          itemCount: findedHouses.length,
+                        );
+                      }),
                     ),
                   ),
                 ],
