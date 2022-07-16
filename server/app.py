@@ -30,7 +30,7 @@ def getRequest(sql_request):
             connection.close()
     return records
 
-@app.route('/recomend')
+@app.route('/getCards')
 def hello0():
     id = request.args.get('id')
     rows = getRequest("""SELECT firstname, lastname, patronymic, "number", note, id_agent, status
@@ -40,7 +40,7 @@ def hello0():
         cards.append({'firstname':row[0],'lastname':row[1],'patronymic':row[2],'number':row[3],'note':row[4],'id_agent':row[5],'status':row[6]})
     return json.dumps(cards)
 
-@app.route('/recomend')
+@app.route('/getHome')
 def hello1():
     id = request.args.get('id')
     rows = getRequest("""SELECT name, address, square_meters, room_count, ceiling_height, repair, cost, status
