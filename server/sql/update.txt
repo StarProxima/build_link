@@ -1,0 +1,9 @@
+UPDATE public.objects SET
+description = 'Двухкомнатная квартира в центре города. Больница, школа и магазины около подъезда.'::text, housing_complex = 'Весёлые истории' WHERE
+id = 4;
+UPDATE public.objects SET
+description = 'Квартира в центре города. Больница, школа и магазины около подъезда.'::text, housing_complex = 'Весёлые истории' WHERE
+id = 5;
+UPDATE public.objects SET
+description = 'Студия в центре города. Больница, школа и магазины около подъезда.'::text, housing_complex = 'Аквариум' WHERE
+id = 3;
