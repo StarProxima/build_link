@@ -47,17 +47,9 @@ class _SideMenuState extends State<SideMenu> {
           const SizedBox(
             height: 32,
           ),
-          const AccountCard(name: 'Хахок Рустам', role: 'Агент'),
-          Padding(
-            padding: const EdgeInsets.only(left: 32, bottom: 16),
-            child: Text(
-              "Меню",
-              style: AppTextStyles.title.copyWith(
-                color: AppColors.text,
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
+          const Padding(
+            padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            child: AccountCard(name: 'Хахок Рустам', role: 'Агент'),
           ),
           const Space(space: 6),
           SideMenuButton(
