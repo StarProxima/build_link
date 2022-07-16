@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               }
             }, child: Text("1"));
     } else {
-      child = HousePage(house: houseModel!);
+      child = HousePage(house: houseModel!, index: 1,);
     }
 
     return Scaffold(
