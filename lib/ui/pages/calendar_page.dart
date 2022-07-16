@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:build_link/data/models/heatmap_color_mode.dart';
 
-class HeatMapCalendarExample extends StatefulWidget {
-  const HeatMapCalendarExample({Key? key}) : super(key: key);
+class CalendarPage extends StatefulWidget {
+  const CalendarPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HeatMapCalendarExample();
 }
 
-class _HeatMapCalendarExample extends State<HeatMapCalendarExample> {
+class _HeatMapCalendarExample extends State<CalendarPage> {
   final TextEditingController dateController = TextEditingController();
   final TextEditingController heatLevelController = TextEditingController();
 
