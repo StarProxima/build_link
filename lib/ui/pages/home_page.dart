@@ -1,5 +1,5 @@
 import 'package:build_link/ui/pages/charts_page.dart';
-import 'package:build_link/ui/pages/date_picker_page.dart';
+import 'package:build_link/ui/pages/calendar_page.dart';
 import 'package:build_link/ui/pages/map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
@@ -53,7 +53,7 @@ class _HomepageState extends State<Homepage> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return const HeatMapCalendarExample();
+                      return const CalendarPage();
                     },
                   ),
                 );
