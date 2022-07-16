@@ -28,6 +28,7 @@ class HouseTagCard extends StatelessWidget {
         style: AppTextStyles.titleSmall.copyWith(
           color: AppColors.accent,
           fontSize: 14,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

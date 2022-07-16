@@ -3,6 +3,7 @@ import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/ui/pages/calendar_page.dart';
 import 'package:build_link/ui/pages/clients_page.dart';
 import 'package:build_link/ui/pages/house_page.dart';
+import 'package:build_link/ui/pages/house_search_page.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/side_menu.dart';
@@ -21,6 +22,7 @@ class _MainPageState extends State<MainPage> {
       '/': (context) {
         return [
           const ClientsPage(agentID: 1),
+          const CalendarPage(),
           HousePage(
             house: House(
               address: 'Erngworu fweofhw',
@@ -37,7 +39,7 @@ class _MainPageState extends State<MainPage> {
             ),
             index: index,
           ),
-          const CalendarPage(),
+          HouseSearchPage(),
         ].elementAt(index);
       },
     };
@@ -81,6 +83,7 @@ class _MainPageState extends State<MainPage> {
                 _buildOffstageNavigator(0),
                 _buildOffstageNavigator(1),
                 _buildOffstageNavigator(2),
+                _buildOffstageNavigator(3),
               ],
             ),
           ),

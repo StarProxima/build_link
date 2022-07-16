@@ -68,7 +68,10 @@ class ClientCardWidget extends StatelessWidget {
               fontWeight: FontWeight.w700,
               color: AppColors.text,
               fontSize: 20,
+              overflow: TextOverflow.ellipsis,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           const Spacer(),
           const AppIcon(
