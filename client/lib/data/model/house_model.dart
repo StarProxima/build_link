@@ -21,14 +21,14 @@ class HouseModel {
 
   static HouseModel fromJson(dynamic json) {
     return HouseModel(
-      json["name"],
-      json["address"],
+      json["name"].trimRight(),
+      json["address"].trimRight(),
       json["square_meters"],
       json["room_count"],
       json["ceiling_height"],
       json["repair"],
       json["cost"],
-      json["status"],
+      json["status"].trimRight(),
     );
   }
 }

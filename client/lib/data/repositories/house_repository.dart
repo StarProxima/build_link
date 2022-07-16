@@ -17,12 +17,15 @@ abstract class HouseRepository {
       host: serverUrl,
       path: "/getHome",
       port: 5000,
+      queryParameters: {
+        "id": "1",
+      },
     );
-
+    if (isDebug) log(url.normalizePath().toString());
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        return HouseModel.fromJson(response.body);
+        return HouseModel.fromJson(jsonDecode(response.body));
       } else {
         log('Request failed with status: ${response.statusCode}.');
       }

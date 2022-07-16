@@ -1,9 +1,9 @@
 import 'package:build_link/ui/pages/clients_page.dart';
-import 'package:build_link/ui/pages/main_page.dart';
 import 'package:build_link/ui/widgets/client_card_widget.dart';
 import 'package:flutter/material.dart';
-
 import 'data/model/client_model.dart';
+import 'data/model/house_model.dart';
+import 'data/repositories/house_repository.dart';
 import 'data/styles/colors.dart';
 
 void main() {
@@ -24,55 +24,6 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const ClientsPage(agentID: 1),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: ClientCardWidget(
-                client: ClientModel(
-                  "Хахук",
-                  "Рустам",
-                  "Нальбиевич",
-                  "8-918-226-04-47",
-                  "Текст",
-                  "Подписание договора",
-                ),
-                onPress: () {},
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
