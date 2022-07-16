@@ -1,26 +1,23 @@
-CREATE TABLE IF NOT EXISTS public.ad_object
+    CREATE TABLE IF NOT EXISTS public.ad_object
 (
     id_object integer NOT NULL,
     id_ad integer NOT NULL,
     CONSTRAINT ad_object_pkey PRIMARY KEY (id_object, id_ad)
-)
+);
 
 CREATE TABLE IF NOT EXISTS public.ad
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     url character(2100) COLLATE pg_catalog."default",
     CONSTRAINT ad_pkey PRIMARY KEY (id)
-)
+);
 
-CREATE TABLE public.agencies
+CREATE TABLE IF NOT EXISTS public.agencies
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     name character(200) NOT NULL,
     PRIMARY KEY (id)
 );
-
-ALTER TABLE IF EXISTS public.agencies
-    OWNER to "user";
 
 CREATE TABLE IF NOT EXISTS public.deal
 (
@@ -34,10 +31,7 @@ CREATE TABLE IF NOT EXISTS public.deal
     CONSTRAINT deal_pkey PRIMARY KEY (id)
 );
 
-ALTER TABLE IF EXISTS public.deal
-    OWNER to "user";
-
-CREATE TABLE public.images
+CREATE TABLE IF NOT EXISTS public.images
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     id_object integer NOT NULL,
@@ -45,18 +39,12 @@ CREATE TABLE public.images
     PRIMARY KEY (id)
 );
 
-ALTER TABLE IF EXISTS public.images
-    OWNER to "user";
-
-CREATE TABLE public.objects_clients
+CREATE TABLE IF NOT EXISTS public.objects_clients
 (
     id_client integer NOT NULL,
     id_object integer NOT NULL,
     PRIMARY KEY (id_client, id_object)
 );
-
-ALTER TABLE IF EXISTS public.objects_clients
-    OWNER to "user";
 
 CREATE TABLE IF NOT EXISTS public.cards
 (
@@ -71,14 +59,8 @@ CREATE TABLE IF NOT EXISTS public.cards
     CONSTRAINT clients_pkey PRIMARY KEY (id)
 );
 
-ALTER TABLE IF EXISTS public.cards
-    OWNER to "user";
 
-ALTER TABLE IF EXISTS public.clients
-    OWNER to "user";
-
-
-CREATE TABLE public.agents
+CREATE TABLE IF NOT EXISTS public.agents
 (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
     firstname character(100) NOT NULL,
@@ -88,9 +70,6 @@ CREATE TABLE public.agents
     id_agency integer,
     PRIMARY KEY (id)
 );
-
-ALTER TABLE IF EXISTS public.agents
-    OWNER to "user";
 
 
 CREATE TABLE IF NOT EXISTS public.objects
@@ -107,8 +86,6 @@ CREATE TABLE IF NOT EXISTS public.objects
     min_date date,
     description text COLLATE pg_catalog."default",
     housing_complex character(100) COLLATE pg_catalog."default",
+    plan character(2100) COLLATE pg_catalog."default",
     CONSTRAINT objects_pkey PRIMARY KEY (id)
-)
-
-ALTER TABLE IF EXISTS public.objects
-    OWNER to "user";
+);

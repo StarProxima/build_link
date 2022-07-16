@@ -4,6 +4,7 @@ import 'package:build_link/ui/pages/calendar_page.dart';
 import 'package:build_link/ui/pages/charts_page.dart';
 import 'package:build_link/ui/pages/clients_page.dart';
 import 'package:build_link/ui/pages/house_page.dart';
+import 'package:build_link/ui/pages/house_search_page.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/side_menu.dart';
@@ -21,24 +22,25 @@ class _MainPageState extends State<MainPage> {
     return {
       '/': (context) {
         return [
-          const ChartsPage(),
+          const ClientsPage(agentID: 1),
+          const CalendarPage(),
           HousePage(
             house: House(
-              address: 'Erngworu fweofhw',
-              ceilingHeight: 2.7,
-              cost: 3500000,
-              description: "",
-              housing_complex: "Вишняки",
-              max_date: "2026-08-08",
-              min_date: "2024-08-08",
-              repair: true,
-              roomCount: 3,
-              squareMeters: 48,
-              state: 'FEWf',
-            ),
+                address: 'Erngworu fweofhw',
+                ceilingHeight: 2.7,
+                cost: 3500000,
+                description: "",
+                housingComplex: "Вишняки",
+                maxDate: "2026-08-08",
+                minDate: "2024-08-08",
+                repair: true,
+                roomCount: 3,
+                squareMeters: 48,
+                state: 'FEWf',
+                planUrl: ""),
             index: index,
           ),
-          const CalendarPage(),
+          HouseSearchPage(),
         ].elementAt(index);
       },
     };
@@ -82,6 +84,7 @@ class _MainPageState extends State<MainPage> {
                 _buildOffstageNavigator(0),
                 _buildOffstageNavigator(1),
                 _buildOffstageNavigator(2),
+                _buildOffstageNavigator(3),
               ],
             ),
           ),

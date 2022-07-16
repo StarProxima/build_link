@@ -13,16 +13,14 @@ class HousePage extends StatefulWidget {
   final House house;
   final int index;
 
-  const HousePage({Key? key, required this.house, required this.index})
-      : super(key: key);
+  const HousePage({Key? key, required this.house, required this.index}) : super(key: key);
 
   @override
   State<HousePage> createState() => _HousePageState();
 }
 
 class _HousePageState extends State<HousePage> {
-  final TextStyle textStyle =
-      AppTextStyles.title.copyWith(fontWeight: FontWeight.w500, fontSize: 20);
+  final TextStyle textStyle = AppTextStyles.title.copyWith(fontWeight: FontWeight.w500, fontSize: 20);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +45,7 @@ class _HousePageState extends State<HousePage> {
                       ),
                     ),
                     Text(
-                      "${widget.house.roomCount}-к квартира ${widget.house.squareMeters} м²" ,
+                      widget.house.title,
                       style: AppTextStyles.titleLarge,
                       overflow: TextOverflow.ellipsis,
                     )
@@ -78,9 +76,7 @@ class _HousePageState extends State<HousePage> {
                       icon: const AppIcon(AppIcons.room_count),
                       text: widget.house.roomCount.toString() +
                           (widget.house.roomCount < 5
-                              ? (widget.house.roomCount == 1
-                                  ? " комната"
-                                  : " комнаты")
+                              ? (widget.house.roomCount == 1 ? " комната" : " комнаты")
                               : " комнат"),
                     ),
                     HousePageField(
@@ -104,9 +100,7 @@ class _HousePageState extends State<HousePage> {
                     ),
                     HousePageField(
                       icon: const AppIcon(AppIcons.check),
-                      text: widget.house.repair
-                          ? "Сделан ремонт"
-                          : "Ремонт не сделан",
+                      text: widget.house.repair ? "Сделан ремонт" : "Ремонт не сделан",
                     ),
                   ],
                 ),

@@ -69,8 +69,7 @@ class _SearchPanelState extends State<SearchPanel> {
             keyboardType: TextInputType.text,
             onChanged: widget.onChange,
             onTap: () => widget.onChange?.call(nameController.text),
-            onEditingComplete: () =>
-                widget.onEditiningComplite(nameController.text),
+            onEditingComplete: () => widget.onEditiningComplite(nameController.text),
             focusNode: focus,
             decoration: InputDecoration(
               filled: true,
@@ -103,14 +102,10 @@ class _SearchPanelState extends State<SearchPanel> {
                         )
                       : widget.leading != null
                           ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
                               child: Icon(
                                 Icons.search,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1!
-                                    .color,
+                                color: Theme.of(context).textTheme.bodyText1!.color,
                               ),
                             )
                           : const SizedBox(),
@@ -119,13 +114,11 @@ class _SearchPanelState extends State<SearchPanel> {
               ),
               focusedBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide:
-                    BorderSide(width: 0, color: Color.fromRGBO(0, 0, 0, 0)),
+                borderSide: BorderSide(width: 0, color: Color.fromRGBO(0, 0, 0, 0)),
               ),
               enabledBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                borderSide:
-                    BorderSide(width: 0, color: Color.fromRGBO(0, 0, 0, 0)),
+                borderSide: BorderSide(width: 0, color: Color.fromRGBO(0, 0, 0, 0)),
               ),
             ),
           ),
