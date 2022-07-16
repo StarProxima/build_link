@@ -44,17 +44,19 @@ def hello0():
 def hello1():
     id = request.args.get('id')
     rows = getRequest("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date
-	FROM public.objects where id =""" + str(id))
+	FROM public.objects where id = """ + str(id))
     row = rows[0]
-    cards = {'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':row[9],'min_date':row[10]}
+    cards = {'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10])}
     return json.dumps(cards)
 
 @app.route('/searchHouses')
 def hello2():
     where = request.args.get('where')
+    print("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date
+	FROM public.objects """ + str(where))
     rows = getRequest("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date
 	FROM public.objects """ + str(where))
     cards = []
     for row in rows:
-        cards.append({'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':row[9],'min_date':row[10]})
+        cards.append({'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10])})
     return json.dumps(cards)

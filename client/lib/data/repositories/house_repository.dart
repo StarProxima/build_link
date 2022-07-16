@@ -7,8 +7,77 @@ import '../model/house_model.dart';
 
 abstract class HouseRepository {
   static String serverUrl = "127.0.0.1";
-  static String userId = "5000";
   static bool isDebug = false;
+
+  static Future<List<House>?> searchHouses({
+    double? minSq,
+    double? maxSq,
+    int? maxRooms,
+    int? minRooms,
+    double? minCost,
+    double? maxCost,
+    double? maxHeight,
+    double? minHeight,
+  }) async {
+    String where = "where ";
+    if (minSq != null || maxSq != null) {
+      minSq ??=0;
+      maxSq ??=10000;
+      where += "square_meters <= "+maxSq.toString() + " and square_meters >= " + minSq.toString()+ " and  ";
+    }
+    if (minRooms != null || maxRooms != null) {
+      minRooms ??=0;
+      maxRooms ??=10000;
+      where += "room_count <= "+maxRooms.toString() + " and room_count >= " + minRooms.toString()+ " and  ";
+    }
+    if (minCost != null || maxCost != null) {
+      minCost ??=0;
+      maxCost ??=100000000000;
+      where += "cost <= "+maxCost.toString() + " and cost >= " + minCost.toString()+ " and  ";
+    }
+    if (minHeight != null || maxHeight != null) {
+      minHeight ??=0;
+      maxHeight ??=10000;
+      where += "ceiling_height <= "+maxHeight.toString() + " and ceiling_height >= " + minHeight.toString()+ " and  ";
+    }
+    where = where.substring(0, where.length-6);
+    var url;
+    if (where == "") {
+      url = Uri(
+        scheme: "http",
+        host: serverUrl,
+        path: "/searchHouses",
+        port: 5000,
+        queryParameters: {
+          "where": ";",
+        },
+      );
+    } else {
+      url = Uri(
+        scheme: "http",
+        host: serverUrl,
+        path: "/searchHouses",
+        port: 5000,
+        queryParameters: {
+          "where": where,
+        },
+      );
+    }
+    if (isDebug) log(url.normalizePath().toString());
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        var decode = jsonDecode(response.body) as List<dynamic>;
+        return decode.map((e) => House.fromJson(e)).toList();
+      } else {
+        log('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      log('Request failed $e');
+    }
+    return null;
+  }
+
 
   static Future<House?> getHouse() async {
     var url = Uri(

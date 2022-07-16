@@ -5,6 +5,7 @@ import 'package:build_link/ui/pages/clients_page.dart';
 import 'package:build_link/ui/pages/house_page.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/repositories/house_repository.dart';
 import '../widgets/side_menu.dart';
 
 class MainPage extends StatefulWidget {
