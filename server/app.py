@@ -36,7 +36,8 @@ def getRequest(sql_request):
 def foundSimilar(text, nameValues):
     for i in range(len(nameValues)):
         for keyWord in nameValues[i]:
-            if (fuzz.WRatio(text, keyWord) > 70):
+
+            if (fuzz.WRatio(text, keyWord) > 70 and (abs(len(text)-len(keyWord)) <=4)):
                 return i
     return -1
 
@@ -45,46 +46,43 @@ def extractValues(note):
 
     realValues = [-1,-1,-1,-1]
     nameValues = [["квадратные метры", "площадь", "квадратов", "кв м"],["комнаты", "комнатная", "квартира"],["цена","стоимость","рублей","миллионов","млн","тысяч"],["высота потолков","потолки"],]
-
-
+    facts = note.split("\n")
+   
     segmenter = natasha.Segmenter()
-
     emb = natasha.NewsEmbedding()
     morph_tagger = natasha.NewsMorphTagger(emb)
     syntax_parser = natasha.NewsSyntaxParser(emb)
-    doc = natasha.Doc(note)
-    doc.segment(segmenter)
-    doc.tag_morph(morph_tagger)
-    doc.parse_syntax(syntax_parser)
 
-    for sent in doc.sents:
-        for i in range(len(sent.syntax.tokens)):
-            if (sent.morph.tokens[i].pos == "NUM"):
-                parent_id = int(sent.syntax.tokens[i].head_id[2:])-1
-                similar = foundSimilar(sent.syntax.tokens[parent_id].text, nameValues)
-                if similar != -1:
-                    subSimilar = -1
-                    subindex = -1
-                    for j in range(len(sent.syntax.tokens)):
-                        if (int(sent.syntax.tokens[j].head_id[2:])-1 == i):
-                            subindex = j
-                            subSimilar = foundSimilar(sent.syntax.tokens[j].text, [["больше", "более"],[ "меньше", "менее"]])
-                            break
-                    
-                    if (subSimilar != -1 and j > 0 and (sent.syntax.tokens[j-1].text == "не" or sent.syntax.tokens[j-1].text == "Не")):
-                        subSimilar+=1
-                        subSimilar%=2
-
-                    if (subSimilar == 0):
-                        realValues[similar] = (float(sent.syntax.tokens[i].text), -1)
-                    elif (subSimilar == 1):
-                        realValues[similar] = (-1, float(sent.syntax.tokens[i].text))
-                    else:
-                        realValues[similar] = (float(sent.syntax.tokens[i].text), float(sent.syntax.tokens[i].text))
-
+    for fact in facts:
+        count = -1
+        type = -1
+        supType = -1
+        words = fact.split(' ')
+        for j in range(len(words)):
+            if (count != -1 and type != -1 and supType != -1):
+                break
+            if (words[j].isnumeric()):
+                count = float(words[j])
+            else:
+                tmp = foundSimilar(words[j], [["больше", "более"],[ "меньше", "менее"]])
+                if (tmp != -1):
+                    supType = tmp
+                    if (j > 0 and (words[j-1] == "не" or words[j-1] == "Не")):
+                        supType+=1
+                        supType%=2
+                else:
+                    type = foundSimilar(words[j], nameValues)
+        if (count != -1 and type != -1):
+            if (supType == 0):
+                realValues[type] = (count, -1)
+            elif (supType == 1):
+                realValues[type] = (-1, count)
+            else:
+                realValues[type] = (count, count)
+    
     print(1)
 
-extractValues("менее 3 комнатная. 3 миллиона. 25 и больше квадратов. потолки не менее 3 м")
+extractValues("менее 1 комнатная\n 2 миллиона\n 25 и больше квадратов\n потолки не менее 3 м")
 
 @app.route('/getCards')
 def hello0():

@@ -1,0 +1,28 @@
+doc = natasha.Doc(fact)
+        doc.segment(segmenter)
+        doc.tag_morph(morph_tagger)
+        doc.parse_syntax(syntax_parser)
+        for sent in doc.sents:
+            for i in range(len(sent.syntax.tokens)):
+                if (sent.morph.tokens[i].pos == "NUM"):
+                    parent_id = int(sent.syntax.tokens[i].head_id[2:])-1
+                    similar = foundSimilar(sent.syntax.tokens[parent_id].text, nameValues)
+                    if similar != -1:
+                        subSimilar = -1
+                        subindex = -1
+                        for j in range(len(sent.syntax.tokens)):
+                            if (int(sent.syntax.tokens[j].head_id[2:])-1 == i):
+                                subindex = j
+                                subSimilar = foundSimilar(sent.syntax.tokens[j].text, [["больше", "более"],[ "меньше", "менее"]])
+                                break
+                        
+                        if (subSimilar != -1 and j > 0 and (sent.syntax.tokens[j-1].text == "не" or sent.syntax.tokens[j-1].text == "Не")):
+                            subSimilar+=1
+                            subSimilar%=2
+
+                        if (subSimilar == 0):
+                            realValues[similar] = (float(sent.syntax.tokens[i].text), -1)
+                        elif (subSimilar == 1):
+                            realValues[similar] = (-1, float(sent.syntax.tokens[i].text))
+                        else:
+                            realValues[similar] = (float(sent.syntax.tokens[i].text), float(sent.syntax.tokens[i].text))
