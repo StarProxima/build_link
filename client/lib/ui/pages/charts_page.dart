@@ -6,14 +6,6 @@ import 'package:build_link/ui/widgets/charts/bar_chart4.dart';
 import 'package:build_link/ui/widgets/charts/bar_chart5.dart';
 import 'package:flutter/material.dart';
 
-class _BarData {
-  final double value;
-
-  const _BarData(
-    this.value,
-  );
-}
-
 class ChartsPage extends StatefulWidget {
   const ChartsPage({Key? key}) : super(key: key);
 
