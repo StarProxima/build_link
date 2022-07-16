@@ -103,6 +103,8 @@ CREATE TABLE IF NOT EXISTS public.objects
     description text COLLATE pg_catalog."default",
     housing_complex character(100) COLLATE pg_catalog."default",
     plan character(2100) COLLATE pg_catalog."default",
+    lat real,
+    lng real,
     CONSTRAINT objects_pkey PRIMARY KEY (id)
 );
     """)
