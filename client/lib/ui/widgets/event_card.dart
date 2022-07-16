@@ -1,6 +1,8 @@
 import 'package:build_link/data/model/event_model.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
+import 'package:build_link/data/styles/icons.dart';
+import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 
 class EventCard extends StatelessWidget {
@@ -25,23 +27,40 @@ class EventCard extends StatelessWidget {
           )
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
-          Text(
-            event.name,
-            style: AppTextStyles.label.copyWith(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: AppColors.text,
-            ),
+          AppIcon(
+            AppIcons.mydeal,
+            size: 24,
+            color: AppColors.text,
           ),
-          Text(
-            "${event.getFrom()} - ${event.getTo()}",
-            style: AppTextStyles.label.copyWith(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: AppColors.textDisable,
+          const Space(
+            space: 12,
+            orientation: Axis.horizontal,
+          ),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  event.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextStyles.label.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.text,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Text(
+                  "${event.getFrom()} - ${event.getTo()}",
+                  style: AppTextStyles.label.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.textDisable,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
