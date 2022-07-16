@@ -23,7 +23,8 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
   final TextEditingController heatLevelController = TextEditingController();
 
   bool isOpacityMode = true;
-  DateTime choosedDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime choosedDay =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   Map<DateTime, int> heatMapDatasets = {};
 
@@ -57,16 +58,30 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
           Expanded(
             child: Container(
               constraints: const BoxConstraints(minHeight: double.infinity),
-              child: Row(
-                children: [
-                  calendar,
-                  const Space(
-                    space: 16,
-                    orientation: Axis.horizontal,
-                  ),
-                  eventsList,
-                ],
-              ),
+              child: MediaQuery.of(context).size.width < 950
+                  ? SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          calendar,
+                          const Space(
+                            space: 16,
+                            orientation: Axis.vertical,
+                          ),
+                          eventsList,
+                        ],
+                      ),
+                    )
+                  : Row(
+                      children: [
+                        calendar,
+                        const Space(
+                          space: 16,
+                          orientation: Axis.horizontal,
+                        ),
+                        eventsList,
+                      ],
+                    ),
             ),
           ),
         ],
@@ -119,7 +134,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
 
   Widget get calendar {
     return Container(
-      alignment: Alignment.topCenter,
+      alignment: Alignment.topLeft,
       child: HeatMapCalendar(
         size: 48,
         monthFontSize: 16,
@@ -134,90 +149,105 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
         textColor: AppColors.text,
         defaultColor: AppColors.background,
         colorsets: const {
-          10: Color(0xFFB1BFF6), 
+          10: Color(0xFFB1BFF6),
           12: Color(0xFF97A8E8),
           13: Color(0xFF7B90DA),
           14: Color(0xFF667AC5),
         },
         datasets: heatMapDatasets,
-
         onClick: (value) {
           choosedDay = DateTime(value.year, value.month, value.day);
-          setState(() {
-             
-          });
+          setState(() {});
         },
       ),
     );
   }
 
   Widget get eventsList {
-    int count = heatMapDatasets[choosedDay]! <= 10 ? 0 : heatMapDatasets[choosedDay]! <= 12 ? 1 :heatMapDatasets[choosedDay]! <= 13 ? 2 : 3;
+    int count = heatMapDatasets[choosedDay]! <= 10
+        ? 0
+        : heatMapDatasets[choosedDay]! <= 12
+            ? 1
+            : heatMapDatasets[choosedDay]! <= 13
+                ? 2
+                : 3;
     Random ran = Random();
     Set<int> choosedTime = {};
     while (choosedTime.length < count) {
       choosedTime.add(ran.nextInt(24));
     }
-    
-    return Expanded(
-      child: Container(
-        constraints: const BoxConstraints(minWidth: double.infinity),
-        color: AppColors.background,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 48,
-              child: Row(
-                children: [
-                  Text(
-                    "События на ",
-                    style: AppTextStyles.title.copyWith(
-                      color: AppColors.text,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
+
+    return Container(
+      constraints: const BoxConstraints(maxHeight: 2000, maxWidth: 250),
+      color: AppColors.background,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 48,
+            child: Row(
+              children: [
+                Text(
+                  "События на ",
+                  style: AppTextStyles.title.copyWith(
+                    color: AppColors.text,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
                   ),
-                  Text(
-                    choosedDay.month == DateTime.now().month && choosedDay.day == DateTime.now().day ? "Сегодня " : choosedDay.month.toString() +":"+(choosedDay.day < 10 ? "0" : "") + choosedDay.day.toString(),
-                    style: AppTextStyles.title.copyWith(
-                      color: AppColors.accent,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  )
-                ],
-              ),
+                ),
+                Text(
+                  choosedDay.month == DateTime.now().month &&
+                          choosedDay.day == DateTime.now().day
+                      ? "Сегодня "
+                      : "${choosedDay.month}:${choosedDay.day < 10 ? "0" : ""}${choosedDay.day}",
+                  style: AppTextStyles.title.copyWith(
+                    color: AppColors.accent,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                  ),
+                )
+              ],
             ),
-            Expanded(
-              child: ListView.separated(
-                itemCount: 24,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: choosedTime.contains(index) ? Icon(Icons.event_busy, color: Colors.red,) : Icon(Icons.crop_free, color: Colors.green),
-                     title: Text(
-                      choosedTime.contains(index) ? "Показ квартиры" : "Свободно", 
+          ),
+          Expanded(
+            child: ListView.separated(
+              itemCount: 24,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: choosedTime.contains(index)
+                      ? const Icon(
+                          Icons.event_busy,
+                          color: Colors.red,
+                        )
+                      : const Icon(Icons.crop_free, color: Colors.green),
+                  title: Text(
+                      choosedTime.contains(index)
+                          ? "Показ квартиры"
+                          : "Свободно",
                       style: AppTextStyles.title.copyWith(
                         color: AppColors.text,
                         fontSize: 20,
-                        fontWeight: FontWeight.w500,)
-                      ),
-                    subtitle: Text(
-                     index < 9 ? "0$index:00 - 0${index+1}:00" : index == 9 ? "0$index:00 - ${index+1}:00" : "$index:00 - ${index+1}:00", 
+                        fontWeight: FontWeight.w500,
+                      )),
+                  subtitle: Text(
+                      index < 9
+                          ? "0$index:00 - 0${index + 1}:00"
+                          : index == 9
+                              ? "0$index:00 - ${index + 1}:00"
+                              : "$index:00 - ${index + 1}:00",
                       style: AppTextStyles.title.copyWith(
                         color: AppColors.textDisable,
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,)
-                      ),
-                    onLongPress: () {},
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const Space(space: 8);
-                },
-              ),
-            )
-          ],
-        ),
+                        fontWeight: FontWeight.w500,
+                      )),
+                  onLongPress: () {},
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const Space(space: 8);
+              },
+            ),
+          )
+        ],
       ),
     );
   }
