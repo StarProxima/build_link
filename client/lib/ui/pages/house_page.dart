@@ -38,7 +38,10 @@ class _HousePageState extends State<HousePage> {
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: const AppIcon(AppIcons.back),
+                      icon: const AppIcon(
+                        AppIcons.back,
+                        size: 32,
+                      ),
                     ),
                     Text(
                       widget.house.name,
@@ -48,7 +51,7 @@ class _HousePageState extends State<HousePage> {
                   ],
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 Text(
                   "Информация:",
@@ -110,8 +113,8 @@ class _HousePageState extends State<HousePage> {
               ],
             ),
           ),
-          SizedBox(
-            height: 104,
+          Container(
+            height: 108,
             child: ScrollConfiguration(
               behavior: ScrollConfiguration.of(context).copyWith(
                 dragDevices: {
