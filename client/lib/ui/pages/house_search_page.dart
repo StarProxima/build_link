@@ -2,6 +2,7 @@ import 'package:build_link/data/model/house_model.dart';
 import 'package:build_link/data/repositories/house_repository.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
+import 'package:build_link/data/styles/styles.dart';
 import 'package:build_link/ui/widgets/filter_field.dart';
 import 'package:build_link/ui/widgets/house_card.dart';
 import 'package:build_link/ui/widgets/house_tag_card.dart';
@@ -58,13 +59,46 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Фильтры",
-                                style: AppTextStyles.titleMedium,
-                              ),
-                            ],
+                          SizedBox(
+                            height: 48,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Фильтры",
+                                  style: AppTextStyles.titleLarge.copyWith(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                Spacer(),
+                                TextButton(
+                                  style: AppButtonStyle.cardButton,
+                                  onPressed: () {
+                                    //action
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 12, right: 12),
+                                    alignment: Alignment.center,
+                                    height: 36,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(8),
+                                      ),
+                                      color: AppColors.backgroundDark,
+                                      border: Border.all(color: AppColors.divider, width: 1),
+                                    ),
+                                    child: Text(
+                                      "Применить",
+                                      style: AppTextStyles.titleLarge.copyWith(
+                                        fontSize: 12,
+                                        color: AppColors.accent,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           const Space(space: 16),
                           FilterField(
@@ -117,20 +151,45 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
                     orientation: Axis.horizontal,
                   ),
                   Expanded(
-                    child: LayoutBuilder(
-                      builder: ((context, constraints) {
-                        return ListView.separated(
-                          controller: cardsController,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            return HouseCard();
-                          },
-                          separatorBuilder: (context, index) {
-                            return const Space(space: 8);
-                          },
-                          itemCount: findedHouses.length,
-                        );
-                      }),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 48,
+                          child: Row(
+                            children: [
+                              Text(
+                                "Результаты поиска:",
+                                style: AppTextStyles.titleLarge.copyWith(
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Space(
+                          space: 16,
+                          orientation: Axis.vertical,
+                        ),
+                        Expanded(
+                          child: LayoutBuilder(
+                            builder: ((context, constraints) {
+                              return ListView.separated(
+                                controller: cardsController,
+                                scrollDirection: Axis.vertical,
+                                itemBuilder: (context, index) {
+                                  return HouseCard(
+                                    house: findedHouses[index],
+                                  );
+                                },
+                                separatorBuilder: (context, index) {
+                                  return const Space(space: 8);
+                                },
+                                itemCount: findedHouses.length,
+                              );
+                            }),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
