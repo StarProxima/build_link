@@ -42,4 +42,5 @@ enum AppIcons {
   room_count,
   check,
   diagonal_arrows,
+  forum,
 }

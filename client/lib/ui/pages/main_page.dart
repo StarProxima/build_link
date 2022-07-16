@@ -21,7 +21,6 @@ class _MainPageState extends State<MainPage> {
       '/': (context) {
         return [
           const ClientsPage(agentID: 1),
-          const CalendarPage(),
           HousePage(
             house: House(
               address: 'Erngworu fweofhw',
@@ -34,7 +33,8 @@ class _MainPageState extends State<MainPage> {
               state: 'FEWf',
             ),
             index: index,
-          )
+          ),
+          const CalendarPage(),
         ].elementAt(index);
       },
     };

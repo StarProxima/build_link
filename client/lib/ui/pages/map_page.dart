@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:build_link/data/geolocation.dart';
+import 'package:build_link/data/util/geolocation.dart';
 import 'package:build_link/ui/widgets/search_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -222,7 +222,8 @@ class Epsg3395 extends Earth {
   final Projection projection = const Mercator();
 
   @override
-  final Transformation transformation = const Transformation(_scale, 0.5, -_scale, 0.5);
+  final Transformation transformation =
+      const Transformation(_scale, 0.5, -_scale, 0.5);
 
   static const num _scale = 0.5 / (math.pi * Mercator.r);
 
@@ -250,7 +251,8 @@ class Mercator extends Projection {
     var e = math.sqrt(1 - tmp * tmp);
     var con = e * math.sin(y);
 
-    var ts = math.tan(math.pi / 4 - y / 2) / math.pow((1 - con) / (1 + con), e / 2);
+    var ts =
+        math.tan(math.pi / 4 - y / 2) / math.pow((1 - con) / (1 + con), e / 2);
     y = -r * math.log(math.max(ts, 1E-10));
 
     return CustomPoint(latlng.longitude * d * r, y);
