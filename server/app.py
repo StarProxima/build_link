@@ -32,6 +32,9 @@ def getRequest(sql_request):
             connection.close()
     return records
 
+def foundSimilar(text):
+    print(1)
+
 def extractValues(note):
     realValues = [-1,-1,-1,-1]
 
@@ -49,7 +52,7 @@ def extractValues(note):
     for i in range(len(sent.syntax.tokens)):
         if (sent.morph.tokens[i].pos == "NUM"):
             parent_id = int(sent.syntax.tokens[i].head_id[2:])-1
-            similar = sent.syntax.tokens[parent_id].foundSimilar()
+            similar = foundSimilar(sent.syntax.tokens[parent_id].text)
             if similar != "":
                 realValues[similar] = int(sent.syntax.tokens[i].text)
 
