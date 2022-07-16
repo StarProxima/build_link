@@ -58,19 +58,19 @@ class _SideMenuState extends State<SideMenu> {
               ),
             ),
           ),
+          const Space(space: 6),
           SideMenuButton(
-            appIcon: AppIcons.mydeal,
-            label: 'Мои заказы',
+            appIcon: AppIcons.search,
+            label: 'Поиск',
             onTap: () {
               selectedPageIndex = 0;
               widget.onChangePage(0);
             },
             isSelected: selectedPageIndex == 0,
           ),
-          const Space(space: 6),
           SideMenuButton(
-            appIcon: AppIcons.calendar,
-            label: 'Календарь',
+            appIcon: AppIcons.mydeal,
+            label: 'Мои заказы',
             onTap: () {
               selectedPageIndex = 1;
               widget.onChangePage(1);
@@ -79,13 +79,23 @@ class _SideMenuState extends State<SideMenu> {
           ),
           const Space(space: 6),
           SideMenuButton(
-            appIcon: AppIcons.search,
-            label: 'Поиск',
+            appIcon: AppIcons.calendar,
+            label: 'Календарь',
             onTap: () {
               selectedPageIndex = 2;
               widget.onChangePage(2);
             },
             isSelected: selectedPageIndex == 2,
+          ),
+          const Space(space: 6),
+          SideMenuButton(
+            appIcon: AppIcons.forum,
+            label: 'Форум',
+            onTap: () {
+              selectedPageIndex = 3;
+              widget.onChangePage(3);
+            },
+            isSelected: selectedPageIndex == 3,
           ),
         ],
       ),

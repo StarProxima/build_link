@@ -1,4 +1,4 @@
-import 'package:build_link/data/app_utils.dart';
+import 'package:build_link/data/util/app_utils.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -220,25 +220,29 @@ class BarChart2State extends State<BarChart2> {
             BarChartRodStackItem(
               0,
               -value1,
-              const Color(0xff2bdb90).withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
+              const Color(0xff2bdb90)
+                  .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
               const BorderSide(color: Colors.transparent),
             ),
             BarChartRodStackItem(
               -value1,
               -(value1 + value2),
-              const Color(0xffffdd80).withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
+              const Color(0xffffdd80)
+                  .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
               const BorderSide(color: Colors.transparent),
             ),
             BarChartRodStackItem(
               -(value1 + value2),
               -(value1 + value2 + value3),
-              const Color(0xffff4d94).withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
+              const Color(0xffff4d94)
+                  .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
               const BorderSide(color: Colors.transparent),
             ),
             BarChartRodStackItem(
               -(value1 + value2 + value3),
               -(value1 + value2 + value3 + value4),
-              const Color(0xff19bfff).withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
+              const Color(0xff19bfff)
+                  .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
               const BorderSide(color: Colors.transparent),
             ),
           ],
@@ -268,7 +272,9 @@ class BarChart2State extends State<BarChart2> {
               barTouchData: BarTouchData(
                 handleBuiltInTouches: false,
                 touchCallback: (FlTouchEvent event, barTouchResponse) {
-                  if (!event.isInterestedForInteractions || barTouchResponse == null || barTouchResponse.spot == null) {
+                  if (!event.isInterestedForInteractions ||
+                      barTouchResponse == null ||
+                      barTouchResponse.spot == null) {
                     setState(() {
                       touchedIndex = -1;
                     });

@@ -4,7 +4,7 @@ import 'package:build_link/data/model/event_model.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
 import 'package:build_link/data/styles/styles.dart';
-import 'package:build_link/ui/widgets/event.dart';
+import 'package:build_link/ui/widgets/event_card.dart';
 import 'package:build_link/ui/widgets/heatmap_calendar/heatmap_calendar.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
@@ -27,46 +27,106 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
   Map<DateTime, int> heatMapDatasets = {};
 
   final eventList = [
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
-    Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90)),),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
+    Event(
+      "test",
+      DateTime.now(),
+      DateTime.now().add(const Duration(minutes: 90)),
+    ),
   ];
 
   @override
@@ -90,25 +150,27 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
-      child: Column(children: [
-        title,
-        const Space(space: 16),
-        Expanded(
-          child: Container(
-            constraints: const BoxConstraints(minHeight: double.infinity),
-            child: Row(
-              children: [
-                calendar,
-                const Space(
-                  space: 16,
-                  orientation: Axis.horizontal,
-                ),
-                eventsList,
-              ],
+      child: Column(
+        children: [
+          title,
+          const Space(space: 16),
+          Expanded(
+            child: Container(
+              constraints: const BoxConstraints(minHeight: double.infinity),
+              child: Row(
+                children: [
+                  calendar,
+                  const Space(
+                    space: 16,
+                    orientation: Axis.horizontal,
+                  ),
+                  eventsList,
+                ],
+              ),
             ),
           ),
-        ),
-      ],),
+        ],
+      ),
     );
   }
 
@@ -127,28 +189,29 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
           ),
           const Spacer(),
           TextButton(
-              style: AppButtonStyle.cardButton,
-              onPressed: () {},
-              child: Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                decoration: BoxDecoration(
-                  color: AppColors.backgroundDark,
-                  border: Border.all(color: AppColors.divider, width: 1),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  ),
+            style: AppButtonStyle.cardButton,
+            onPressed: () {},
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              decoration: BoxDecoration(
+                color: AppColors.backgroundDark,
+                border: Border.all(color: AppColors.divider, width: 1),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(8),
                 ),
-                height: 48,
-                child: Text(
-                  "Добавить событие",
-                  style: AppFontStyles.label.copyWith(
-                    color: AppColors.accent,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
+              ),
+              height: 48,
+              child: Text(
+                "Добавить событие",
+                style: AppFontStyles.label.copyWith(
+                  color: AppColors.accent,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
                 ),
-              ),)
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -193,16 +256,18 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
                   Text(
                     "События на ",
                     style: AppFontStyles.title.copyWith(
-                        color: AppColors.text,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,),
+                      color: AppColors.text,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   Text(
                     "Сегодня ",
                     style: AppFontStyles.title.copyWith(
-                        color: AppColors.accent,
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,),
+                      color: AppColors.accent,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
                   )
                 ],
               ),

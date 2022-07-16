@@ -14,13 +14,17 @@ class EventCard extends StatelessWidget {
       padding: const EdgeInsets.only(left: 12, right: 12, top: 8, bottom: 8),
       constraints: const BoxConstraints(minWidth: double.infinity),
       decoration: BoxDecoration(
-          border: Border.all(color: AppColors.divider, width: 1),
-          color: AppColors.background,
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          boxShadow: [
-            BoxShadow(
-                color: AppColors.shadow, blurRadius: 16, offset: Offset.zero,)
-          ],),
+        border: Border.all(color: AppColors.divider, width: 1),
+        color: AppColors.background,
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadow,
+            blurRadius: 16,
+            offset: Offset.zero,
+          )
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
