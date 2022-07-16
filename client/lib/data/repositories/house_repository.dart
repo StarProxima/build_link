@@ -11,7 +11,7 @@ abstract class HouseRepository {
   static String userId = "5000";
   static bool isDebug = false;
 
-  static Future<HouseModel?> getHouse() async {
+  static Future<House?> getHouse() async {
     var url = Uri(
       scheme: "http",
       host: serverUrl,
@@ -25,7 +25,7 @@ abstract class HouseRepository {
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        return HouseModel.fromJson(jsonDecode(response.body));
+        return House.fromJson(jsonDecode(response.body));
       } else {
         log('Request failed with status: ${response.statusCode}.');
       }
@@ -35,7 +35,7 @@ abstract class HouseRepository {
     return null;
   }
 
-  static Future<List<ClientModel>> getClients(int agentID) async {
+  static Future<List<Client>> getClients(int agentID) async {
     var url = Uri(
       scheme: "http",
       host: serverUrl,
@@ -47,11 +47,12 @@ abstract class HouseRepository {
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        var jsonList = const JsonDecoder().convert(response.body) as List<dynamic>;
+        var jsonList =
+            const JsonDecoder().convert(response.body) as List<dynamic>;
 
         print(jsonList.runtimeType);
 
-        var result = jsonList.map((json) => ClientModel.fromJson(json)).toList();
+        var result = jsonList.map((json) => Client.fromJson(json)).toList();
 
         return result;
       } else {

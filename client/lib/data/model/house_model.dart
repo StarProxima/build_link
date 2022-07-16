@@ -1,4 +1,4 @@
-class HouseModel {
+class House {
   String name;
   String address;
   double squareMeters;
@@ -8,27 +8,27 @@ class HouseModel {
   double cost;
   String state;
 
-  HouseModel(
-    this.name,
-    this.address,
-    this.squareMeters,
-    this.roomCount,
-    this.ceilingHeight,
-    this.repair,
-    this.cost,
-    this.state,
-  );
+  House({
+    required this.name,
+    required this.address,
+    required this.squareMeters,
+    required this.roomCount,
+    required this.ceilingHeight,
+    required this.repair,
+    required this.cost,
+    required this.state,
+  });
 
-  static HouseModel fromJson(dynamic json) {
-    return HouseModel(
-      json["name"].trimRight(),
-      json["address"].trimRight(),
-      json["square_meters"],
-      json["room_count"],
-      json["ceiling_height"],
-      json["repair"],
-      json["cost"],
-      json["status"].trimRight(),
+  static House fromJson(dynamic json) {
+    return House(
+      name: json["name"].trimRight(),
+      address: json["address"].trimRight(),
+      squareMeters: json["square_meters"],
+      roomCount: json["room_count"],
+      ceilingHeight: json["ceiling_height"],
+      repair: json["repair"],
+      cost: json["cost"],
+      state: json["status"].trimRight(),
     );
   }
 }

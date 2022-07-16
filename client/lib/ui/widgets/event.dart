@@ -3,10 +3,10 @@ import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
 import 'package:flutter/material.dart';
 
-class Event extends StatelessWidget {
-  final EventModel event;
+class EventCard extends StatelessWidget {
+  final Event event;
 
-  const Event({Key? key, required this.event}) : super(key: key);
+  const EventCard({Key? key, required this.event}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,10 @@ class Event extends StatelessWidget {
           border: Border.all(color: AppColors.divider, width: 1),
           color: AppColors.background,
           borderRadius: const BorderRadius.all(Radius.circular(8)),
-          boxShadow: [BoxShadow(color: AppColors.shadow, blurRadius: 16, offset: Offset.zero)]),
+          boxShadow: [
+            BoxShadow(
+                color: AppColors.shadow, blurRadius: 16, offset: Offset.zero)
+          ]),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

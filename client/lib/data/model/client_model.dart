@@ -1,4 +1,4 @@
-class ClientModel {
+class Client {
   String firstName;
   String lastName;
   String patronymic;
@@ -6,7 +6,7 @@ class ClientModel {
   String note;
   String state;
 
-  ClientModel(
+  Client(
     this.firstName,
     this.lastName,
     this.patronymic,
@@ -15,8 +15,8 @@ class ClientModel {
     this.state,
   );
 
-  static ClientModel fromJson(dynamic json) {
-    return ClientModel(
+  static Client fromJson(dynamic json) {
+    return Client(
       (json["firstname"] as String).trimRight(),
       (json["lastname"] as String).trimRight(),
       (json["patronymic"] as String).trimRight(),

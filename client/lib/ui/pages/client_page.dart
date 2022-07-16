@@ -8,7 +8,7 @@ import '../../data/model/client_model.dart';
 import '../widgets/space.dart';
 
 class ClientPage extends StatefulWidget {
-  final ClientModel client;
+  final Client client;
 
   const ClientPage({Key? key, required this.client}) : super(key: key);
 
@@ -55,8 +55,10 @@ class _ClientPageState extends State<ClientPage> {
           SingleChildScrollView(
             child: Column(
               children: [
-                cardLabel(const AppIcon(AppIcons.phone, size: 24), widget.client.phoneNumber),
-                cardLabel(const AppIcon(AppIcons.info, size: 24), widget.client.note),
+                cardLabel(const AppIcon(AppIcons.phone, size: 24),
+                    widget.client.phoneNumber),
+                cardLabel(
+                    const AppIcon(AppIcons.info, size: 24), widget.client.note),
                 clientHomes
               ],
             ),

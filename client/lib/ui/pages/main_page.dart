@@ -1,6 +1,8 @@
+import 'package:build_link/data/model/house_model.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/ui/pages/calendar_page.dart';
 import 'package:build_link/ui/pages/clients_page.dart';
+import 'package:build_link/ui/pages/house_page.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/side_menu.dart';
@@ -20,13 +22,18 @@ class _MainPageState extends State<MainPage> {
         return [
           const ClientsPage(agentID: 1),
           const CalendarPage(),
-          Scaffold(
-            body: Center(
-              child: Text(
-                'Profile',
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
+          HousePage(
+            house: House(
+              address: 'Erngworu fweofhw',
+              ceilingHeight: 2.7,
+              cost: 3500000,
+              name: 'House2',
+              repair: true,
+              roomCount: 3,
+              squareMeters: 48,
+              state: 'FEWf',
             ),
+            index: index,
           )
         ].elementAt(index);
       },

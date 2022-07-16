@@ -17,7 +17,7 @@ class ClientsPage extends StatefulWidget {
 }
 
 class _ClientsPageState extends State<ClientsPage> {
-  late List<ClientModel> clients = [];
+  late List<Client> clients = [];
   final double minCardWidth = 360;
   @override
   void initState() {
@@ -81,10 +81,12 @@ class _ClientsPageState extends State<ClientsPage> {
                               pageBuilder: (_, __, ___) {
                                 return ClientPage(client: clients[index]);
                               },
-                              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
                                 const begin = Offset(0.0, 1.0);
                                 const end = Offset.zero;
-                                final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: Curves.easeOut));
+                                final tween = Tween(begin: begin, end: end)
+                                    .chain(CurveTween(curve: Curves.easeOut));
                                 final offsetAnimation = animation.drive(tween);
                                 return SlideTransition(
                                   position: offsetAnimation,

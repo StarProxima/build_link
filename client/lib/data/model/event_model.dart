@@ -1,9 +1,9 @@
-class EventModel {
+class Event {
   String name;
   DateTime from;
   DateTime to;
 
-  EventModel(this.name, this.from, this.to);
+  Event(this.name, this.from, this.to);
 
   String getFrom() {
     return "${from.hour < 10 ? "0" : ""}${from.hour}:${from.minute < 10 ? "0" : ""}${from.minute}";

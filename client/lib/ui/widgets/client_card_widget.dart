@@ -8,7 +8,7 @@ import '../../data/styles/fonts.dart';
 import '../../data/styles/styles.dart';
 
 class ClientCardWidget extends StatelessWidget {
-  final ClientModel client;
+  final Client client;
   final Function onPress;
 
   const ClientCardWidget({
