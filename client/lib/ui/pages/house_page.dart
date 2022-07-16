@@ -153,7 +153,6 @@ class _HousePageState extends State<HousePage> {
               ),
               child: ListView(
                 physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 scrollDirection: Axis.horizontal,
                 children: [
@@ -234,7 +233,6 @@ class _HousePageState extends State<HousePage> {
               ),
               child: ListView(
                 physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(horizontal: 18),
                 scrollDirection: Axis.horizontal,
                 children: const [
