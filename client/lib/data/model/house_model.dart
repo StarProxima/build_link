@@ -11,6 +11,7 @@ class House {
   String maxDate;
   String minDate;
   String planUrl;
+  List<String>? images;
 
   House({
     required this.description,
@@ -25,9 +26,15 @@ class House {
     required this.maxDate,
     required this.minDate,
     required this.planUrl,
+    required this.images,
   });
 
-  static House fromJson(dynamic json) {
+  static House fromJson(dynamic json, dynamic imageJson,) {
+    List<String> readyJson = [];
+    for (int i = 0; i < imageJson.length; i++ ) {
+      readyJson.add((imageJson[i]).toString().trimRight());
+    }
+    
     return House(
       description: json["description"] != null ? json["description"].trimRight() : "",
       address: json["address"] != null ? json["address"].trimRight() : "",
@@ -41,6 +48,7 @@ class House {
       maxDate: json["max_date"] != null ? json["max_date"].trimRight() : "",
       minDate: json["min_date"] != null ? json["min_date"].trimRight() : "",
       planUrl: json["plan"] != null ? json["plan"].trimRight() : "",
+      images: readyJson,
     );
   }
 

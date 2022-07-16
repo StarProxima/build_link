@@ -67,12 +67,33 @@ abstract class HouseRepository {
         },
       );
     }
+    
+
     if (isDebug) log(url.normalizePath().toString());
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
         var decode = jsonDecode(response.body) as List<dynamic>;
-        return decode.map((e) => House.fromJson(e)).toList();
+        List<House> rezult = [];
+        for (int i = 0; i < decode.length; i++) {
+          var supUrl = Uri(
+            scheme: "http",
+            host: serverUrl,
+            path: "/getImages",
+            port: 5000,
+            queryParameters: {
+              "id": decode[i]["id"]!,
+            },
+          );
+          var supResponse = await http.get(supUrl);
+          if (supResponse.statusCode == 200) {
+            rezult.add(House.fromJson(decode[i], jsonDecode(supResponse.body)));
+          } else {
+            log('Request failed with status: ${response.statusCode}.');
+            return [];
+          }
+        }
+        return rezult;
       } else {
         log('Request failed with status: ${response.statusCode}.');
       }
@@ -82,21 +103,31 @@ abstract class HouseRepository {
     return [];
   }
 
-  static Future<House?> getHouse() async {
+  static Future<House?> getHouse(int id) async {
     var url = Uri(
       scheme: "http",
       host: serverUrl,
       path: "/getHome",
       port: 5000,
       queryParameters: {
-        "id": "1",
+        "id": (id).toString(),
+      },
+    );
+    var supUrl = Uri(
+      scheme: "http",
+      host: serverUrl,
+      path: "/getImages",
+      port: 5000,
+      queryParameters: {
+        "id": (id).toString(),
       },
     );
     if (isDebug) log(url.normalizePath().toString());
     try {
       var response = await http.get(url);
-      if (response.statusCode == 200) {
-        return House.fromJson(jsonDecode(response.body));
+      var supResponse = await http.get(supUrl);
+      if (response.statusCode == 200 && supResponse.statusCode == 200) {
+        return House.fromJson(jsonDecode(response.body), jsonDecode(supResponse.body) as List<dynamic>);
       } else {
         log('Request failed with status: ${response.statusCode}.');
       }

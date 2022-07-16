@@ -9,7 +9,6 @@ from fuzzywuzzy import fuzz
 
 
 app = Flask(__name__)
-nameValues = [["квадратные метры", "площадь", "квадратов", "кв м"],["комнаты", "комнатная", "квартира"],["цена","стоимость","рублей","миллионов","млн","тысяч"],["высота потолков","потолки"],]
 
 def getRequest(sql_request):
     try:
@@ -34,8 +33,8 @@ def getRequest(sql_request):
             connection.close()
     return records
 
-def foundSimilar(text):
-    for i in range(4):
+def foundSimilar(text, nameValues):
+    for i in range(len(nameValues)):
         for keyWord in nameValues[i]:
             if (fuzz.WRatio(text, keyWord) > 70):
                 return i
@@ -43,10 +42,12 @@ def foundSimilar(text):
 
 def extractValues(note):
     note = note.replace('-', ' ')
+
     realValues = [-1,-1,-1,-1]
+    nameValues = [["квадратные метры", "площадь", "квадратов", "кв м"],["комнаты", "комнатная", "квартира"],["цена","стоимость","рублей","миллионов","млн","тысяч"],["высота потолков","потолки"],]
+
 
     segmenter = natasha.Segmenter()
-    morph_vocab = MorphVocab()
 
     emb = natasha.NewsEmbedding()
     morph_tagger = natasha.NewsMorphTagger(emb)
@@ -56,18 +57,34 @@ def extractValues(note):
     doc.tag_morph(morph_tagger)
     doc.parse_syntax(syntax_parser)
 
-    sent = doc.sents[0]
+    for sent in doc.sents:
+        for i in range(len(sent.syntax.tokens)):
+            if (sent.morph.tokens[i].pos == "NUM"):
+                parent_id = int(sent.syntax.tokens[i].head_id[2:])-1
+                similar = foundSimilar(sent.syntax.tokens[parent_id].text, nameValues)
+                if similar != -1:
+                    subSimilar = -1
+                    subindex = -1
+                    for j in range(len(sent.syntax.tokens)):
+                        if (int(sent.syntax.tokens[j].head_id[2:])-1 == i):
+                            subindex = j
+                            subSimilar = foundSimilar(sent.syntax.tokens[j].text, [["больше", "более"],[ "меньше", "менее"]])
+                            break
+                    
+                    if (subSimilar != -1 and j > 0 and (sent.syntax.tokens[j-1].text == "не" or sent.syntax.tokens[j-1].text == "Не")):
+                        subSimilar+=1
+                        subSimilar%=2
 
-    for i in range(len(sent.syntax.tokens)):
-        if (sent.morph.tokens[i].pos == "NUM"):
-            parent_id = int(sent.syntax.tokens[i].head_id[2:])-1
-            similar = foundSimilar(sent.syntax.tokens[parent_id].text)
-            if similar != -1:
-                realValues[similar] = float(sent.syntax.tokens[i].text)
+                    if (subSimilar == 0):
+                        realValues[similar] = (float(sent.syntax.tokens[i].text), -1)
+                    elif (subSimilar == 1):
+                        realValues[similar] = (-1, float(sent.syntax.tokens[i].text))
+                    else:
+                        realValues[similar] = (float(sent.syntax.tokens[i].text), float(sent.syntax.tokens[i].text))
 
     print(1)
 
-#extractValues("3 комнатная 3 миллиона 25 квадратов и более потолки не менее 3 м")
+extractValues("менее 3 комнатная. 3 миллиона. 25 и больше квадратов. потолки не менее 3 м")
 
 @app.route('/getCards')
 def hello0():
@@ -91,11 +108,19 @@ def hello1():
 @app.route('/searchHouses')
 def hello2():
     where = request.args.get('where')
-    print("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date
-	FROM public.objects """ + str(where))
-    rows = getRequest("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date, plan
+    rows = getRequest("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date, plan, id
 	FROM public.objects """ + str(where))
     cards = []
     for row in rows:
-        cards.append({'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10]), 'plan':str(row[11])})
+        cards.append({'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10]), 'plan':str(row[11]), 'id':str(row[12])})
+    return json.dumps(cards)
+
+@app.route('/getImages')
+def hello3():
+    id = request.args.get('id')
+    rows = getRequest("""SELECT * FROM public.images WHERE id_object = """ + str(id))
+    cards = []
+    for row in rows:
+        cards.append(row[2])
+    print(cards)
     return json.dumps(cards)

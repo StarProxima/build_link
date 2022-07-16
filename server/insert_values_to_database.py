@@ -94,7 +94,71 @@ UPDATE public.objects SET
 plan = 'http://s1.citystar.ru/zh/781a0664a477ebe72604ac12ac7fa83d-fit-800x600.jpg                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ' WHERE
 id = 5;
     
-    
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 1, 'https://mykaleidoscope.ru/uploads/posts/2021-04/1617568303_3-p-kvartira-vnutri-3.jpg');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 1, 'https://i.pinimg.com/originals/b8/4e/fb/b84efb9af1a267fd3f275ba9f0477bff.jpg');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 1, 'https://floorsclub.ru/image/cache/catalog/AAcatalog/PVHPlitka/allure_floor/grip_strip/shato_parket_shokolad/4-1199x800.png');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 1, 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/c9b48a95706407.5e9dd9d78b9a6.jpg');
+	
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 2, 'https://mykaleidoscope.ru/uploads/posts/2021-04/1617568303_3-p-kvartira-vnutri-3.jpg');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 2, 'https://i.pinimg.com/originals/b8/4e/fb/b84efb9af1a267fd3f275ba9f0477bff.jpg');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 2, 'https://floorsclub.ru/image/cache/catalog/AAcatalog/PVHPlitka/allure_floor/grip_strip/shato_parket_shokolad/4-1199x800.png');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 2, 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/c9b48a95706407.5e9dd9d78b9a6.jpg');
+
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 3, 'https://mykaleidoscope.ru/uploads/posts/2021-04/1617568303_3-p-kvartira-vnutri-3.jpg');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 3, 'https://i.pinimg.com/originals/b8/4e/fb/b84efb9af1a267fd3f275ba9f0477bff.jpg');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 3, 'https://floorsclub.ru/image/cache/catalog/AAcatalog/PVHPlitka/allure_floor/grip_strip/shato_parket_shokolad/4-1199x800.png');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 3, 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/c9b48a95706407.5e9dd9d78b9a6.jpg');
+	
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 4, 'https://mykaleidoscope.ru/uploads/posts/2021-04/1617568303_3-p-kvartira-vnutri-3.jpg');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 4, 'https://i.pinimg.com/originals/b8/4e/fb/b84efb9af1a267fd3f275ba9f0477bff.jpg');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 4, 'https://floorsclub.ru/image/cache/catalog/AAcatalog/PVHPlitka/allure_floor/grip_strip/shato_parket_shokolad/4-1199x800.png');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 4, 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/c9b48a95706407.5e9dd9d78b9a6.jpg');
+	
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 5, 'https://mykaleidoscope.ru/uploads/posts/2021-04/1617568303_3-p-kvartira-vnutri-3.jpg');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 5, 'https://i.pinimg.com/originals/b8/4e/fb/b84efb9af1a267fd3f275ba9f0477bff.jpg');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 5, 'https://floorsclub.ru/image/cache/catalog/AAcatalog/PVHPlitka/allure_floor/grip_strip/shato_parket_shokolad/4-1199x800.png');
+INSERT INTO public.images(
+	id_object, url)
+	VALUES ( 5, 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/c9b48a95706407.5e9dd9d78b9a6.jpg');
+	
     """)
     # Получить результат
     records = cursor.fetchall()
