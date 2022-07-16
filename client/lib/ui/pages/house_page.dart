@@ -1,4 +1,5 @@
 import 'package:build_link/data/styles/icons.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/model/house_model.dart';
@@ -24,11 +25,13 @@ class _HousePageState extends State<HousePage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -120,25 +123,46 @@ class _HousePageState extends State<HousePage> {
           ),
           SizedBox(
             height: 180,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                HouseImageCard(
-                  image: NetworkImage(
-                    'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(
+                dragDevices: {
+                  PointerDeviceKind.mouse,
+                  PointerDeviceKind.touch,
+                },
+              ),
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                scrollDirection: Axis.horizontal,
+                children: const [
+                  HouseImageCard(
+                    image: NetworkImage(
+                      'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                    ),
                   ),
-                ),
-                HouseImageCard(
-                  image: NetworkImage(
-                    'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                  HouseImageCard(
+                    image: NetworkImage(
+                      'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                    ),
                   ),
-                ),
-                HouseImageCard(
-                  image: NetworkImage(
-                    'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                  HouseImageCard(
+                    image: NetworkImage(
+                      'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                    ),
                   ),
-                ),
-              ],
+                  HouseImageCard(
+                    image: NetworkImage(
+                      'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                    ),
+                  ),
+                  HouseImageCard(
+                    image: NetworkImage(
+                      'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           const SizedBox(
@@ -191,7 +215,7 @@ class HousePageField extends StatelessWidget {
         Text(
           text,
           style: AppTextStyles.title.copyWith(color: AppColors.text),
-        )
+        ),
       ],
     );
   }
@@ -205,7 +229,7 @@ class HouseImageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 320,
-      margin: const EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         image: DecorationImage(
