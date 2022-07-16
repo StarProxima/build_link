@@ -10,6 +10,8 @@ import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 
 class HouseSearchPage extends StatefulWidget {
+  const HouseSearchPage({Key? key}) : super(key: key);
+
   @override
   State<HouseSearchPage> createState() => _HouseSearchPageState();
 }
@@ -48,11 +50,13 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
           const Space(space: 32),
           Expanded(
             child: Container(
-              constraints: const BoxConstraints(minWidth: double.infinity, minHeight: double.infinity),
+              constraints: const BoxConstraints(
+                  minWidth: double.infinity, minHeight: double.infinity),
               child: Row(
                 children: [
                   Container(
-                    constraints: const BoxConstraints(maxWidth: 420, minHeight: double.infinity),
+                    constraints: const BoxConstraints(
+                        maxWidth: 420, minHeight: double.infinity),
                     color: AppColors.background,
                     child: SingleChildScrollView(
                       child: Column(
