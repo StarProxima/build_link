@@ -30,12 +30,12 @@ INSERT INTO public.agents(
 
 
 INSERT INTO public.cards(
-	firstname, lastname, patronymic, "number", note, id_agent)
-	VALUES ('Боб', 'Викторов', 'Владимирович', '79189600438', 'Двухкомнатная квартира возле больницы 30 квадратов', 1);
+	firstname, lastname, patronymic, "number", note, id_agent, status)
+	VALUES ('Боб', 'Викторов', 'Владимирович', '79189600438', 'Двухкомнатная квартира возле больницы 30 квадратов', 1, 'wait');
 	
 INSERT INTO public.cards(
-	firstname, lastname, patronymic, "number", note, id_agent)
-	VALUES ('Варфаломей', 'Иисакович', 'Григорьевич', '79919600439', 'Однокомнатная квартира с видом на озеро и рядом школа', 1);
+	firstname, lastname, patronymic, "number", note, id_agent, status)
+	VALUES ('Варфаломей', 'Иисакович', 'Григорьевич', '79919600439', 'Однокомнатная квартира с видом на озеро и рядом школа', 1, 'start');
 
 INSERT INTO public.agencies(
 	 name)

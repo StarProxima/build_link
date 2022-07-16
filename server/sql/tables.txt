@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS public.cards
     "number" character(15)  NOT NULL,
     note text ,
     id_agent integer NOT NULL,
+    status character(50) NOT NULL,
     CONSTRAINT clients_pkey PRIMARY KEY (id)
 )
 
