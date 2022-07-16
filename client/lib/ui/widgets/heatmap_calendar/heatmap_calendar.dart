@@ -68,6 +68,7 @@ class HeatMapCalendar extends StatefulWidget {
   final Function(DateTime)? onClick;
 
   final Color? selectedColor;
+  final Color? selectedTextColor;
 
   /// Show color tip which represents the color range at the below.
   ///
@@ -109,6 +110,7 @@ class HeatMapCalendar extends StatefulWidget {
     this.colorTipCount,
     this.colorTipSize,
     this.selectedColor,
+    this.selectedTextColor,
   }) : super(key: key);
 
   @override
@@ -138,6 +140,9 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
       children: <Widget>[
         // Previous month button.
         IconButton(
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           icon: const Icon(
             Icons.arrow_back_ios,
             size: 14,
@@ -159,6 +164,9 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
 
         // Next month button.
         IconButton(
+          splashColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
           icon: const Icon(
             Icons.arrow_forward_ios,
             size: 14,
@@ -235,6 +243,7 @@ class _HeatMapCalendar extends State<HeatMapCalendar> {
               });
             },
             selectedColor: widget.selectedColor,
+            selectedTextColor: widget.selectedTextColor,
           ),
           if (widget.showColorTip == true)
             HeatMapColorTip(

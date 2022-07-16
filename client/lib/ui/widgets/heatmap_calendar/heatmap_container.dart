@@ -12,6 +12,7 @@ class HeatMapContainer extends StatelessWidget {
   final Color? backgroundColor;
   final Color? heatColor;
   final Color? selectedColor;
+  final Color? selectedTextColor;
   final Color? textColor;
   final EdgeInsets? margin;
   final bool? showText;
@@ -32,6 +33,7 @@ class HeatMapContainer extends StatelessWidget {
     this.selectedDate,
     this.showText,
     this.selectedColor,
+    this.selectedTextColor,
   }) : super(key: key);
 
   @override
@@ -58,7 +60,7 @@ class HeatMapContainer extends StatelessWidget {
                 ? Text(
                     date.day.toString(),
                     style: TextStyle(
-                      color: textColor ?? const Color(0xFF8A8A8A),
+                      color: selectedDate == date ? selectedTextColor : textColor ?? const Color(0xFF8A8A8A),
                       fontSize: fontSize,
                     ),
                   )

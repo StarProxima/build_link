@@ -63,6 +63,7 @@ class HeatMapCalendarRow extends StatelessWidget {
   final DateTime? selectedDate;
 
   final Color? selectedColor;
+  final Color? selectedTextColor;
 
   /// Function that will be called when a block is clicked.
   ///
@@ -87,6 +88,7 @@ class HeatMapCalendarRow extends StatelessWidget {
     this.selectedDate,
     this.onClick,
     this.selectedColor,
+    this.selectedTextColor,
   })  : dayContainers = List<Widget>.generate(
           7,
           // If current week has first day of the month and
@@ -126,6 +128,7 @@ class HeatMapCalendarRow extends StatelessWidget {
                   selectedDate: selectedDate,
                   onClick: onClick,
                   selectedColor: selectedColor,
+                  selectedTextColor: selectedTextColor,
                   // If datasets has DateTime key which is equal to this HeatMapContainer's date,
                   // we have to color the matched HeatMapContainer.
                   //
