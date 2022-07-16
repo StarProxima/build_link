@@ -1,9 +1,13 @@
 import 'package:build_link/data/styles/icons.dart';
+import 'package:build_link/ui/pages/map_page.dart';
 import 'package:build_link/ui/widgets/action_card_button.dart';
+import 'package:build_link/ui/widgets/mini_map.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:build_link/ui/widgets/house_tag_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../data/model/house_model.dart';
 import '../../data/styles/colors.dart';
@@ -19,7 +23,8 @@ class HousePage extends StatefulWidget {
 }
 
 class _HousePageState extends State<HousePage> {
-  final TextStyle textStyle = AppTextStyles.title.copyWith(fontWeight: FontWeight.w500, fontSize: 20);
+  final TextStyle textStyle =
+      AppTextStyles.title.copyWith(fontWeight: FontWeight.w500, fontSize: 20);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +71,8 @@ class _HousePageState extends State<HousePage> {
                   ),
                   GridView(
                     shrinkWrap: true,
-                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 280,
                       mainAxisExtent: 40,
                     ),
@@ -79,7 +85,9 @@ class _HousePageState extends State<HousePage> {
                         icon: const AppIcon(AppIcons.room_count),
                         text: widget.house.roomCount.toString() +
                             (widget.house.roomCount < 5
-                                ? (widget.house.roomCount == 1 ? " комната" : " комнаты")
+                                ? (widget.house.roomCount == 1
+                                    ? " комната"
+                                    : " комнаты")
                                 : " комнат"),
                       ),
                       HousePageField(
@@ -92,7 +100,8 @@ class _HousePageState extends State<HousePage> {
                       // ),
                       HousePageField(
                         icon: const AppIcon(AppIcons.vertical_arrows),
-                        text: 'Высота потолков: ${widget.house.ceilingHeight} м',
+                        text:
+                            'Высота потолков: ${widget.house.ceilingHeight} м',
                       ),
                       HousePageField(
                         icon: const AppIcon(
@@ -103,7 +112,9 @@ class _HousePageState extends State<HousePage> {
                       ),
                       HousePageField(
                         icon: const AppIcon(AppIcons.check),
-                        text: widget.house.repair ? "Сделан ремонт" : "Ремонт не сделан",
+                        text: widget.house.repair
+                            ? "Сделан ремонт"
+                            : "Ремонт не сделан",
                       ),
                     ],
                   ),
@@ -139,7 +150,7 @@ class _HousePageState extends State<HousePage> {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               height: 108,
               child: ScrollConfiguration(
                 behavior: ScrollConfiguration.of(context).copyWith(
@@ -229,10 +240,16 @@ class _HousePageState extends State<HousePage> {
                   },
                 ),
                 child: ListView.separated(
+                  itemCount: 5,
+                  physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return const HouseImageCard(
                       image: NetworkImage(
-                        'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                        'https://artvaro.ru/wp-content/uploads/2018/04/e7b36a530d3e8db7sDeZSeceJ6iJFWyi-e1523916146357.jpg',
                       ),
                     );
                   },
@@ -241,33 +258,73 @@ class _HousePageState extends State<HousePage> {
                       space: 8,
                     );
                   },
-                  itemCount: widget.house.planUrl.length,
                 ),
               ),
             ),
             const SizedBox(
               height: 8,
             ),
-            SizedBox(
-              height: 164,
-              child: Row(
-                children: const [],
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24,
+                vertical: 16,
               ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            SizedBox(
-              height: 106,
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 164,
-                    decoration: const BoxDecoration(),
-                  )
+                  Text(
+                    "Расположение",
+                    style: AppTextStyles.titleMedium,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    children: [
+                      const AppIcon(
+                        AppIcons.pin,
+                        size: 24,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        widget.house.address,
+                        style: AppTextStyles.titleSmall.copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  SizedBox(
+                    height: 250,
+                    child: MiniMap(
+                      coord: LatLng(45, 48),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          CupertinoPageRoute(
+                            settings: RouteSettings(),
+                            builder: (context) {
+                              return MapPage(
+                                initialPosition: LatLng(45, 48),
+                                isFullScreen: true,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
