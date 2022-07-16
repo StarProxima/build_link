@@ -9,6 +9,12 @@ abstract class HouseRepository {
   static String serverUrl = "127.0.0.1";
   static bool isDebug = false;
 
+  static Future<List<House>?> noteAnalyze({
+    required String note,
+  }) async {
+    
+  }
+
   static Future<List<House>?> searchHouses({
     double? minSq,
     double? maxSq,
@@ -23,22 +29,22 @@ abstract class HouseRepository {
     if (minSq != null || maxSq != null) {
       minSq ??=0;
       maxSq ??=10000;
-      where += "square_meters <= "+maxSq.toString() + " and square_meters >= " + minSq.toString()+ " and  ";
+      where += "square_meters <= $maxSq and square_meters >= $minSq and  ";
     }
     if (minRooms != null || maxRooms != null) {
       minRooms ??=0;
       maxRooms ??=10000;
-      where += "room_count <= "+maxRooms.toString() + " and room_count >= " + minRooms.toString()+ " and  ";
+      where += "room_count <= $maxRooms and room_count >= $minRooms and  ";
     }
     if (minCost != null || maxCost != null) {
       minCost ??=0;
       maxCost ??=100000000000;
-      where += "cost <= "+maxCost.toString() + " and cost >= " + minCost.toString()+ " and  ";
+      where += "cost <= $maxCost and cost >= $minCost and  ";
     }
     if (minHeight != null || maxHeight != null) {
       minHeight ??=0;
       maxHeight ??=10000;
-      where += "ceiling_height <= "+maxHeight.toString() + " and ceiling_height >= " + minHeight.toString()+ " and  ";
+      where += "ceiling_height <= $maxHeight and ceiling_height >= $minHeight and  ";
     }
     where = where.substring(0, where.length-6);
     var url;
