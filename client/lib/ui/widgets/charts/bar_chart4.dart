@@ -5,30 +5,30 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class BarChart1 extends StatefulWidget {
-  const BarChart1({
+class BarChart4 extends StatefulWidget {
+  const BarChart4({
     Key? key,
   }) : super(key: key);
 
   static const shadowColor = Color(0xFFCCCCCC);
   static const dataList = [
-    _BarData(543),
-    _BarData(535),
-    _BarData(492),
-    _BarData(478),
-    _BarData(450),
-    _BarData(410),
-    _BarData(365),
-    _BarData(320),
-    _BarData(260),
-    _BarData(243),
+    _BarData(13),
+    _BarData(12),
+    _BarData(12),
+    _BarData(10),
+    _BarData(9),
+    _BarData(9),
+    _BarData(9),
+    _BarData(8),
+    _BarData(8),
+    _BarData(8),
   ];
 
   @override
-  State<BarChart1> createState() => _BarChart1State();
+  State<BarChart4> createState() => _BarChart4State();
 }
 
-class _BarChart1State extends State<BarChart1> {
+class _BarChart4State extends State<BarChart4> {
   BarChartGroupData generateBarGroup(
     int x,
     double value,
@@ -56,7 +56,7 @@ class _BarChart1State extends State<BarChart1> {
     if (value == 0) {
       text = '0';
     } else {
-      text = '${value.toInt()} к.';
+      text = '${value.toInt()} шт.';
     }
     return SideTitleWidget(
       angle: AppUtils().degreeToRadian(value < 0 ? 30 : -30),
@@ -145,7 +145,7 @@ class _BarChart1State extends State<BarChart1> {
                       strokeWidth: 1,
                     ),
                   ),
-                  barGroups: BarChart1.dataList.asMap().entries.map((e) {
+                  barGroups: BarChart4.dataList.asMap().entries.map((e) {
                     final index = e.key;
                     final data = e.value;
                     return generateBarGroup(
@@ -155,7 +155,8 @@ class _BarChart1State extends State<BarChart1> {
                       //data.shadowValue,
                     );
                   }).toList(),
-                  maxY: 600,
+                  maxY: 14,
+                  minY: 6,
                   barTouchData: BarTouchData(
                     enabled: true,
                     handleBuiltInTouches: false,

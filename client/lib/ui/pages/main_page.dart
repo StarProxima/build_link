@@ -1,6 +1,7 @@
 import 'package:build_link/data/model/house_model.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/ui/pages/calendar_page.dart';
+import 'package:build_link/ui/pages/charts_page.dart';
 import 'package:build_link/ui/pages/clients_page.dart';
 import 'package:build_link/ui/pages/house_page.dart';
 import 'package:build_link/ui/pages/house_search_page.dart';
@@ -25,19 +26,18 @@ class _MainPageState extends State<MainPage> {
           const CalendarPage(),
           HousePage(
             house: House(
-              address: 'Erngworu fweofhw',
-              ceilingHeight: 2.7,
-              cost: 3500000,
-              description: "",
-              housingComplex: "Вишняки",
-              maxDate: "2026-08-08",
-              minDate: "2024-08-08",
-              repair: true,
-              roomCount: 3,
-              squareMeters: 48,
-              state: 'FEWf',
-              planUrl: ""
-            ),
+                address: 'Erngworu fweofhw',
+                ceilingHeight: 2.7,
+                cost: 3500000,
+                description: "",
+                housingComplex: "Вишняки",
+                maxDate: "2026-08-08",
+                minDate: "2024-08-08",
+                repair: true,
+                roomCount: 3,
+                squareMeters: 48,
+                state: 'FEWf',
+                planUrl: ""),
             index: index,
           ),
           HouseSearchPage(),

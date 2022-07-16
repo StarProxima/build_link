@@ -1,312 +1,282 @@
+import 'package:build_link/data/styles/colors.dart';
+import 'package:build_link/data/styles/fonts.dart';
+import 'package:build_link/data/util/app_utils.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class BarChart3 extends StatefulWidget {
-  const BarChart3({Key? key}) : super(key: key);
+  const BarChart3({
+    Key? key,
+  }) : super(key: key);
+
+  static const shadowColor = Color(0xFFCCCCCC);
+  static const dataList = [
+    _BarData(1.13),
+    _BarData(1.06),
+    _BarData(1.03),
+    _BarData(0.94),
+    _BarData(0.91),
+    _BarData(0.89),
+    _BarData(0.84),
+    _BarData(0.84),
+    _BarData(0.82),
+    _BarData(0.78),
+  ];
 
   @override
-  State<StatefulWidget> createState() => BarChart3State();
+  State<BarChart3> createState() => _BarChart3State();
 }
 
-class BarChart3State extends State<BarChart3> {
-  final Color dark = const Color(0xff3b8c75);
-  final Color normal = const Color(0xff64caad);
-  final Color light = const Color(0xff73e8c9);
-
-  Widget bottomTitles(double value, TitleMeta meta) {
-    const style = TextStyle(color: Color(0xff939393), fontSize: 10);
-    String text;
-    switch (value.toInt()) {
-      case 0:
-        text = 'Apr';
-        break;
-      case 1:
-        text = 'May';
-        break;
-      case 2:
-        text = 'Jun';
-        break;
-      case 3:
-        text = 'Jul';
-        break;
-      case 4:
-        text = 'Aug';
-        break;
-      default:
-        text = '';
-        break;
-    }
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(text, style: style),
+class _BarChart3State extends State<BarChart3> {
+  BarChartGroupData generateBarGroup(
+    int x,
+    double value,
+  ) {
+    return BarChartGroupData(
+      x: x,
+      barRods: [
+        BarChartRodData(
+          toY: value,
+          color: touchedGroupIndex == x
+              ? AppColors.text
+              : AppColors.text.withOpacity(0.8),
+          borderRadius: BorderRadius.zero,
+          width: 12,
+        ),
+      ],
+      showingTooltipIndicators: touchedGroupIndex == x ? [0] : [],
     );
   }
 
   Widget leftTitles(double value, TitleMeta meta) {
-    if (value == meta.max) {
-      return Container();
+    TextStyle style = TextStyle(
+        color: AppColors.text, fontSize: 10, fontWeight: FontWeight.bold);
+    String text;
+    if (value == 0) {
+      text = '0';
+    } else {
+      text = '${(value * 100).toInt() / 100} %';
     }
-    const style = TextStyle(
-      color: Color(
-        0xff939393,
-      ),
-      fontSize: 10,
-    );
     return SideTitleWidget(
+      angle: AppUtils().degreeToRadian(value < 0 ? 30 : -30),
       axisSide: meta.axisSide,
+      space: 4.0,
       child: Text(
-        meta.formattedValue,
+        text,
         style: style,
+        textAlign: TextAlign.center,
       ),
     );
   }
 
+  int touchedGroupIndex = -1;
+
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.66,
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16.0),
-          child: BarChart(
-            BarChartData(
-              alignment: BarChartAlignment.center,
-              barTouchData: BarTouchData(
-                enabled: false,
-              ),
-              titlesData: FlTitlesData(
-                show: true,
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 28,
-                    getTitlesWidget: bottomTitles,
+    return Card(
+      color: Colors.white,
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AspectRatio(
+              aspectRatio: 1.4,
+              child: BarChart(
+                BarChartData(
+                  alignment: BarChartAlignment.spaceBetween,
+                  borderData: FlBorderData(
+                    show: true,
+                    border: const Border.symmetric(
+                      horizontal: BorderSide(
+                        color: Color(0xFFececec),
+                      ),
+                    ),
+                  ),
+                  titlesData: FlTitlesData(
+                    show: true,
+                    leftTitles: AxisTitles(
+                      drawBehindEverything: true,
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 40,
+                        getTitlesWidget: leftTitles,
+                      ),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 47,
+                        getTitlesWidget: (value, meta) {
+                          final index = value.toInt();
+                          return SideTitleWidget(
+                            axisSide: meta.axisSide,
+                            child: _IconWidget(
+                              [
+                                'Павел',
+                                'Игорь',
+                                'Владислав',
+                                'Михаил',
+                                'Кирилл',
+                                'Гиренка',
+                                'Хахок',
+                                'Виктор',
+                                'Сергей',
+                                'Александр',
+                              ][index],
+                              isSelected: touchedGroupIndex == index,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    rightTitles: AxisTitles(),
+                    topTitles: AxisTitles(),
+                  ),
+                  gridData: FlGridData(
+                    show: true,
+                    drawVerticalLine: false,
+                    getDrawingHorizontalLine: (value) => FlLine(
+                      color: const Color(0xFFececec),
+                      dashArray: null,
+                      strokeWidth: 1,
+                    ),
+                  ),
+                  barGroups: BarChart3.dataList.asMap().entries.map((e) {
+                    final index = e.key;
+                    final data = e.value;
+                    return generateBarGroup(
+                      index,
+
+                      data.value,
+                      //data.shadowValue,
+                    );
+                  }).toList(),
+                  maxY: 1.2,
+                  minY: 0.7,
+                  barTouchData: BarTouchData(
+                    enabled: true,
+                    handleBuiltInTouches: false,
+                    touchTooltipData: BarTouchTooltipData(
+                      tooltipBgColor: Colors.transparent,
+                      tooltipMargin: 0,
+                      getTooltipItem: (
+                        BarChartGroupData group,
+                        int groupIndex,
+                        BarChartRodData rod,
+                        int rodIndex,
+                      ) {
+                        return BarTooltipItem(
+                          rod.toY.toString(),
+                          TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: rod.color!,
+                            fontSize: 18,
+                            shadows: const [
+                              Shadow(
+                                color: Colors.black26,
+                                blurRadius: 12,
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    touchCallback: (event, response) {
+                      if (event.isInterestedForInteractions &&
+                          response != null &&
+                          response.spot != null) {
+                        setState(() {
+                          touchedGroupIndex =
+                              response.spot!.touchedBarGroupIndex;
+                        });
+                      } else {
+                        setState(() {
+                          touchedGroupIndex = -1;
+                        });
+                      }
+                    },
                   ),
                 ),
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 40,
-                    getTitlesWidget: leftTitles,
-                  ),
-                ),
-                topTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
-                rightTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: false),
-                ),
               ),
-              gridData: FlGridData(
-                show: true,
-                checkToShowHorizontalLine: (value) => value % 10 == 0,
-                getDrawingHorizontalLine: (value) => FlLine(
-                  color: const Color(0xffe7e8ec),
-                  strokeWidth: 1,
-                ),
-                drawVerticalLine: false,
-              ),
-              borderData: FlBorderData(
-                show: false,
-              ),
-              groupsSpace: 4,
-              barGroups: getData(),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
+}
 
-  List<BarChartGroupData> getData() {
-    return [
-      BarChartGroupData(
-        x: 0,
-        barsSpace: 4,
-        barRods: [
-          BarChartRodData(
-              toY: 17000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 2000000000, dark),
-                BarChartRodStackItem(2000000000, 12000000000, normal),
-                BarChartRodStackItem(12000000000, 17000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 24000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 13000000000, dark),
-                BarChartRodStackItem(13000000000, 14000000000, normal),
-                BarChartRodStackItem(14000000000, 24000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 23000000000.5,
-              rodStackItems: [
-                BarChartRodStackItem(0, 6000000000.5, dark),
-                BarChartRodStackItem(6000000000.5, 18000000000, normal),
-                BarChartRodStackItem(18000000000, 23000000000.5, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 29000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 9000000000, dark),
-                BarChartRodStackItem(9000000000, 15000000000, normal),
-                BarChartRodStackItem(15000000000, 29000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 32000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 2000000000.5, dark),
-                BarChartRodStackItem(2000000000.5, 17000000000.5, normal),
-                BarChartRodStackItem(17000000000.5, 32000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-        ],
+class _BarData {
+  final double value;
+
+  const _BarData(
+    this.value,
+  );
+}
+
+class _IconWidget extends ImplicitlyAnimatedWidget {
+  final bool isSelected;
+  final String name;
+  const _IconWidget(
+    this.name, {
+    required this.isSelected,
+  }) : super(duration: const Duration(milliseconds: 200));
+
+  @override
+  ImplicitlyAnimatedWidgetState<ImplicitlyAnimatedWidget> createState() =>
+      _IconWidgetState();
+}
+
+class _IconWidgetState extends AnimatedWidgetBaseState<_IconWidget> {
+  Tween<double>? _rotationTween;
+
+  @override
+  Widget build(BuildContext context) {
+    final rotation = math.pi * 2 * _rotationTween!.evaluate(animation);
+    final scale = 1 + _rotationTween!.evaluate(animation) * 0.2;
+    return Column(
+      children: [
+        Transform(
+          transform: Matrix4.rotationZ(rotation).scaled(scale, scale),
+          origin: const Offset(14, 14),
+          child: Column(
+            children: [
+              Icon(
+                widget.isSelected ? Icons.face : Icons.face,
+                color: widget.isSelected
+                    ? AppColors.text
+                    : AppColors.text.withOpacity(0.8),
+                size: 26,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 2,
+        ),
+        widget.isSelected
+            ? Text(
+                widget.name,
+                style: AppTextStyles.titleSmall.copyWith(fontSize: 10),
+              )
+            : const SizedBox(),
+      ],
+    );
+  }
+
+  @override
+  void forEachTween(TweenVisitor<dynamic> visitor) {
+    _rotationTween = visitor(
+      _rotationTween,
+      widget.isSelected ? 1.0 : 0.0,
+      (dynamic value) => Tween<double>(
+        begin: value,
+        end: widget.isSelected ? 1.0 : 0.0,
       ),
-      BarChartGroupData(
-        x: 1,
-        barsSpace: 4,
-        barRods: [
-          BarChartRodData(
-              toY: 31000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 11000000000, dark),
-                BarChartRodStackItem(11000000000, 18000000000, normal),
-                BarChartRodStackItem(18000000000, 31000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 35000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 14000000000, dark),
-                BarChartRodStackItem(14000000000, 27000000000, normal),
-                BarChartRodStackItem(27000000000, 35000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 31000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 8000000000, dark),
-                BarChartRodStackItem(8000000000, 24000000000, normal),
-                BarChartRodStackItem(24000000000, 31000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 15000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 6000000000.5, dark),
-                BarChartRodStackItem(6000000000.5, 12000000000.5, normal),
-                BarChartRodStackItem(12000000000.5, 15000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 17000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 9000000000, dark),
-                BarChartRodStackItem(9000000000, 15000000000, normal),
-                BarChartRodStackItem(15000000000, 17000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-        ],
-      ),
-      BarChartGroupData(
-        x: 2,
-        barsSpace: 4,
-        barRods: [
-          BarChartRodData(
-              toY: 34000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 6000000000, dark),
-                BarChartRodStackItem(6000000000, 23000000000, normal),
-                BarChartRodStackItem(23000000000, 34000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 32000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 7000000000, dark),
-                BarChartRodStackItem(7000000000, 24000000000, normal),
-                BarChartRodStackItem(24000000000, 32000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 14000000000.5,
-              rodStackItems: [
-                BarChartRodStackItem(0, 1000000000.5, dark),
-                BarChartRodStackItem(1000000000.5, 12000000000, normal),
-                BarChartRodStackItem(12000000000, 14000000000.5, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 20000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 4000000000, dark),
-                BarChartRodStackItem(4000000000, 15000000000, normal),
-                BarChartRodStackItem(15000000000, 20000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 24000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 4000000000, dark),
-                BarChartRodStackItem(4000000000, 15000000000, normal),
-                BarChartRodStackItem(15000000000, 24000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-        ],
-      ),
-      BarChartGroupData(
-        x: 3,
-        barsSpace: 4,
-        barRods: [
-          BarChartRodData(
-              toY: 14000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 1000000000.5, dark),
-                BarChartRodStackItem(1000000000.5, 12000000000, normal),
-                BarChartRodStackItem(12000000000, 14000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 27000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 7000000000, dark),
-                BarChartRodStackItem(7000000000, 25000000000, normal),
-                BarChartRodStackItem(25000000000, 27000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 29000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 6000000000, dark),
-                BarChartRodStackItem(6000000000, 23000000000, normal),
-                BarChartRodStackItem(23000000000, 29000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 16000000000.5,
-              rodStackItems: [
-                BarChartRodStackItem(0, 9000000000, dark),
-                BarChartRodStackItem(9000000000, 15000000000, normal),
-                BarChartRodStackItem(15000000000, 16000000000.5, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-          BarChartRodData(
-              toY: 15000000000,
-              rodStackItems: [
-                BarChartRodStackItem(0, 7000000000, dark),
-                BarChartRodStackItem(7000000000, 12000000000.5, normal),
-                BarChartRodStackItem(12000000000.5, 15000000000, light),
-              ],
-              borderRadius: const BorderRadius.all(Radius.zero),),
-        ],
-      ),
-    ];
+    ) as Tween<double>;
   }
 }
