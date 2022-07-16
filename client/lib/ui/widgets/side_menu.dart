@@ -67,6 +67,7 @@ class _SideMenuState extends State<SideMenu> {
             },
             isSelected: selectedPageIndex == 0,
           ),
+          const Space(space: 6),
           SideMenuButton(
             appIcon: AppIcons.calendar,
             label: 'Календарь',
@@ -76,6 +77,7 @@ class _SideMenuState extends State<SideMenu> {
             },
             isSelected: selectedPageIndex == 1,
           ),
+          const Space(space: 6),
           SideMenuButton(
             appIcon: AppIcons.search,
             label: 'Поиск',
@@ -171,7 +173,7 @@ class SideMenuButton extends StatelessWidget {
             ),
             alignment: Alignment.centerLeft,
             shape: const RoundedRectangleBorder(),
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(12),
             minimumSize: const Size(double.infinity, 50),
           ),
           icon: AppIcon(

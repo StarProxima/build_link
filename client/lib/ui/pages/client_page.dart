@@ -30,12 +30,14 @@ class _ClientPageState extends State<ClientPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 IconButton(
+                  iconSize: 32,
                   padding: EdgeInsets.zero,
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const AppIcon(
-                    AppIcons.next,
+                  icon: AppIcon(
+                    AppIcons.back,
+                    color: AppColors.text,
                     size: 32,
                   ),
                 ),
@@ -70,7 +72,12 @@ class _ClientPageState extends State<ClientPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          icon,
+          Container(
+            padding: EdgeInsets.all(4),
+            width: 32,
+            height: 32,
+            child: icon,
+          ),
           const Space(
             space: 12,
             orientation: Axis.horizontal,

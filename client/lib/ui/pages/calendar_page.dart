@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:build_link/data/model/event_model.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
+import 'package:build_link/data/styles/styles.dart';
 import 'package:build_link/ui/widgets/event.dart';
 import 'package:build_link/ui/widgets/heatmap_calendar/heatmap_calendar.dart';
 import 'package:build_link/ui/widgets/space.dart';
@@ -106,6 +107,30 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
               color: AppColors.text,
             ),
           ),
+          const Spacer(),
+          TextButton(
+              style: AppButtonStyle.cardButton,
+              onPressed: () {},
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                decoration: BoxDecoration(
+                  color: AppColors.backgroundDark,
+                  border: Border.all(color: AppColors.divider, width: 1),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+                height: 48,
+                child: Text(
+                  "Добавить событие",
+                  style: AppFontStyles.label.copyWith(
+                    color: AppColors.accent,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ))
         ],
       ),
     );

@@ -35,5 +35,6 @@ enum AppIcons {
   next,
   phone,
   state,
+  back,
   info,
 }
