@@ -53,6 +53,15 @@ class _SideMenuState extends State<SideMenu> {
           ),
           const Space(space: 6),
           SideMenuButton(
+            appIcon: AppIcons.search,
+            label: 'Поиск',
+            onTap: () {
+              selectedPageIndex = 0;
+              widget.onChangePage(0);
+            },
+            isSelected: selectedPageIndex == 0,
+          ),
+          SideMenuButton(
             appIcon: AppIcons.mydeal,
             label: 'Мои клиенты',
             onTap: () {
@@ -72,15 +81,6 @@ class _SideMenuState extends State<SideMenu> {
             isSelected: selectedPageIndex == 2,
           ),
           const Space(space: 6),
-          SideMenuButton(
-            appIcon: AppIcons.search,
-            label: 'Поиск',
-            onTap: () {
-              selectedPageIndex = 3;
-              widget.onChangePage(3);
-            },
-            isSelected: selectedPageIndex == 3,
-          ),
           const Space(space: 6),
           SideMenuButton(
             appIcon: AppIcons.forum,
