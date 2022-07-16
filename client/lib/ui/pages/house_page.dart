@@ -1,3 +1,4 @@
+import 'package:build_link/data/styles/app_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/model/house_model.dart';
@@ -23,15 +24,15 @@ class _HousePageState extends State<HousePage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-          padding: const EdgeInsets.all(24),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Row(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: const Icon(Icons.arrow_left),
+                  icon: const AppIcon(AppIcons.back),
                 ),
                 Text(
                   widget.house.name,
@@ -44,200 +45,139 @@ class _HousePageState extends State<HousePage> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
-            SizedBox(
-                height: 48,
-                child: Text(
-                  "Информация:",
-                  style: AppFontStyles.title.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                      color: AppColors.text),
-                )),
-            SizedBox(
+            Text(
+              "Информация:",
+              style: AppFontStyles.title.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+                color: AppColors.text,
+              ),
+            ),
+            const SizedBox(
               height: 8,
             ),
-            Column(
+            GridView(
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 400,
+                mainAxisExtent: 50,
+              ),
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          SizedBox(
-                              width: 32,
-                              height: 32,
-                              child: Icon(Icons.arrow_left)),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          widget.house.state == "f"
-                              ? Text("Свободна",
-                                  style: textStyle.copyWith(
-                                      color: Color(0xFF1C9819)))
-                              : Text("Занята",
-                                  style: textStyle.copyWith(
-                                      color: Color.fromARGB(255, 205, 20, 17)))
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          SizedBox(
-                              width: 32,
-                              height: 32,
-                              child: Icon(Icons.arrow_left)),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                              widget.house.roomCount.toString() +
-                                  (widget.house.roomCount < 5
-                                      ? (widget.house.roomCount == 1
-                                          ? " комната"
-                                          : " комнаты")
-                                      : " комнат"),
-                              style: textStyle.copyWith(color: AppColors.text))
-                        ],
-                      ),
-                    ),
-                  ],
+                HousePageField(
+                  icon: const AppIcon(AppIcons.state),
+                  text: widget.house.state == "f" ? 'Свободна' : 'Занята',
                 ),
-                SizedBox(
-                  height: 10,
+                HousePageField(
+                  icon: const AppIcon(AppIcons.info),
+                  text: widget.house.roomCount.toString() +
+                      (widget.house.roomCount < 5
+                          ? (widget.house.roomCount == 1
+                              ? " комната"
+                              : " комнаты")
+                          : " комнат"),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          SizedBox(
-                              width: 32,
-                              height: 32,
-                              child: Icon(Icons.arrow_left)),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                              "Площадь: " +
-                                  widget.house.squareMeters.toString() +
-                                  " м^2",
-                              style: textStyle.copyWith(color: AppColors.text))
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          SizedBox(
-                              width: 32,
-                              height: 32,
-                              child: Icon(Icons.arrow_left)),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                              "Высота потолков: " +
-                                  widget.house.ceilingHeight.toString() +
-                                  " м",
-                              style: textStyle.copyWith(color: AppColors.text))
-                        ],
-                      ),
-                    ),
-                  ],
+                HousePageField(
+                  icon: const AppIcon(AppIcons.state),
+                  text: "Площадь: ${widget.house.squareMeters} м^2",
                 ),
-                SizedBox(
-                  height: 10,
+                HousePageField(
+                  icon: const AppIcon(AppIcons.state),
+                  text: widget.house.state == "f" ? 'Свободна' : 'Занята',
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          SizedBox(
-                              width: 32,
-                              height: 32,
-                              child: Icon(Icons.arrow_left)),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text("Цена: " + widget.house.cost.toString() + " руб",
-                              style: textStyle.copyWith(color: AppColors.text))
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          SizedBox(
-                              width: 32,
-                              height: 32,
-                              child: Icon(Icons.arrow_left)),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                              widget.house.repair
-                                  ? "Сделан ремонт"
-                                  : "Ремонт не сделан",
-                              style: textStyle.copyWith(color: AppColors.text))
-                        ],
-                      ),
-                    ),
-                  ],
+                HousePageField(
+                  icon: const AppIcon(AppIcons.state),
+                  text: 'Высота потолков: ${widget.house.ceilingHeight} м',
+                ),
+                HousePageField(
+                  icon: const AppIcon(AppIcons.state),
+                  text: 'Цена: ${widget.house.cost} руб',
+                ),
+                HousePageField(
+                  icon: const AppIcon(AppIcons.state),
+                  text: widget.house.repair
+                      ? "Сделан ремонт"
+                      : "Ремонт не сделан",
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
-            SizedBox(
-                height: 48,
-                child: Text(
-                  "Фотографии квартиры:",
-                  style: AppFontStyles.title.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                      color: AppColors.text),
-                )),
-            SizedBox(
+            Text(
+              "Фотографии квартиры:",
+              style: AppFontStyles.title.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+                color: AppColors.text,
+              ),
+            ),
+            const SizedBox(
               height: 8,
             ),
             SizedBox(
               height: 164,
               child: Row(
-                children: [],
+                children: const [],
               ),
             ),
-            SizedBox(
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              "Действия:",
+              style: AppFontStyles.title.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+                color: AppColors.text,
+              ),
+            ),
+            const SizedBox(
               height: 8,
             ),
             SizedBox(
-                height: 48,
-                child: Text(
-                  "Действия:",
-                  style: AppFontStyles.title.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                      color: AppColors.text),
-                )),
-            SizedBox(
-              height: 8,
-            ),
-            SizedBox(
-                height: 106,
-                child: Row(
-                  children: [
-                    Container(
-                      width: 164,
-                      decoration: BoxDecoration(),
-                    )
-                  ],
-                ))
-          ])),
+              height: 106,
+              child: Row(
+                children: [
+                  Container(
+                    width: 164,
+                    decoration: const BoxDecoration(),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HousePageField extends StatelessWidget {
+  const HousePageField({
+    Key? key,
+    required this.icon,
+    required this.text,
+  }) : super(key: key);
+
+  final Widget icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        icon,
+        const SizedBox(
+          width: 8,
+        ),
+        Text(
+          text,
+          style: AppFontStyles.title.copyWith(color: AppColors.text),
+        )
+      ],
     );
   }
 }

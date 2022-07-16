@@ -19,8 +19,8 @@ class EventCard extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           boxShadow: [
             BoxShadow(
-                color: AppColors.shadow, blurRadius: 16, offset: Offset.zero)
-          ]),
+                color: AppColors.shadow, blurRadius: 16, offset: Offset.zero,)
+          ],),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:build_link/data/model/client_model.dart';
 import 'package:build_link/data/repositories/house_repository.dart';
@@ -82,7 +81,7 @@ class _ClientsPageState extends State<ClientsPage> {
                                 return ClientPage(client: clients[index]);
                               },
                               transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
+                                  secondaryAnimation, child,) {
                                 const begin = Offset(0.0, 1.0);
                                 const end = Offset.zero;
                                 final tween = Tween(begin: begin, end: end)
@@ -95,7 +94,7 @@ class _ClientsPageState extends State<ClientsPage> {
 
                                 //return child;
                               },
-                            ));
+                            ),);
                       },
                     );
                   },

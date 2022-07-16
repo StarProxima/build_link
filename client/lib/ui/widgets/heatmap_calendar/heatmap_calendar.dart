@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:build_link/data/util/widget_util.dart';
 import 'package:build_link/ui/widgets/heatmap_calendar/heatmap_calendar_page.dart';

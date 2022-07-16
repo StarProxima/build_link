@@ -1,7 +1,6 @@
 import 'package:build_link/data/styles/app_styles.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/model/client_model.dart';
@@ -56,9 +55,9 @@ class _ClientPageState extends State<ClientPage> {
             child: Column(
               children: [
                 cardLabel(const AppIcon(AppIcons.phone, size: 24),
-                    widget.client.phoneNumber),
+                    widget.client.phoneNumber,),
                 cardLabel(
-                    const AppIcon(AppIcons.info, size: 24), widget.client.note),
+                    const AppIcon(AppIcons.info, size: 24), widget.client.note,),
                 clientHomes
               ],
             ),
@@ -75,7 +74,7 @@ class _ClientPageState extends State<ClientPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             width: 32,
             height: 32,
             child: icon,

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:build_link/data/model/event_model.dart';
@@ -9,7 +8,6 @@ import 'package:build_link/ui/widgets/event.dart';
 import 'package:build_link/ui/widgets/heatmap_calendar/heatmap_calendar.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../../data/model/heatmap_color_mode.dart';
 
@@ -30,45 +28,45 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
 
   final eventList = [
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
     Event("test", DateTime.now(),
-        DateTime.now().add(const Duration(minutes: 90))),
+        DateTime.now().add(const Duration(minutes: 90)),),
   ];
 
   @override
@@ -110,7 +108,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
             ),
           ),
         ),
-      ]),
+      ],),
     );
   }
 
@@ -150,7 +148,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-              ))
+              ),)
         ],
       ),
     );
@@ -188,7 +186,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
         color: AppColors.background,
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 48,
               child: Row(
                 children: [
@@ -197,14 +195,14 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
                     style: AppFontStyles.title.copyWith(
                         color: AppColors.text,
                         fontSize: 24,
-                        fontWeight: FontWeight.w700),
+                        fontWeight: FontWeight.w700,),
                   ),
                   Text(
                     "Сегодня ",
                     style: AppFontStyles.title.copyWith(
                         color: AppColors.accent,
                         fontSize: 24,
-                        fontWeight: FontWeight.w700),
+                        fontWeight: FontWeight.w700,),
                   )
                 ],
               ),
