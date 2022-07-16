@@ -5,9 +5,11 @@ from flask import Flask
 from flask import request
 import json
 import natasha
+from fuzzywuzzy import fuzz
 
-import pymorphy2 as pm
+
 app = Flask(__name__)
+nameValues = [["квадратные метры", "площадь", "квадратов", "кв м"],["комнаты", "комнатная", "квартира"],["цена","стоимость","рублей","миллионов","млн","тысяч"],["высота потолков","потолки"],]
 
 def getRequest(sql_request):
     try:
@@ -33,12 +35,19 @@ def getRequest(sql_request):
     return records
 
 def foundSimilar(text):
-    print(1)
+    for i in range(4):
+        for keyWord in nameValues[i]:
+            if (fuzz.WRatio(text, keyWord) > 70):
+                return i
+    return -1
 
 def extractValues(note):
+    note = note.replace('-', ' ')
     realValues = [-1,-1,-1,-1]
 
     segmenter = natasha.Segmenter()
+    morph_vocab = MorphVocab()
+
     emb = natasha.NewsEmbedding()
     morph_tagger = natasha.NewsMorphTagger(emb)
     syntax_parser = natasha.NewsSyntaxParser(emb)
@@ -53,12 +62,12 @@ def extractValues(note):
         if (sent.morph.tokens[i].pos == "NUM"):
             parent_id = int(sent.syntax.tokens[i].head_id[2:])-1
             similar = foundSimilar(sent.syntax.tokens[parent_id].text)
-            if similar != "":
-                realValues[similar] = int(sent.syntax.tokens[i].text)
+            if similar != -1:
+                realValues[similar] = float(sent.syntax.tokens[i].text)
 
     print(1)
 
-#extractValues("Двухкомнатная квартира 2 ребёнка в центре города 20 квадратов")
+#extractValues("3 комнатная 3 миллиона 25 квадратов и более потолки не менее 3 м")
 
 @app.route('/getCards')
 def hello0():
@@ -73,10 +82,10 @@ def hello0():
 @app.route('/getHome')
 def hello1():
     id = request.args.get('id')
-    rows = getRequest("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date
+    rows = getRequest("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date, plan
 	FROM public.objects where id = """ + str(id))
     row = rows[0]
-    cards = {'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10])}
+    cards = {'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10]), 'plan':str(row[11])}
     return json.dumps(cards)
 
 @app.route('/searchHouses')
@@ -84,9 +93,9 @@ def hello2():
     where = request.args.get('where')
     print("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date
 	FROM public.objects """ + str(where))
-    rows = getRequest("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date
+    rows = getRequest("""SELECT description, address, square_meters, room_count, ceiling_height, repair, cost, status, housing_complex, max_date, min_date, plan
 	FROM public.objects """ + str(where))
     cards = []
     for row in rows:
-        cards.append({'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10])})
+        cards.append({'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10]), 'plan':str(row[11])})
     return json.dumps(cards)
