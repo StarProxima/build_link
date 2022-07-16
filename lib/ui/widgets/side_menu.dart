@@ -34,62 +34,61 @@ class SideMenu extends StatelessWidget {
           const SizedBox(
             height: 32,
           ),
-          TextButton.icon(
-            style: TextButton.styleFrom(
-              primary: Colors.blueGrey,
-              shape: const RoundedRectangleBorder(),
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.all(16),
-              minimumSize: const Size(double.infinity, 50),
-            ),
-            icon: const AppIcon(
-              AppIcons.mydeal,
-              size: 30,
-              color: Colors.blueGrey,
-            ),
-            label: const Text('Мои заказы'),
-            onPressed: () {
+          SideMenuButton(
+            appIcon: AppIcons.mydeal,
+            label: 'Мои заказы',
+            onTap: () {
               onChangePage(0);
             },
           ),
-          TextButton.icon(
-            style: TextButton.styleFrom(
-              primary: Colors.blueGrey,
-              alignment: Alignment.centerLeft,
-              shape: const RoundedRectangleBorder(),
-              padding: const EdgeInsets.all(16),
-              minimumSize: const Size(double.infinity, 50),
-            ),
-            icon: const AppIcon(
-              AppIcons.calendar,
-              size: 30,
-              color: Colors.blueGrey,
-            ),
-            label: const Text('Календарь'),
-            onPressed: () {
+          SideMenuButton(
+            appIcon: AppIcons.calendar,
+            label: 'Календарь',
+            onTap: () {
               onChangePage(1);
             },
           ),
-          TextButton.icon(
-            style: TextButton.styleFrom(
-              primary: Colors.blueGrey,
-              alignment: Alignment.centerLeft,
-              shape: const RoundedRectangleBorder(),
-              padding: const EdgeInsets.all(16),
-              minimumSize: const Size(double.infinity, 50),
-            ),
-            icon: const AppIcon(
-              AppIcons.search,
-              size: 30,
-              color: Colors.blueGrey,
-            ),
-            label: const Text('Поиск'),
-            onPressed: () {
+          SideMenuButton(
+            appIcon: AppIcons.search,
+            label: 'Поиск',
+            onTap: () {
               onChangePage(2);
             },
           ),
         ],
       ),
+    );
+  }
+}
+
+class SideMenuButton extends StatelessWidget {
+  const SideMenuButton(
+      {Key? key,
+      required this.onTap,
+      required this.label,
+      required this.appIcon})
+      : super(key: key);
+
+  final VoidCallback onTap;
+  final String label;
+  final AppIcons appIcon;
+  @override
+  Widget build(BuildContext context) {
+    return TextButton.icon(
+      style: TextButton.styleFrom(
+        primary: Colors.blueGrey,
+        alignment: Alignment.centerLeft,
+        shape: const RoundedRectangleBorder(),
+        padding: const EdgeInsets.all(16),
+        minimumSize: const Size(double.infinity, 50),
+      ),
+      icon: AppIcon(
+        appIcon,
+        size: 30,
+        color: Colors.blueGrey,
+      ),
+      label: Text(label),
+      onPressed: onTap,
     );
   }
 }
