@@ -1,4 +1,5 @@
 import 'package:build_link/ui/pages/clients_page.dart';
+import 'package:build_link/ui/pages/main_page.dart';
 import 'package:build_link/ui/widgets/client_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'data/model/client_model.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
           hoverColor: AppColors.backgroundDark,
         ),
       ),
-      home: const ClientsPage(agentID: 1),
+      home: const MainPage(),
     );
   }
 }

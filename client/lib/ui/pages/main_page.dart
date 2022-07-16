@@ -1,8 +1,7 @@
+import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/ui/pages/calendar_page.dart';
-import 'package:build_link/ui/pages/charts_page.dart';
-import 'package:build_link/ui/pages/map_page.dart';
+import 'package:build_link/ui/pages/clients_page.dart';
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
 
 import '../widgets/side_menu.dart';
 
@@ -19,12 +18,8 @@ class _MainPageState extends State<MainPage> {
     return {
       '/': (context) {
         return [
-          const ChartsPage(),
+          const ClientsPage(agentID: 1),
           const CalendarPage(),
-          MapPage(
-            initialPosition: LatLng(0, 0),
-            isFullScreen: true,
-          ),
           Scaffold(
             body: Center(
               child: Text(
@@ -64,6 +59,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: Row(
         children: [
           SideMenu(
@@ -73,6 +69,10 @@ class _MainPageState extends State<MainPage> {
               });
             },
           ),
+          // Container(
+          //   width: 1,
+          //   color: AppColors.divider,
+          // ),
           Expanded(
             child: Stack(
               children: [

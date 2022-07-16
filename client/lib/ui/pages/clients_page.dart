@@ -1,12 +1,11 @@
 import 'dart:math';
 
 import 'package:build_link/data/model/client_model.dart';
+import 'package:build_link/data/repositories/house_repository.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
-import 'package:build_link/repositories/house_repository.dart';
 import 'package:build_link/ui/widgets/client_card_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class ClientsPage extends StatefulWidget {
   final int agentID;
@@ -33,9 +32,10 @@ class _ClientsPageState extends State<ClientsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: LayoutBuilder(builder: ((context, constraints) {
         var size = Size(constraints.maxWidth, constraints.maxHeight);
-        var columnsCount = 3;
+        var columnsCount = 2;
         // if (size.width < minCardWidth * 2 + 48 + 16) {
         //   columnsCount = 1;
         // } else if (size.width < minCardWidth * 3 + 48 + 32) {
