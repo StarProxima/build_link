@@ -24,6 +24,14 @@ extension AppTextStyles on TextStyle {
     fontWeight: FontWeight.w700,
   );
 
+  static TextStyle titleSmall = TextStyle(
+    fontFamily: "Montserrat",
+    height: 1.115,
+    fontSize: 16,
+    color: AppColors.text,
+    fontWeight: FontWeight.w700,
+  );
+
   static TextStyle label = const TextStyle(
     fontFamily: "Overpass",
   );

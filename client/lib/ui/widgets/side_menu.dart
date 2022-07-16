@@ -1,5 +1,6 @@
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
+import 'package:build_link/ui/widgets/account_card.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +47,7 @@ class _SideMenuState extends State<SideMenu> {
           const SizedBox(
             height: 32,
           ),
-          accountCard,
+          const AccountCard(name: 'Хахок Рустам', role: 'Агент'),
           Padding(
             padding: const EdgeInsets.only(left: 32, bottom: 16),
             child: Text(
@@ -60,7 +61,7 @@ class _SideMenuState extends State<SideMenu> {
           ),
           const Space(space: 6),
           SideMenuButton(
-            appIcon: AppIcons.search,
+            appIcon: AppIcons.user_plus,
             label: 'Поиск',
             onTap: () {
               selectedPageIndex = 0;
@@ -97,54 +98,6 @@ class _SideMenuState extends State<SideMenu> {
             },
             isSelected: selectedPageIndex == 3,
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget get accountCard {
-    return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(6),
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              color: AppColors.backgroundDark,
-              border: Border.all(color: AppColors.divider, width: 1),
-            ),
-            child: const AppIcon(
-              AppIcons.state,
-            ),
-          ),
-          const Space(
-            space: 8,
-            orientation: Axis.horizontal,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Хахук Рустам",
-                style: AppTextStyles.label.copyWith(
-                  color: AppColors.text,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-              Text(
-                "Агент",
-                style: AppTextStyles.label.copyWith(
-                  color: AppColors.textDisable,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          )
         ],
       ),
     );

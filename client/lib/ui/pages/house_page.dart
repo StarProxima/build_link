@@ -1,4 +1,5 @@
 import 'package:build_link/data/styles/icons.dart';
+import 'package:build_link/ui/widgets/action_card_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -111,14 +112,79 @@ class _HousePageState extends State<HousePage> {
                   "Действия:",
                   style: AppTextStyles.titleMedium,
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  "Фотографии:",
-                  style: AppTextStyles.titleMedium,
-                ),
               ],
+            ),
+          ),
+          SizedBox(
+            height: 110,
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(
+                dragDevices: {
+                  PointerDeviceKind.mouse,
+                  PointerDeviceKind.touch,
+                },
+              ),
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                scrollDirection: Axis.horizontal,
+                children: [
+                  ActionCardButton(
+                    text: 'Запланировать посещение',
+                    icon: AppIcon(
+                      AppIcons.calendar,
+                      color: AppColors.accent,
+                    ),
+                    onTap: () {},
+                  ),
+                  ActionCardButton(
+                    text: 'Забронировать квартиру',
+                    icon: AppIcon(
+                      AppIcons.comment_check,
+                      color: AppColors.accent,
+                    ),
+                    onTap: () {},
+                  ),
+                  ActionCardButton(
+                    text: 'Добавить пользователю',
+                    icon: AppIcon(
+                      AppIcons.user_plus,
+                      color: AppColors.accent,
+                    ),
+                    onTap: () {},
+                  ),
+                  ActionCardButton(
+                    text: 'Сформировать презентацию',
+                    icon: AppIcon(
+                      AppIcons.image_alt,
+                      color: AppColors.accent,
+                    ),
+                    onTap: () {},
+                  ),
+                  ActionCardButton(
+                    text: 'Ипотечный калькулятор',
+                    icon: AppIcon(
+                      AppIcons.calendar,
+                      color: AppColors.accent,
+                    ),
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 16,
+            ),
+            child: Text(
+              "Фотографии:",
+              style: AppTextStyles.titleMedium,
             ),
           ),
           SizedBox(
@@ -229,7 +295,7 @@ class HouseImageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 320,
-      margin: const EdgeInsets.symmetric(horizontal: 12),
+      margin: const EdgeInsets.symmetric(horizontal: 6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         image: DecorationImage(
