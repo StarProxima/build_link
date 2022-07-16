@@ -4,7 +4,6 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from flask import Flask
 from flask import request
 import json
-import natasha
 from fuzzywuzzy import fuzz
 
 
@@ -75,11 +74,6 @@ def extractValues(note):
     realValues = [[-1,-1],[-1,-1],[-1,-1],[-1,-1]]
     nameValues = [["квадратные метры", "площадь", "квадратов", "кв м"],["комнаты", "комнатная", "квартира"],["цена","стоимость","рублей","миллионов","млн","тысяч"],["высота потолков","потолки"],]
     facts = note.split("\n")
-   
-    segmenter = natasha.Segmenter()
-    emb = natasha.NewsEmbedding()
-    morph_tagger = natasha.NewsMorphTagger(emb)
-    syntax_parser = natasha.NewsSyntaxParser(emb)
 
     for fact in facts:
         count = -1
@@ -159,5 +153,3 @@ def hello4():
     for row in rows:
         cards.append({'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10]), 'plan':str(row[11]), 'id':str(row[12])})
     return json.dumps(cards)
-
-hello4()
