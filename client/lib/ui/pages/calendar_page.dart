@@ -23,111 +23,11 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
   final TextEditingController heatLevelController = TextEditingController();
 
   bool isOpacityMode = true;
+  DateTime choosedDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   Map<DateTime, int> heatMapDatasets = {};
 
-  final eventList = [
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-    Event(
-      "test",
-      DateTime.now(),
-      DateTime.now().add(const Duration(minutes: 90)),
-    ),
-  ];
+  final eventList = [];
 
   @override
   void initState() {
@@ -138,7 +38,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
         DateTime(
           now.year,
           now.month,
-          now.day,
+          1,
         ).add(
           Duration(days: i),
         ): r.nextInt(15)
@@ -225,24 +125,40 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
         monthFontSize: 16,
         fontSize: 16,
         weekFontSize: 16,
-        colorMode: ColorMode.opacity,
+        colorMode: ColorMode.color,
         weekTextColor: AppColors.accent,
         selectedColor: AppColors.accent,
         borderRadius: 8,
+        colorTipCount: 4,
         selectedTextColor: AppColors.background,
         textColor: AppColors.text,
         defaultColor: AppColors.background,
-        colorsets: {
-          0: AppColors.accent,
+        colorsets: const {
+          10: Color(0xFFB1BFF6), 
+          12: Color(0xFF97A8E8),
+          13: Color(0xFF7B90DA),
+          14: Color(0xFF667AC5),
         },
-        onClick: (_) {
-          //action
+        datasets: heatMapDatasets,
+
+        onClick: (value) {
+          choosedDay = DateTime(value.year, value.month, value.day);
+          setState(() {
+             
+          });
         },
       ),
     );
   }
 
   Widget get eventsList {
+    int count = heatMapDatasets[choosedDay]! <= 10 ? 0 : heatMapDatasets[choosedDay]! <= 12 ? 1 :heatMapDatasets[choosedDay]! <= 13 ? 2 : 3;
+    Random ran = Random();
+    Set<int> choosedTime = {};
+    while (choosedTime.length < count) {
+      choosedTime.add(ran.nextInt(24));
+    }
+    
     return Expanded(
       child: Container(
         constraints: const BoxConstraints(minWidth: double.infinity),
@@ -262,7 +178,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
                     ),
                   ),
                   Text(
-                    "Сегодня ",
+                    choosedDay.month == DateTime.now().month && choosedDay.day == DateTime.now().day ? "Сегодня " : choosedDay.month.toString() +":"+(choosedDay.day < 10 ? "0" : "") + choosedDay.day.toString(),
                     style: AppTextStyles.title.copyWith(
                       color: AppColors.accent,
                       fontSize: 24,
@@ -274,9 +190,26 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
             ),
             Expanded(
               child: ListView.separated(
-                itemCount: eventList.length,
+                itemCount: 24,
                 itemBuilder: (context, index) {
-                  return EventCard(event: eventList[index]);
+                  return ListTile(
+                    leading: choosedTime.contains(index) ? Icon(Icons.event_busy, color: Colors.red,) : Icon(Icons.crop_free, color: Colors.green),
+                     title: Text(
+                      choosedTime.contains(index) ? "Показ квартиры" : "Свободно", 
+                      style: AppTextStyles.title.copyWith(
+                        color: AppColors.text,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,)
+                      ),
+                    subtitle: Text(
+                     index < 9 ? "0$index:00 - 0${index+1}:00" : index == 9 ? "0$index:00 - ${index+1}:00" : "$index:00 - ${index+1}:00", 
+                      style: AppTextStyles.title.copyWith(
+                        color: AppColors.textDisable,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,)
+                      ),
+                    onLongPress: () {},
+                  );
                 },
                 separatorBuilder: (context, index) {
                   return const Space(space: 8);
