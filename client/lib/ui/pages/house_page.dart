@@ -61,8 +61,8 @@ class _HousePageState extends State<HousePage> {
                 GridView(
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 400,
-                    mainAxisExtent: 50,
+                    maxCrossAxisExtent: 300,
+                    mainAxisExtent: 40,
                   ),
                   children: [
                     HousePageField(
@@ -199,7 +199,7 @@ class _HousePageState extends State<HousePage> {
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 18),
                 scrollDirection: Axis.horizontal,
                 children: const [
                   HouseImageCard(
