@@ -32,7 +32,7 @@ class EventCard extends StatelessWidget {
             event.name,
             style: AppTextStyles.label.copyWith(
               fontSize: 16,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w600,
               color: AppColors.text,
             ),
           ),
@@ -41,7 +41,7 @@ class EventCard extends StatelessWidget {
             style: AppTextStyles.label.copyWith(
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              color: AppColors.text,
+              color: AppColors.textDisable,
             ),
           ),
         ],

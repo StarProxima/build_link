@@ -38,7 +38,6 @@ class _MainPageState extends State<MainPage> {
                 squareMeters: 48,
                 state: 'FEWf',
                 planUrl: ""),
-            index: index,
           ),
           HouseSearchPage(),
         ].elementAt(index);

@@ -73,8 +73,8 @@ class _SideMenuState extends State<SideMenu> {
           ),
           const Space(space: 6),
           SideMenuButton(
-            appIcon: AppIcons.forum,
-            label: 'Форум',
+            appIcon: AppIcons.info,
+            label: 'Обучение',
             onTap: () {
               selectedPageIndex = 2;
               widget.onChangePage(2);

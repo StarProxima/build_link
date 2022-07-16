@@ -3,6 +3,7 @@ import 'package:build_link/data/repositories/house_repository.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
 import 'package:build_link/data/styles/styles.dart';
+import 'package:build_link/ui/pages/house_page.dart';
 import 'package:build_link/ui/widgets/filter_field.dart';
 import 'package:build_link/ui/widgets/house_card.dart';
 import 'package:build_link/ui/widgets/house_tag_card.dart';
@@ -179,6 +180,36 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
                                 itemBuilder: (context, index) {
                                   return HouseCard(
                                     house: findedHouses[index],
+                                    onPress: () {
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          pageBuilder: (_, __, ___) {
+                                            return HousePage(
+                                              house: findedHouses[index],
+                                            );
+                                          },
+                                          transitionsBuilder: (
+                                            context,
+                                            animation,
+                                            secondaryAnimation,
+                                            child,
+                                          ) {
+                                            const begin = Offset(0.0, 1.0);
+                                            const end = Offset.zero;
+                                            final tween =
+                                                Tween(begin: begin, end: end).chain(CurveTween(curve: Curves.easeOut));
+                                            final offsetAnimation = animation.drive(tween);
+                                            return SlideTransition(
+                                              position: offsetAnimation,
+                                              child: child,
+                                            );
+
+                                            //return child;
+                                          },
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
                                 separatorBuilder: (context, index) {

@@ -23,12 +23,15 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
   final TextEditingController heatLevelController = TextEditingController();
 
   bool isOpacityMode = true;
-  DateTime choosedDay =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime choosedDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   Map<DateTime, int> heatMapDatasets = {};
 
-  final eventList = [];
+  final eventList = [
+    Event("Встреча с игорем", DateTime.now(), DateTime.now().add(const Duration(minutes: 90))),
+    Event("Просмотр квартиры на Таманской", DateTime.now(), DateTime.now().add(const Duration(minutes: 90))),
+    Event("совещяние в Zoom", DateTime.now(), DateTime.now().add(const Duration(minutes: 90))),
+  ];
 
   @override
   void initState() {
@@ -58,30 +61,16 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
           Expanded(
             child: Container(
               constraints: const BoxConstraints(minHeight: double.infinity),
-              child: MediaQuery.of(context).size.width < 950
-                  ? SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          calendar,
-                          const Space(
-                            space: 16,
-                            orientation: Axis.vertical,
-                          ),
-                          eventsList,
-                        ],
-                      ),
-                    )
-                  : Row(
-                      children: [
-                        calendar,
-                        const Space(
-                          space: 16,
-                          orientation: Axis.horizontal,
-                        ),
-                        eventsList,
-                      ],
-                    ),
+              child: Row(
+                children: [
+                  calendar,
+                  const Space(
+                    space: 16,
+                    orientation: Axis.horizontal,
+                  ),
+                  eventsList,
+                ],
+              ),
             ),
           ),
         ],
@@ -136,25 +125,25 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
     return Container(
       alignment: Alignment.topLeft,
       child: HeatMapCalendar(
-        size: 48,
+        size: 36,
         monthFontSize: 16,
         fontSize: 16,
         weekFontSize: 16,
         colorMode: ColorMode.color,
         weekTextColor: AppColors.accent,
-        selectedColor: AppColors.accent,
+        selectedColor: AppColors.background,
         borderRadius: 8,
         colorTipCount: 4,
-        selectedTextColor: AppColors.background,
+        selectedTextColor: AppColors.accent,
         textColor: AppColors.text,
         defaultColor: AppColors.background,
         colorsets: const {
           10: Color(0xFFB1BFF6),
-          12: Color(0xFF97A8E8),
-          13: Color(0xFF7B90DA),
-          14: Color(0xFF667AC5),
+          // 12: Color(0xFF97A8E8),
+          // 13: Color(0xFF7B90DA),
+          // 14: Color(0xFF667AC5),
         },
-        selectedBorder: Border.all(width: 3, color: Colors.red),
+        selectedBorder: Border.all(width: 2, color: AppColors.accent),
         datasets: heatMapDatasets,
         onClick: (value) {
           choosedDay = DateTime(value.year, value.month, value.day);
@@ -178,77 +167,49 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
       choosedTime.add(ran.nextInt(24));
     }
 
-    return Container(
-      constraints: const BoxConstraints(maxHeight: 2000, maxWidth: 250),
-      color: AppColors.background,
-      child: Column(
-        children: [
-          SizedBox(
-            height: 48,
-            child: Row(
-              children: [
-                Text(
-                  "События на ",
-                  style: AppTextStyles.title.copyWith(
-                    color: AppColors.text,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
+    return Expanded(
+      child: Container(
+        color: AppColors.background,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 48,
+              child: Row(
+                children: [
+                  Text(
+                    "События на ",
+                    style: AppTextStyles.title.copyWith(
+                      color: AppColors.text,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-                Text(
-                  choosedDay.month == DateTime.now().month &&
-                          choosedDay.day == DateTime.now().day
-                      ? "Сегодня "
-                      : "${choosedDay.month}:${choosedDay.day < 10 ? "0" : ""}${choosedDay.day}",
-                  style: AppTextStyles.title.copyWith(
-                    color: AppColors.accent,
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                  ),
-                )
-              ],
+                  Text(
+                    choosedDay.month == DateTime.now().month && choosedDay.day == DateTime.now().day
+                        ? "Сегодня "
+                        : "${choosedDay.month}:${choosedDay.day < 10 ? "0" : ""}${choosedDay.day}",
+                    style: AppTextStyles.title.copyWith(
+                      color: AppColors.accent,
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: ListView.separated(
-              itemCount: 24,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: choosedTime.contains(index)
-                      ? const Icon(
-                          Icons.event_busy,
-                          color: Colors.red,
-                        )
-                      : const Icon(Icons.crop_free, color: Colors.green),
-                  title: Text(
-                      choosedTime.contains(index)
-                          ? "Показ квартиры"
-                          : "Свободно",
-                      style: AppTextStyles.title.copyWith(
-                        color: AppColors.text,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      )),
-                  subtitle: Text(
-                      index < 9
-                          ? "0$index:00 - 0${index + 1}:00"
-                          : index == 9
-                              ? "0$index:00 - ${index + 1}:00"
-                              : "$index:00 - ${index + 1}:00",
-                      style: AppTextStyles.title.copyWith(
-                        color: AppColors.textDisable,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      )),
-                  onLongPress: () {},
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const Space(space: 8);
-              },
-            ),
-          )
-        ],
+            Expanded(
+              child: ListView.separated(
+                itemCount: eventList.length,
+                itemBuilder: (context, index) {
+                  return EventCard(event: eventList[index]);
+                },
+                separatorBuilder: (context, index) {
+                  return const Space(space: 8);
+                },
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

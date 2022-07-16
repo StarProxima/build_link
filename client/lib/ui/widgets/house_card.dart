@@ -8,15 +8,17 @@ import 'package:flutter/material.dart';
 
 class HouseCard extends StatelessWidget {
   final House house;
-
-  const HouseCard({Key? key, required this.house}) : super(key: key);
+  final Function onPress;
+  const HouseCard({Key? key, required this.house, required this.onPress}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: TextButton(
         style: AppButtonStyle.cardButton,
-        onPressed: () {},
+        onPressed: () {
+          onPress();
+        },
         child: Container(
           padding: const EdgeInsets.only(top: 12, bottom: 12),
           height: 132 + 24,
