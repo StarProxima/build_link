@@ -1,4 +1,4 @@
-import 'package:build_link/data/styles/app_styles.dart';
+import 'package:build_link/data/styles/icons.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/model/house_model.dart';
@@ -18,138 +18,153 @@ class HousePage extends StatefulWidget {
 
 class _HousePageState extends State<HousePage> {
   final TextStyle textStyle =
-      AppFontStyles.title.copyWith(fontWeight: FontWeight.w500, fontSize: 20);
+      AppTextStyles.title.copyWith(fontWeight: FontWeight.w500, fontSize: 20);
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const AppIcon(AppIcons.back),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const AppIcon(AppIcons.back),
+                    ),
+                    Text(
+                      widget.house.name,
+                      style: AppTextStyles.titleLarge,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
                 ),
                 Text(
-                  widget.house.name,
-                  style: AppFontStyles.title.copyWith(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 32,
-                    color: AppColors.text,
+                  "Информация:",
+                  style: AppTextStyles.titleMedium,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                GridView(
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 400,
+                    mainAxisExtent: 50,
                   ),
-                  overflow: TextOverflow.ellipsis,
+                  children: [
+                    HousePageField(
+                      icon: const AppIcon(AppIcons.state),
+                      text: widget.house.state == "f" ? 'Свободна' : 'Занята',
+                    ),
+                    HousePageField(
+                      icon: const AppIcon(AppIcons.room_count),
+                      text: widget.house.roomCount.toString() +
+                          (widget.house.roomCount < 5
+                              ? (widget.house.roomCount == 1
+                                  ? " комната"
+                                  : " комнаты")
+                              : " комнат"),
+                    ),
+                    HousePageField(
+                      icon: const AppIcon(AppIcons.diagonal_arrows),
+                      text: "Площадь: ${widget.house.squareMeters} м^2",
+                    ),
+                    // HousePageField(
+                    //   icon: const AppIcon(AppIcons.state),
+                    //   text: widget.house.state == "f" ? 'Свободна' : 'Занята',
+                    // ),
+                    HousePageField(
+                      icon: const AppIcon(AppIcons.vertical_arrows),
+                      text: 'Высота потолков: ${widget.house.ceilingHeight} м',
+                    ),
+                    HousePageField(
+                      icon: const AppIcon(
+                        AppIcons.rub,
+                        size: 18,
+                      ),
+                      text: 'Цена: ${widget.house.cost} руб',
+                    ),
+                    HousePageField(
+                      icon: const AppIcon(AppIcons.check),
+                      text: widget.house.repair
+                          ? "Сделан ремонт"
+                          : "Ремонт не сделан",
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  "Действия:",
+                  style: AppTextStyles.titleMedium,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  "Фотографии:",
+                  style: AppTextStyles.titleMedium,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 180,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: const [
+                HouseImageCard(
+                  image: NetworkImage(
+                    'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                  ),
+                ),
+                HouseImageCard(
+                  image: NetworkImage(
+                    'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                  ),
+                ),
+                HouseImageCard(
+                  image: NetworkImage(
+                    'https://zhiznsovkusom.ru/images/wp-content/uploads/image84-min-4.jpg',
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          SizedBox(
+            height: 164,
+            child: Row(
+              children: const [],
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          SizedBox(
+            height: 106,
+            child: Row(
+              children: [
+                Container(
+                  width: 164,
+                  decoration: const BoxDecoration(),
                 )
               ],
             ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              "Информация:",
-              style: AppFontStyles.title.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
-                color: AppColors.text,
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            GridView(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 400,
-                mainAxisExtent: 50,
-              ),
-              children: [
-                HousePageField(
-                  icon: const AppIcon(AppIcons.state),
-                  text: widget.house.state == "f" ? 'Свободна' : 'Занята',
-                ),
-                HousePageField(
-                  icon: const AppIcon(AppIcons.room_count),
-                  text: widget.house.roomCount.toString() +
-                      (widget.house.roomCount < 5
-                          ? (widget.house.roomCount == 1
-                              ? " комната"
-                              : " комнаты")
-                          : " комнат"),
-                ),
-                HousePageField(
-                  icon: const AppIcon(AppIcons.diagonal_arrows),
-                  text: "Площадь: ${widget.house.squareMeters} м^2",
-                ),
-                // HousePageField(
-                //   icon: const AppIcon(AppIcons.state),
-                //   text: widget.house.state == "f" ? 'Свободна' : 'Занята',
-                // ),
-                HousePageField(
-                  icon: const AppIcon(AppIcons.vertical_arrows),
-                  text: 'Высота потолков: ${widget.house.ceilingHeight} м',
-                ),
-                HousePageField(
-                  icon: const AppIcon(AppIcons.state),
-                  text: 'Цена: ${widget.house.cost} руб',
-                ),
-                HousePageField(
-                  icon: const AppIcon(AppIcons.check),
-                  text: widget.house.repair
-                      ? "Сделан ремонт"
-                      : "Ремонт не сделан",
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              "Фотографии квартиры:",
-              style: AppFontStyles.title.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
-                color: AppColors.text,
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            SizedBox(
-              height: 164,
-              child: Row(
-                children: const [],
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              "Действия:",
-              style: AppFontStyles.title.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
-                color: AppColors.text,
-              ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            SizedBox(
-              height: 106,
-              child: Row(
-                children: [
-                  Container(
-                    width: 164,
-                    decoration: const BoxDecoration(),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -175,9 +190,29 @@ class HousePageField extends StatelessWidget {
         ),
         Text(
           text,
-          style: AppFontStyles.title.copyWith(color: AppColors.text),
+          style: AppTextStyles.title.copyWith(color: AppColors.text),
         )
       ],
+    );
+  }
+}
+
+class HouseImageCard extends StatelessWidget {
+  const HouseImageCard({Key? key, required this.image}) : super(key: key);
+
+  final ImageProvider image;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 320,
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        image: DecorationImage(
+          image: image,
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }

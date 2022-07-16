@@ -7,7 +7,7 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 import 'dart:math' as math;
 
-import '../../data/styles/app_styles.dart';
+import '../../data/styles/icons.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({

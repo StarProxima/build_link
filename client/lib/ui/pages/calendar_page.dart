@@ -181,7 +181,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
         children: [
           Text(
             "Календарь",
-            style: AppFontStyles.title.copyWith(
+            style: AppTextStyles.title.copyWith(
               fontSize: 32,
               fontWeight: FontWeight.w700,
               color: AppColors.text,
@@ -204,7 +204,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
               height: 48,
               child: Text(
                 "Добавить событие",
-                style: AppFontStyles.label.copyWith(
+                style: AppTextStyles.label.copyWith(
                   color: AppColors.accent,
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
@@ -255,7 +255,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
                 children: [
                   Text(
                     "События на ",
-                    style: AppFontStyles.title.copyWith(
+                    style: AppTextStyles.title.copyWith(
                       color: AppColors.text,
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
@@ -263,7 +263,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
                   ),
                   Text(
                     "Сегодня ",
-                    style: AppFontStyles.title.copyWith(
+                    style: AppTextStyles.title.copyWith(
                       color: AppColors.accent,
                       fontSize: 24,
                       fontWeight: FontWeight.w700,

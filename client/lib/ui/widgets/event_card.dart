@@ -30,7 +30,7 @@ class EventCard extends StatelessWidget {
         children: [
           Text(
             event.name,
-            style: AppFontStyles.label.copyWith(
+            style: AppTextStyles.label.copyWith(
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: AppColors.text,
@@ -38,7 +38,7 @@ class EventCard extends StatelessWidget {
           ),
           Text(
             "${event.getFrom()} - ${event.getTo()}",
-            style: AppFontStyles.label.copyWith(
+            style: AppTextStyles.label.copyWith(
               fontSize: 12,
               fontWeight: FontWeight.w500,
               color: AppColors.text,

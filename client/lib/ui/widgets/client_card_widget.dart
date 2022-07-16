@@ -1,4 +1,4 @@
-import 'package:build_link/data/styles/app_styles.dart';
+import 'package:build_link/data/styles/icons.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +64,7 @@ class ClientCardWidget extends StatelessWidget {
         children: [
           Text(
             "${client.firstName} ${client.lastName}",
-            style: AppFontStyles.title.copyWith(
+            style: AppTextStyles.title.copyWith(
               fontWeight: FontWeight.w700,
               color: AppColors.text,
               fontSize: 20,
@@ -133,7 +133,7 @@ class ClientCardWidget extends StatelessWidget {
               text,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: AppFontStyles.label.copyWith(
+              style: AppTextStyles.label.copyWith(
                 fontSize: 12,
                 fontWeight: FontWeight.w500,
                 color: AppColors.text,
@@ -162,7 +162,7 @@ class ClientCardWidget extends StatelessWidget {
           children: [
             Text(
               "Нет квартир",
-              style: AppFontStyles.label.copyWith(
+              style: AppTextStyles.label.copyWith(
                 fontSize: 12,
                 color: AppColors.textDisable,
                 fontWeight: FontWeight.w500,

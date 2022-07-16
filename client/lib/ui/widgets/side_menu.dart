@@ -3,7 +3,7 @@ import 'package:build_link/data/styles/fonts.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/styles/app_styles.dart';
+import '../../data/styles/icons.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key, required this.onChangePage}) : super(key: key);
@@ -51,7 +51,7 @@ class _SideMenuState extends State<SideMenu> {
             padding: const EdgeInsets.only(left: 32, bottom: 16),
             child: Text(
               "Меню",
-              style: AppFontStyles.title.copyWith(
+              style: AppTextStyles.title.copyWith(
                 color: AppColors.text,
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
@@ -129,7 +129,7 @@ class _SideMenuState extends State<SideMenu> {
             children: [
               Text(
                 "Хахук Рустам",
-                style: AppFontStyles.label.copyWith(
+                style: AppTextStyles.label.copyWith(
                   color: AppColors.text,
                   fontSize: 14,
                   fontWeight: FontWeight.w800,
@@ -137,7 +137,7 @@ class _SideMenuState extends State<SideMenu> {
               ),
               Text(
                 "Агент",
-                style: AppFontStyles.label.copyWith(
+                style: AppTextStyles.label.copyWith(
                   color: AppColors.textDisable,
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
@@ -177,7 +177,7 @@ class SideMenuButton extends StatelessWidget {
         child: TextButton.icon(
           style: TextButton.styleFrom(
             primary: isSelected ? AppColors.accent : AppColors.text,
-            textStyle: AppFontStyles.label.copyWith(
+            textStyle: AppTextStyles.label.copyWith(
               color: isSelected ? AppColors.accent : AppColors.text,
               fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
             ),

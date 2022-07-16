@@ -43,4 +43,5 @@ enum AppIcons {
   check,
   diagonal_arrows,
   forum,
+  rub
 }
