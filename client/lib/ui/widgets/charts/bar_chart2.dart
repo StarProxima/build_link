@@ -1,112 +1,65 @@
+import 'package:build_link/data/styles/colors.dart';
+import 'package:build_link/data/styles/fonts.dart';
 import 'package:build_link/data/util/app_utils.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class BarChart2 extends StatefulWidget {
-  const BarChart2({Key? key}) : super(key: key);
+  const BarChart2({
+    Key? key,
+  }) : super(key: key);
+
+  static const shadowColor = Color(0xFFCCCCCC);
+  static const dataList = [
+    _BarData(12.3),
+    _BarData(9.7),
+    _BarData(9.1),
+    _BarData(8.34),
+    _BarData(8.1),
+    _BarData(7.76),
+    _BarData(5.6),
+    _BarData(5.43),
+    _BarData(5.12),
+    _BarData(4.98),
+  ];
 
   @override
-  State<StatefulWidget> createState() => BarChart2State();
+  State<BarChart2> createState() => _BarChart2State();
 }
 
-class BarChart2State extends State<BarChart2> {
-  static const double barWidth = 22;
-  static const shadowOpacity = 0.2;
-  static const mainItems = <int, List<double>>{
-    0: [2, 3, 2.5, 8],
-    1: [-1.8, -2.7, -3, -6.5],
-    2: [1.5, 2, 3.5, 6],
-    3: [1.5, 1.5, 4, 6.5],
-    4: [-2, -2, -5, -9],
-    5: [-1.2, -1.5, -4.3, -10],
-    6: [1.2, 4.8, 5, 5],
-  };
-  int touchedIndex = -1;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Widget bottomTitles(double value, TitleMeta meta) {
-    const style = TextStyle(color: Colors.white, fontSize: 10);
-    String text;
-    switch (value.toInt()) {
-      case 0:
-        text = 'Mon';
-        break;
-      case 1:
-        text = 'Tue';
-        break;
-      case 2:
-        text = 'Wed';
-        break;
-      case 3:
-        text = 'Thu';
-        break;
-      case 4:
-        text = 'Fri';
-        break;
-      case 5:
-        text = 'Sat';
-        break;
-      case 6:
-        text = 'Sun';
-        break;
-      default:
-        text = '';
-        break;
-    }
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(text, style: style),
-    );
-  }
-
-  Widget topTitles(double value, TitleMeta meta) {
-    const style = TextStyle(color: Colors.white, fontSize: 10);
-    String text;
-    switch (value.toInt()) {
-      case 0:
-        text = 'Mon';
-        break;
-      case 1:
-        text = 'Tue';
-        break;
-      case 2:
-        text = 'Wed';
-        break;
-      case 3:
-        text = 'Thu';
-        break;
-      case 4:
-        text = 'Fri';
-        break;
-      case 5:
-        text = 'Sat';
-        break;
-      case 6:
-        text = 'Sun';
-        break;
-      default:
-        return Container();
-    }
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      child: Text(text, style: style),
+class _BarChart2State extends State<BarChart2> {
+  BarChartGroupData generateBarGroup(
+    int x,
+    double value,
+  ) {
+    return BarChartGroupData(
+      x: x,
+      barRods: [
+        BarChartRodData(
+          toY: value,
+          color: touchedGroupIndex == x
+              ? AppColors.text
+              : AppColors.text.withOpacity(0.8),
+          borderRadius: BorderRadius.zero,
+          width: 12,
+        ),
+      ],
+      showingTooltipIndicators: touchedGroupIndex == x ? [0] : [],
     );
   }
 
   Widget leftTitles(double value, TitleMeta meta) {
-    const style = TextStyle(color: Colors.white, fontSize: 10);
+    TextStyle style = TextStyle(
+        color: AppColors.text, fontSize: 10, fontWeight: FontWeight.bold);
     String text;
     if (value == 0) {
       text = '0';
     } else {
-      text = '${value.toInt()}0k';
+      text = '${value} млн.';
     }
     return SideTitleWidget(
-      angle: AppUtils().degreeToRadian(value < 0 ? -45 : 45),
+      angle: AppUtils().degreeToRadian(value < 0 ? 30 : -30),
       axisSide: meta.axisSide,
       space: 4.0,
       child: Text(
@@ -117,248 +70,212 @@ class BarChart2State extends State<BarChart2> {
     );
   }
 
-  Widget rightTitles(double value, TitleMeta meta) {
-    const style = TextStyle(color: Colors.white, fontSize: 10);
-    String text;
-    if (value == 0) {
-      text = '0';
-    } else {
-      text = '${value.toInt()}0k';
-    }
-    return SideTitleWidget(
-      angle: AppUtils().degreeToRadian(90),
-      axisSide: meta.axisSide,
-      space: 0,
-      child: Text(
-        text,
-        style: style,
-        textAlign: TextAlign.center,
+  int touchedGroupIndex = -1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.white,
+      elevation: 4,
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AspectRatio(
+              aspectRatio: 1.4,
+              child: BarChart(
+                BarChartData(
+                  alignment: BarChartAlignment.spaceBetween,
+                  borderData: FlBorderData(
+                    show: true,
+                    border: const Border.symmetric(
+                      horizontal: BorderSide(
+                        color: Color(0xFFececec),
+                      ),
+                    ),
+                  ),
+                  titlesData: FlTitlesData(
+                    show: true,
+                    leftTitles: AxisTitles(
+                      drawBehindEverything: true,
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 40,
+                        getTitlesWidget: leftTitles,
+                      ),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: true,
+                        reservedSize: 47,
+                        getTitlesWidget: (value, meta) {
+                          final index = value.toInt();
+                          return SideTitleWidget(
+                            axisSide: meta.axisSide,
+                            child: _IconWidget(
+                              [
+                                'Павел',
+                                'Игорь',
+                                'Владислав',
+                                'Михаил',
+                                'Кирилл',
+                                'Гиренка',
+                                'Хахок',
+                                'Виктор',
+                                'Сергей',
+                                'Александр',
+                              ][index],
+                              isSelected: touchedGroupIndex == index,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    rightTitles: AxisTitles(),
+                    topTitles: AxisTitles(),
+                  ),
+                  gridData: FlGridData(
+                    show: true,
+                    drawVerticalLine: false,
+                    getDrawingHorizontalLine: (value) => FlLine(
+                      color: const Color(0xFFececec),
+                      dashArray: null,
+                      strokeWidth: 1,
+                    ),
+                  ),
+                  barGroups: BarChart2.dataList.asMap().entries.map((e) {
+                    final index = e.key;
+                    final data = e.value;
+                    return generateBarGroup(
+                      index,
+
+                      data.value,
+                      //data.shadowValue,
+                    );
+                  }).toList(),
+                  maxY: 14,
+                  barTouchData: BarTouchData(
+                    enabled: true,
+                    handleBuiltInTouches: false,
+                    touchTooltipData: BarTouchTooltipData(
+                      tooltipBgColor: Colors.transparent,
+                      tooltipMargin: 0,
+                      getTooltipItem: (
+                        BarChartGroupData group,
+                        int groupIndex,
+                        BarChartRodData rod,
+                        int rodIndex,
+                      ) {
+                        return BarTooltipItem(
+                          rod.toY.toString(),
+                          TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: rod.color!,
+                            fontSize: 18,
+                            shadows: const [
+                              Shadow(
+                                color: Colors.black26,
+                                blurRadius: 12,
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                    touchCallback: (event, response) {
+                      if (event.isInterestedForInteractions &&
+                          response != null &&
+                          response.spot != null) {
+                        setState(() {
+                          touchedGroupIndex =
+                              response.spot!.touchedBarGroupIndex;
+                        });
+                      } else {
+                        setState(() {
+                          touchedGroupIndex = -1;
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
+}
 
-  BarChartGroupData generateGroup(
-    int x,
-    double value1,
-    double value2,
-    double value3,
-    double value4,
-  ) {
-    bool isTop = value1 > 0;
-    final sum = value1 + value2 + value3 + value4;
-    final isTouched = touchedIndex == x;
-    return BarChartGroupData(
-      x: x,
-      groupVertically: true,
-      showingTooltipIndicators: isTouched ? [0] : [],
-      barRods: [
-        BarChartRodData(
-          toY: sum,
-          width: barWidth,
-          borderRadius: isTop
-              ? const BorderRadius.only(
-                  topLeft: Radius.circular(6),
-                  topRight: Radius.circular(6),
-                )
-              : const BorderRadius.only(
-                  bottomLeft: Radius.circular(6),
-                  bottomRight: Radius.circular(6),
-                ),
-          rodStackItems: [
-            BarChartRodStackItem(
-              0,
-              value1,
-              const Color(0xff2bdb90),
-              BorderSide(
-                color: Colors.white,
-                width: isTouched ? 2 : 0,
+class _BarData {
+  final double value;
+
+  const _BarData(
+    this.value,
+  );
+}
+
+class _IconWidget extends ImplicitlyAnimatedWidget {
+  final bool isSelected;
+  final String name;
+  const _IconWidget(
+    this.name, {
+    required this.isSelected,
+  }) : super(duration: const Duration(milliseconds: 200));
+
+  @override
+  ImplicitlyAnimatedWidgetState<ImplicitlyAnimatedWidget> createState() =>
+      _IconWidgetState();
+}
+
+class _IconWidgetState extends AnimatedWidgetBaseState<_IconWidget> {
+  Tween<double>? _rotationTween;
+
+  @override
+  Widget build(BuildContext context) {
+    final rotation = math.pi * 2 * _rotationTween!.evaluate(animation);
+    final scale = 1 + _rotationTween!.evaluate(animation) * 0.2;
+    return Column(
+      children: [
+        Transform(
+          transform: Matrix4.rotationZ(rotation).scaled(scale, scale),
+          origin: const Offset(14, 14),
+          child: Column(
+            children: [
+              Icon(
+                widget.isSelected ? Icons.face : Icons.face,
+                color: widget.isSelected
+                    ? AppColors.text
+                    : AppColors.text.withOpacity(0.8),
+                size: 26,
               ),
-            ),
-            BarChartRodStackItem(
-              value1,
-              value1 + value2,
-              const Color(0xffffdd80),
-              BorderSide(
-                color: Colors.white,
-                width: isTouched ? 2 : 0,
-              ),
-            ),
-            BarChartRodStackItem(
-              value1 + value2,
-              value1 + value2 + value3,
-              const Color(0xffff4d94),
-              BorderSide(
-                color: Colors.white,
-                width: isTouched ? 2 : 0,
-              ),
-            ),
-            BarChartRodStackItem(
-              value1 + value2 + value3,
-              value1 + value2 + value3 + value4,
-              const Color(0xff19bfff),
-              BorderSide(
-                color: Colors.white,
-                width: isTouched ? 2 : 0,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
-        BarChartRodData(
-          toY: -sum,
-          width: barWidth,
-          color: Colors.transparent,
-          borderRadius: isTop
-              ? const BorderRadius.only(
-                  bottomLeft: Radius.circular(6),
-                  bottomRight: Radius.circular(6),
-                )
-              : const BorderRadius.only(
-                  topLeft: Radius.circular(6),
-                  topRight: Radius.circular(6),
-                ),
-          rodStackItems: [
-            BarChartRodStackItem(
-              0,
-              -value1,
-              const Color(0xff2bdb90)
-                  .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
-              const BorderSide(color: Colors.transparent),
-            ),
-            BarChartRodStackItem(
-              -value1,
-              -(value1 + value2),
-              const Color(0xffffdd80)
-                  .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
-              const BorderSide(color: Colors.transparent),
-            ),
-            BarChartRodStackItem(
-              -(value1 + value2),
-              -(value1 + value2 + value3),
-              const Color(0xffff4d94)
-                  .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
-              const BorderSide(color: Colors.transparent),
-            ),
-            BarChartRodStackItem(
-              -(value1 + value2 + value3),
-              -(value1 + value2 + value3 + value4),
-              const Color(0xff19bfff)
-                  .withOpacity(isTouched ? shadowOpacity * 2 : shadowOpacity),
-              const BorderSide(color: Colors.transparent),
-            ),
-          ],
+        const SizedBox(
+          height: 2,
         ),
+        widget.isSelected
+            ? Text(
+                widget.name,
+                style: AppTextStyles.titleSmall.copyWith(fontSize: 10),
+              )
+            : const SizedBox(),
       ],
     );
   }
 
-  bool isShadowBar(int rodIndex) => rodIndex == 1;
-
   @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 0.8,
-      child: Card(
-        elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-        color: const Color(0xff020227),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16.0),
-          child: BarChart(
-            BarChartData(
-              alignment: BarChartAlignment.center,
-              maxY: 20,
-              minY: -20,
-              groupsSpace: 12,
-              barTouchData: BarTouchData(
-                handleBuiltInTouches: false,
-                touchCallback: (FlTouchEvent event, barTouchResponse) {
-                  if (!event.isInterestedForInteractions ||
-                      barTouchResponse == null ||
-                      barTouchResponse.spot == null) {
-                    setState(() {
-                      touchedIndex = -1;
-                    });
-                    return;
-                  }
-                  final rodIndex = barTouchResponse.spot!.touchedRodDataIndex;
-                  if (isShadowBar(rodIndex)) {
-                    setState(() {
-                      touchedIndex = -1;
-                    });
-                    return;
-                  }
-                  setState(() {
-                    touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
-                  });
-                },
-              ),
-              titlesData: FlTitlesData(
-                show: true,
-                topTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 32,
-                    getTitlesWidget: topTitles,
-                  ),
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 32,
-                    getTitlesWidget: bottomTitles,
-                  ),
-                ),
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    getTitlesWidget: leftTitles,
-                    interval: 5,
-                    reservedSize: 42,
-                  ),
-                ),
-                rightTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    getTitlesWidget: rightTitles,
-                    interval: 5,
-                    reservedSize: 42,
-                  ),
-                ),
-              ),
-              gridData: FlGridData(
-                show: true,
-                checkToShowHorizontalLine: (value) => value % 5 == 0,
-                getDrawingHorizontalLine: (value) {
-                  if (value == 0) {
-                    return FlLine(
-                      color: const Color(0xff363753),
-                      strokeWidth: 3,
-                    );
-                  }
-                  return FlLine(
-                    color: const Color(0xff2a2747),
-                    strokeWidth: 0.8,
-                  );
-                },
-              ),
-              borderData: FlBorderData(
-                show: false,
-              ),
-              barGroups: mainItems.entries
-                  .map(
-                    (e) => generateGroup(
-                      e.key,
-                      e.value[0],
-                      e.value[1],
-                      e.value[2],
-                      e.value[3],
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-        ),
+  void forEachTween(TweenVisitor<dynamic> visitor) {
+    _rotationTween = visitor(
+      _rotationTween,
+      widget.isSelected ? 1.0 : 0.0,
+      (dynamic value) => Tween<double>(
+        begin: value,
+        end: widget.isSelected ? 1.0 : 0.0,
       ),
-    );
+    ) as Tween<double>;
   }
 }

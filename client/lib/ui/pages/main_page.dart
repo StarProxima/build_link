@@ -1,6 +1,7 @@
 import 'package:build_link/data/model/house_model.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/ui/pages/calendar_page.dart';
+import 'package:build_link/ui/pages/charts_page.dart';
 import 'package:build_link/ui/pages/clients_page.dart';
 import 'package:build_link/ui/pages/house_page.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _MainPageState extends State<MainPage> {
     return {
       '/': (context) {
         return [
-          const ClientsPage(agentID: 1),
+          const ChartsPage(),
           HousePage(
             house: House(
               address: 'Erngworu fweofhw',
