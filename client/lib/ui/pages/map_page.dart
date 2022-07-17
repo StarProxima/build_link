@@ -32,21 +32,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
 
   LatLng? myCoord;
 
-  void clearItems() {
-    //items.clear();
-    setState(() {});
-  }
-
-  void loadSuggetions(String value) async {
-    if (value.isEmpty) {
-      clearItems();
-      return;
-    }
-    await Future.delayed(const Duration(milliseconds: 300));
-    if (value != searchController.text) return;
-
-    setState(() {});
-  }
+  late Marker marker;
 
   final FocusNode searchFocus = FocusNode();
 
@@ -104,6 +90,24 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
   }
 
   @override
+  void initState() {
+    marker = Marker(
+      point: widget.initialPosition,
+      width: 30,
+      height: 30,
+      anchorPos: AnchorPos.align(AnchorAlign.top),
+      builder: (context) {
+        return const AppIcon(
+          AppIcons.pin,
+          size: 36,
+          color: Colors.red,
+        );
+      },
+    );
+    super.initState();
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
@@ -146,6 +150,7 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
               MarkerLayerOptions(
                 markers: widget.isFullScreen && myCoord != null
                     ? [
+                        marker,
                         Marker(
                           point: myCoord!,
                           builder: (context) {
@@ -159,7 +164,9 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                           },
                         ),
                       ]
-                    : [],
+                    : [
+                        marker,
+                      ],
               )
             ],
           ),
