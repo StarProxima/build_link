@@ -44,8 +44,7 @@ class House {
     }
 
     return House(
-      description:
-          json["description"] != null ? json["description"].trimRight() : "",
+      description: json["description"] != null ? json["description"].trimRight() : "",
       address: json["address"] != null ? json["address"].trimRight() : "",
       squareMeters: json["square_meters"],
       roomCount: json["room_count"],
@@ -53,9 +52,7 @@ class House {
       repair: json["repair"],
       cost: json["cost"],
       state: json["status"] != null ? json["status"].trimRight() : "",
-      housingComplex: json["housing_complex"] != null
-          ? json["housing_complex"].trimRight()
-          : "",
+      housingComplex: json["housing_complex"] != null ? json["housing_complex"].trimRight() : "",
       maxDate: json["max_date"] != null ? json["max_date"].trimRight() : "",
       minDate: json["min_date"] != null ? json["min_date"].trimRight() : "",
       planUrl: json["plan"] != null ? json["plan"].trimRight() : "",

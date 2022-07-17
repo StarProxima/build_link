@@ -10,11 +10,13 @@ import '../../data/styles/styles.dart';
 class ClientCardWidget extends StatelessWidget {
   final Client client;
   final Function onPress;
+  final Function onHousesPress;
 
   const ClientCardWidget({
     Key? key,
     required this.client,
     required this.onPress,
+    required this.onHousesPress,
   }) : super(
           key: key,
         );
@@ -174,7 +176,7 @@ class ClientCardWidget extends StatelessWidget {
             const Spacer(),
             TextButton(
                 onPressed: () {
-                  //TODO: go to serach page with filters
+                  onHousesPress();
                 },
                 child: Text(
                   "Подобрать",

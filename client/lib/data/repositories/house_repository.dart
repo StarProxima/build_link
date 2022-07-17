@@ -27,6 +27,7 @@ abstract class HouseRepository {
       var response = await http.get(url);
       if (response.statusCode == 200) {
         var decode = jsonDecode(response.body);
+
         var filters = decode["filters"];
         decode = decode["houses"];
 
@@ -49,7 +50,7 @@ abstract class HouseRepository {
             return [];
           }
         }
-        return [rezult,filters];
+        return [rezult, filters];
       } else {
         log('Request failed with status: ${response.statusCode}.');
       }
@@ -113,7 +114,6 @@ abstract class HouseRepository {
         },
       );
     }
-    
 
     if (isDebug) log(url.normalizePath().toString());
     try {

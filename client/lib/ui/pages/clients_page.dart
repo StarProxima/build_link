@@ -1,4 +1,5 @@
 import 'package:build_link/data/model/client_model.dart';
+import 'package:build_link/data/model/filters_inherit.dart';
 import 'package:build_link/data/repositories/house_repository.dart';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
@@ -30,17 +31,12 @@ class _ClientsPageState extends State<ClientsPage> {
 
   @override
   Widget build(BuildContext context) {
+    var filters = FiltersInherit.of(context)?.filterValues;
+
     return LayoutBuilder(
       builder: ((context, constraints) {
         var size = Size(constraints.maxWidth, constraints.maxHeight);
         var columnsCount = 2;
-        // if (size.width < minCardWidth * 2 + 48 + 16) {
-        //   columnsCount = 1;
-        // } else if (size.width < minCardWidth * 3 + 48 + 32) {
-        //   columnsCount = 2;
-        // } else {
-        //   columnsCount = 3;
-        // }
         var itemWidth = ((size.width - 32) / columnsCount).floor() - 16;
 
         return Container(
@@ -102,6 +98,16 @@ class _ClientsPageState extends State<ClientsPage> {
                             },
                           ),
                         );
+                      },
+                      onHousesPress: () {
+                        HouseRepository.noteAnalyze(note: clients[index].note).then((value) {
+                          var values = value;
+
+                          filters!.initValue(
+                            cost: Range(values![1][0][0], values[1][0][1]),
+                          );
+                          //filters!.filterValues!.notifyListeners();
+                        });
                       },
                     );
                   },
