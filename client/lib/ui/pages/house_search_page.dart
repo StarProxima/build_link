@@ -119,6 +119,7 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
                                           border: Border.all(color: AppColors.divider, width: 1),
                                         ),
                                         child: TextButton(
+                                          style: AppButtonStyle.cardButton,
                                           onPressed: () {
                                             HouseRepository.searchHouses(
                                               minCost: filterValues[0][0] == -1 ? null : filterValues[0][0],
@@ -139,6 +140,7 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
                                             "Применить",
                                             style: AppTextStyles.titleLarge.copyWith(
                                               fontSize: 12,
+                                              fontWeight: FontWeight.w600,
                                               color: AppColors.accent,
                                             ),
                                             textAlign: TextAlign.center,
