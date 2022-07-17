@@ -3,17 +3,11 @@ import 'dart:math';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
 import 'package:build_link/data/styles/styles.dart';
+import 'package:build_link/ui/widgets/calculator_result.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:build_link/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:intl/intl.dart';
-
-final NumberFormat priceFormater = NumberFormat.currency(
-  locale: 'ru_RU',
-  symbol: '₽',
-  decimalDigits: 0,
-);
 
 class CalculatorPage extends StatefulWidget {
   final int? initialCost;
@@ -91,6 +85,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
           ),
           Expanded(
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   width: 300,
@@ -211,24 +206,20 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   space: 24,
                   orientation: Axis.horizontal,
                 ),
-                Expanded(
-                  child: Container(
-                    color: AppColors.background,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Результаты:",
-                              style: AppTextStyles.titleMedium
-                                  .copyWith(fontSize: 20),
-                            ),
-                          ],
+                calculated
+                    ? Expanded(
+                        child: Container(
+                          color: AppColors.background,
+                          child: CalucalorResult(
+                            creditSum: creditSum,
+                            mountPay: mountPay,
+                            procentSum: procentSum,
+                            procentAndCredit: procentAndCredit,
+                            usingBonus: usingBonus,
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
+                      )
+                    : const SizedBox(),
               ],
             ),
           ),
