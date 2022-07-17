@@ -15,56 +15,75 @@ class CustomTextField extends StatelessWidget {
     required this.suffix,
   }) : super(key: key);
 
+  // padding: const EdgeInsets.only(left: 8, right: 8),
+  //     height: 36,
+  //     decoration: BoxDecoration(
+  //       borderRadius: const BorderRadius.all(
+  //         Radius.circular(8),
+  //       ),
+  //       color: AppColors.backgroundDark,
+  //       border: Border.all(color: AppColors.divider, width: 1),
+  //     ),
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 8, right: 8),
-      height: 36,
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8),
+    return TextField(
+      controller: controller,
+      cursorColor: AppColors.text,
+      textAlign: TextAlign.right,
+      decoration: InputDecoration(
+        filled: true,
+
+        fillColor: AppColors.backgroundDark,
+
+        contentPadding: const EdgeInsets.all(8),
+        prefixIconConstraints: const BoxConstraints(),
+        suffixIconConstraints: const BoxConstraints(),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Text(
+            label,
+            style: AppTextStyles.label.copyWith(
+              color: AppColors.textDisable,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
         ),
-        color: AppColors.backgroundDark,
-        border: Border.all(color: AppColors.divider, width: 1),
+
+        border: InputBorder.none,
+        suffixIcon: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Text(
+            suffix,
+            style: AppTextStyles.label.copyWith(
+              color: AppColors.textDisable,
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+            ),
+            textAlign: TextAlign.right,
+          ),
+        ),
+        //suffixText: suffix,
+
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            width: 1.5,
+            color: AppColors.divider,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            width: 1.5,
+            color: AppColors.divider,
+          ),
+        ),
       ),
-      child: Expanded(
-        child: Row(
-          children: [
-            Text(
-              label,
-              style: AppTextStyles.label.copyWith(
-                color: AppColors.textDisable,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            const Space(
-              space: 16,
-              orientation: Axis.horizontal,
-            ),
-            Expanded(
-              child: TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                  isCollapsed: true,
-                  border: InputBorder.none,
-                  suffixText: suffix,
-                  suffixStyle: AppTextStyles.label.copyWith(
-                    color: AppColors.textDisable,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                textAlign: TextAlign.right,
-                style: AppTextStyles.label.copyWith(
-                  color: AppColors.text,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
-        ),
+      style: AppTextStyles.label.copyWith(
+        color: AppColors.text,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
       ),
     );
   }
