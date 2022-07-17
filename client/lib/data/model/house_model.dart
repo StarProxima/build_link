@@ -60,7 +60,7 @@ class House {
       minDate: json["min_date"] != null ? json["min_date"].trimRight() : "",
       planUrl: json["plan"] != null ? json["plan"].trimRight() : "",
       images: readyJson,
-      coord: LatLng(json["lat"], json["lng"]),
+      coord: LatLng(double.parse(json["lat"]), double.parse(json["lng"])),
     );
   }
 
