@@ -41,9 +41,12 @@ class HouseCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
                   color: AppColors.background,
+                  image: DecorationImage(
+                    image: NetworkImage(house.planUrl),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 clipBehavior: Clip.antiAlias,
-                child: Image.network(house.planUrl.toString()),
               ),
             ),
             Flexible(
