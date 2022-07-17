@@ -204,12 +204,19 @@ class _MapPageState extends State<MapPage> with TickerProviderStateMixin {
                     ),
                     Align(
                       alignment: Alignment.topCenter,
-                      child: SearchPanel(
-                        onEditiningComplite: (_) {},
-                        leading: const BackButton(
-                          color: Colors.black,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 16,
                         ),
-                        focus: searchFocus,
+                        child: SearchPanel(
+                          isMap: true,
+                          onEditiningComplite: (_) {},
+                          leading: const BackButton(
+                            color: Colors.black,
+                          ),
+                          focus: searchFocus,
+                        ),
                       ),
                     ),
                   ],

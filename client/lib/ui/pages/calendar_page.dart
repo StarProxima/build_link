@@ -23,14 +23,18 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
   final TextEditingController heatLevelController = TextEditingController();
 
   bool isOpacityMode = true;
-  DateTime choosedDay = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime choosedDay =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   Map<DateTime, int> heatMapDatasets = {};
 
   final eventList = [
-    Event("Встреча с игорем", DateTime.now(), DateTime.now().add(const Duration(minutes: 90))),
-    Event("Просмотр квартиры на Таманской", DateTime.now(), DateTime.now().add(const Duration(minutes: 90))),
-    Event("совещяние в Zoom", DateTime.now(), DateTime.now().add(const Duration(minutes: 90))),
+    Event("Встреча с игорем", DateTime.now(),
+        DateTime.now().add(const Duration(minutes: 90))),
+    Event("Просмотр квартиры на Таманской", DateTime.now(),
+        DateTime.now().add(const Duration(minutes: 90))),
+    Event("совещяние в Zoom", DateTime.now(),
+        DateTime.now().add(const Duration(minutes: 90))),
   ];
 
   @override
@@ -139,9 +143,9 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
         defaultColor: AppColors.background,
         colorsets: const {
           10: Color(0xFFB1BFF6),
-          // 12: Color(0xFF97A8E8),
-          // 13: Color(0xFF7B90DA),
-          // 14: Color(0xFF667AC5),
+          12: Color(0xFF97A8E8),
+          13: Color(0xFF7B90DA),
+          14: Color(0xFF667AC5),
         },
         selectedBorder: Border.all(width: 2, color: AppColors.accent),
         datasets: heatMapDatasets,
@@ -185,7 +189,8 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
                     ),
                   ),
                   Text(
-                    choosedDay.month == DateTime.now().month && choosedDay.day == DateTime.now().day
+                    choosedDay.month == DateTime.now().month &&
+                            choosedDay.day == DateTime.now().day
                         ? "Сегодня "
                         : "${choosedDay.month}:${choosedDay.day < 10 ? "0" : ""}${choosedDay.day}",
                     style: AppTextStyles.title.copyWith(
