@@ -47,7 +47,7 @@ INSERT INTO public.agents(
 
 INSERT INTO public.cards(
 	firstname, lastname, patronymic, "number", note, id_agent, status)
-	VALUES ('Боб', 'Викторов', 'Владимирович', '79189600438', 'Двухкомнатная квартира возле больницы 30 квадратов', 1, 'wait');
+	VALUES ('Боб', 'Викторов', 'Владимирович', '79189600438', '2 комнаты\nВозле больницы\nболее 30 квадратов\nстоимость - менее 5000000 рублей', 1, 'wait');
 	
 INSERT INTO public.cards(
 	firstname, lastname, patronymic, "number", note, id_agent, status)
