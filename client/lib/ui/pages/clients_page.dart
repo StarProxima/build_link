@@ -9,8 +9,7 @@ import 'package:flutter/material.dart';
 
 class ClientsPage extends StatefulWidget {
   final int agentID;
-  final Function goToSearch;
-  const ClientsPage({Key? key, required this.agentID, required this.goToSearch}) : super(key: key);
+  const ClientsPage({Key? key, required this.agentID}) : super(key: key);
 
   @override
   State<ClientsPage> createState() => _ClientsPageState();
@@ -102,15 +101,11 @@ class _ClientsPageState extends State<ClientsPage> {
                       },
                       onHousesPress: () {
                         HouseRepository.noteAnalyze(note: clients[index].note).then((value) {
-                          List<dynamic> values = value![1];
+                          var values = value;
 
                           filters!.initValue(
-                            square: Range(values[0][0].toDouble(), values[0][1].toDouble()),
-                            rooms: Range(values[1][0].toDouble(), values[1][1].toDouble()),
-                            cost: Range(values[2][0].toDouble(), values[2][1].toDouble()),
-                            height: Range(values[3][0].toDouble(), values[3][1].toDouble()),
+                            cost: Range(values![1][0][0], values[1][0][1]),
                           );
-                          widget.goToSearch();
                           //filters!.filterValues!.notifyListeners();
                         });
                       },

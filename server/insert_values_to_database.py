@@ -82,7 +82,7 @@ INSERT INTO public.deal(
 plan = 'https://img.kvartus.ru/server/php/files/base_kvartus/object/333/3332342/base_kvartus_object_333_3332342_9k4Z1NobHo4xmAnE7n5exK9t2hAwBzbAJ5pAJECgTxE5YRAV4v.jpeg' WHERE
 id = 1;
 UPDATE public.objects SET
-plan = 'https://cdn-p.cian.site/images/8/024/607/gorodpark-pervyy-moskovskiy-moskva-jk-floor-plan-706420861-6.jpg' WHERE
+plan = 'https://cdn-p.cian.site/images/8/024/607/gorodpark-pervyy-moskovskiy-moskva-jk-floor-plan-706420861-6.jpg                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ' WHERE
 id = 2;
 UPDATE public.objects SET
 plan = 'https://www.kutuzov.ru/images/image2reality/rly.d.b/img-3458-331689.jpg' WHERE
@@ -91,7 +91,7 @@ UPDATE public.objects SET
 plan = 'https://bazatut.ru/800x800/31/f7/31f722064d07dca71dc77a63d68b6fa9.jpeg' WHERE
 id = 4;
 UPDATE public.objects SET
-plan = 'https://i.pinimg.com/564x/de/3a/fd/de3afd108a97b8ebf9a3261d90fd166e.jpg' WHERE
+plan = 'http://s1.citystar.ru/zh/781a0664a477ebe72604ac12ac7fa83d-fit-800x600.jpg                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ' WHERE
 id = 5;
     
 INSERT INTO public.images(
@@ -174,6 +174,13 @@ id = 4;
 UPDATE public.objects SET
 lng = '38.975903'::real, lat = '45.031030'::real WHERE
 id = 5;
+
+UPDATE public.objects
+	SET plan='https://bricknews.ru/wp-content/uploads/2017/05/%D0%B3%D0%B3%D1%88%D0%BB.jpeg'
+	WHERE id=4;
+UPDATE public.objects
+	SET plan='https://images.deal.by/217698108_w500_h500_pereplanirovka-kvartiry.jpg'
+	WHERE id=5;
     """)
     # Получить результат
     records = cursor.fetchall()
