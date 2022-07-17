@@ -78,96 +78,66 @@ class ForumPageState extends State<ForumPage> {
                           height: 140,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.all(
-                              Radius.circular(12),
+                              Radius.circular(8),
                             ),
                             color: AppColors.backgroundDark,
-                            border: Border.all(color: AppColors.divider, width: 1),
+                            border: Border.all(color: AppColors.divider, width: 3),
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: (){},
                             child: Column(
                               children: [
-                                SizedBox(
-                                  height: 50,
-                                ),
-                                Text(
-                                  "Погружение в Build-Link",
-                                  style: AppTextStyles.titleSmall,
-                                ),
-                                SizedBox(
-                                  height: 4,
-                                ),
-                                Text(
-                                  "Как работать в приложении",
-                                  style: AppTextStyles.label.copyWith(
-                                      color: AppColors.text,
-                                      decoration: TextDecoration.underline,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12),
-                                ),
+                                SizedBox(height: 50,),
+                                Text("Погружение в Build-Link" ,style: AppTextStyles.titleSmall,),
+                                SizedBox(height: 4,),
+                                Text("Как работать в приложении" ,style: AppTextStyles.label.copyWith(color: AppColors.text, decoration: TextDecoration.underline, fontWeight: FontWeight.w500, fontSize: 12),),
                               ],
                             ),
                           ),
                         ),
                       ),
-                      const Space(space: 12, orientation: Axis.horizontal),
                       Expanded(
                         child: Container(
                           height: 140,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.all(
-                              Radius.circular(12),
+                              Radius.circular(8),
                             ),
                             color: AppColors.backgroundDark,
-                            border: Border.all(color: AppColors.divider, width: 1),
+                            border: Border.all(color: AppColors.divider, width: 3),
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            
+                            onPressed: (){},
                             child: Column(
                               children: [
-                                const SizedBox(height: 50),
-                                Text("Как рыба в воде", style: AppTextStyles.titleSmall),
-                                const SizedBox(height: 4),
-                                Text(
-                                  "Разбор всей информации об объектах",
-                                  style: AppTextStyles.label.copyWith(
-                                      color: AppColors.text,
-                                      decoration: TextDecoration.underline,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12),
-                                ),
+                                SizedBox(height: 50,),
+                                Text("Как рыба в воде" ,style: AppTextStyles.titleSmall ),
+                                SizedBox(height: 4,),
+                                Text("Разбор всей информации об объектах" ,style: AppTextStyles.label.copyWith(color: AppColors.text, decoration: TextDecoration.underline, fontWeight: FontWeight.w500, fontSize: 12),),
                               ],
                             ),
                           ),
                         ),
                       ),
-                      const Space(space: 12, orientation: Axis.horizontal),
                       Expanded(
                         child: Container(
                           height: 140,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.all(
-                              Radius.circular(12),
+                              Radius.circular(8),
                             ),
                             color: AppColors.backgroundDark,
-                            border: Border.all(color: AppColors.divider, width: 1),
+                            border: Border.all(color: AppColors.divider, width: 3),
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: (){},
                             child: Column(
                               children: [
-                                const SizedBox(height: 50),
-                                Text("Точим языки", style: AppTextStyles.titleSmall),
-                                const SizedBox(height: 4),
-                                Text(
-                                  "Как продать объект клиенту",
-                                  style: AppTextStyles.label.copyWith(
-                                    color: AppColors.text,
-                                    decoration: TextDecoration.underline,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12,
-                                  ),
-                                ),
+                                SizedBox(height: 50,),
+                                Text("Точим языки" ,style: AppTextStyles.titleSmall),
+                                SizedBox(height: 4,),
+                                Text("Как продать объект клиенту" ,style: AppTextStyles.label.copyWith(color: AppColors.text, decoration: TextDecoration.underline, fontWeight: FontWeight.w500, fontSize: 12),),
                               ],
                             ),
                           ),
@@ -176,7 +146,7 @@ class ForumPageState extends State<ForumPage> {
                     ],
                   ),
                   const SizedBox(
-                    height: 24,
+                    height: 8,
                   ),
                   Text(
                     "Форум",
@@ -206,8 +176,10 @@ class ForumPageState extends State<ForumPage> {
                       itemBuilder: (context, index) {
                         return Container(
                           decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: const Color(0xFFE0E2F6)),
-                            borderRadius: const BorderRadius.all(Radius.circular(8)),
+                            border: Border.all(
+                                width: 1, color: const Color(0xFFE0E2F6)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
@@ -228,8 +200,10 @@ class ForumPageState extends State<ForumPage> {
                                   children: [
                                     Text(
                                       ForumPage.question[index],
-                                      style: AppTextStyles.label
-                                          .copyWith(fontSize: 16, fontWeight: FontWeight.w700, color: AppColors.text),
+                                      style: AppTextStyles.label.copyWith(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.text),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     const SizedBox(
@@ -238,7 +212,9 @@ class ForumPageState extends State<ForumPage> {
                                     Text(
                                       "Вопрос решён",
                                       style: AppTextStyles.title.copyWith(
-                                          fontSize: 12, fontWeight: FontWeight.w500, color: AppColors.textDisable),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.textDisable),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ],
@@ -253,44 +229,42 @@ class ForumPageState extends State<ForumPage> {
                           height: 8,
                         );
                       },
-                      itemCount: ForumPage.question.length),
-                  const SizedBox(height: 16),
+                      itemCount: ForumPage.question.length
+                  ),
+                  SizedBox(height: 16,),
                   Row(
                     children: [
                       Text(
                         "Не нашли свой вопрос?\nСпросите его у экспертов:",
-                        style: AppTextStyles.label
-                            .copyWith(color: AppColors.text, fontWeight: FontWeight.w400, fontSize: 14),
+                        style: AppTextStyles.label.copyWith(color: AppColors.text, fontWeight: FontWeight.w500, fontSize: 16),
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const Expanded(child: SizedBox(width: 8)),
+                      Expanded(child: SizedBox(width: 8,)),
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                            width: 1,
-                            color: AppColors.divider,
+                            width: 2,
+                            color: const Color(0xFFE0E2F6),
                           ),
-                          color: AppColors.backgroundDark,
                           borderRadius: const BorderRadius.all(
                             Radius.circular(8),
                           ),
                         ),
                         child: TextButton(
-                          style: AppButtonStyle.cardButton,
                           onPressed: () {},
-                          child: Container(
-                            color: Colors.transparent,
-                            padding: const EdgeInsets.only(left: 12, right: 12, top: 6, bottom: 6),
-                            child: Text(
-                              "Задать вопрос",
-                              style: AppTextStyles.label
-                                  .copyWith(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.accent),
+                          child: Text(
+                            "Задать вопрос",
+                            style: AppTextStyles.titleMedium.copyWith(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
                       ),
                     ],
                   )
+                  
+                    
                 ],
               ),
             ),
