@@ -162,9 +162,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                   border: Border.all(color: AppColors.divider, width: 0),
                                 ),
                                 child: TextButton(
-                                  onPressed: () {
-                                    
-                                  },
+                                  onPressed: () {},
                                   child: Text(
                                     "Рассчитать",
                                     style: AppTextStyles.label.copyWith(
