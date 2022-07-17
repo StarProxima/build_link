@@ -45,6 +45,12 @@ class _FilterFieldState extends State<FilterField> {
 
   @override
   Widget build(BuildContext context) {
+    fromFieldController = TextEditingController(
+      text: double.parse(widget.initFrom ?? "-1") == -1 ? "" : widget.initFrom,
+    );
+    toFieldController = TextEditingController(
+      text: double.parse(widget.initTo ?? "-1") == -1 ? "" : widget.initTo,
+    );
     return Column(
       children: [
         Container(

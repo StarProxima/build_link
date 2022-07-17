@@ -25,16 +25,40 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
   FiltersModel filters = FiltersModel()..initValue(square: Range(20, 30));
+  GlobalKey<HouseSearchPageState> keyForSearch = GlobalKey<HouseSearchPageState>();
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {
       '/': (context) {
         return [
-          const ClientsPage(agentID: 1),
+          ClientsPage(agentID: 1, goToSearch:() 
+            { setState(() {
+              selectedIndex = 3;
+              keyForSearch.currentState!.makeSearch();
+            }
+          ); 
+          },),
           const CalendarPage(),
           const ForumPage(),
-          const HouseSearchPage(),
-          const ChartsPage(),
+          HouseSearchPage(key: keyForSearch,),
+          HousePage(
+            house: House(
+              address: 'Erngworu fweofhw',
+              ceilingHeight: 2.7,
+              cost: 3500000,
+              description: "",
+              housingComplex: "Вишняки",
+              maxDate: "2026-08-08",
+              minDate: "2024-08-08",
+              repair: true,
+              roomCount: 3,
+              squareMeters: 48,
+              state: 'FEWf',
+              planUrl: "",
+              images: [],
+              coord: LatLng(48, 48),
+            ),
+          ),
           const CalculatorPage(initialCost: null),
         ].elementAt(index);
       },

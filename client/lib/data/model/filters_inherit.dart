@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class FiltersInherit extends InheritedWidget {
   final FiltersModel? filterValues;
+  final bool needToSearch = false;
   const FiltersInherit({Key? key, required super.child, required this.filterValues}) : super(key: key);
 
   @override
