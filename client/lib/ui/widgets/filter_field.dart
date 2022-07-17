@@ -18,6 +18,13 @@ class _FilterFieldState extends State<FilterField> {
   final toFieldController = TextEditingController();
 
   @override
+  void initState() {
+    fromFieldController.addListener(() { widget.onValuesChange(fromFieldController.text, toFieldController.text);});
+    toFieldController.addListener(() { widget.onValuesChange(fromFieldController.text, toFieldController.text);});
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
