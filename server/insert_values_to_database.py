@@ -47,11 +47,11 @@ INSERT INTO public.agents(
 
 INSERT INTO public.cards(
 	firstname, lastname, patronymic, "number", note, id_agent, status)
-	VALUES ('Боб', 'Викторов', 'Владимирович', '79189600438', 'Двухкомнатная квартира возле больницы 30 квадратов', 1, 'wait');
+	VALUES ('Боб', 'Викторов', 'Владимирович', '79189600438', '2 комнаты\nВозле больницы\nболее 30 квадратов\nстоимость - менее 5000000 рублей', 1, 'wait');
 	
 INSERT INTO public.cards(
 	firstname, lastname, patronymic, "number", note, id_agent, status)
-	VALUES ('Варфаломей', 'Иисакович', 'Григорьевич', '79919600439', 'менее 7000000 рублей\nвысота потолков 2.6 метра', 1, 'start');
+	VALUES ('Варфаломей', 'Иисакович', 'Григорьевич', '79919600439', 'менее 7000000 рублей\nплощадь - менее 50 кв', 1, 'start');
 
 INSERT INTO public.agencies(
 	 name)
@@ -71,7 +71,7 @@ INSERT INTO public.deal(
     description = '2 комнаты\nВозле больницы\nболее 30 квадратов\nстоимость - менее 5000000 рублей'::text, housing_complex = 'Весёлые истории' WHERE
     id = 4;
     UPDATE public.objects SET
-    description = 'менее 7000000 рублей\nвысота потолков 2.6 метра.'::text, housing_complex = 'Весёлые истории' WHERE
+    description = 'менее 7000000 рублей\nплощадь - менее 50 кв'::text, housing_complex = 'Весёлые истории' WHERE
     id = 5;
     UPDATE public.objects SET
     description = 'Студия в центре города. Больница, школа и магазины около подъезда.'::text, housing_complex = 'Аквариум' WHERE

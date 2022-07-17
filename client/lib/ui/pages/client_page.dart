@@ -74,14 +74,13 @@ class _ClientPageState extends State<ClientPage> {
 }
 
 class ClientCardLabel extends StatelessWidget {
-  const ClientCardLabel({Key? key, required this.icon, required this.text})
-      : super(key: key);
+  const ClientCardLabel({Key? key, required this.icon, required this.text}) : super(key: key);
   final Widget icon;
   final String text;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 48,
+    return Container(
+      constraints: const BoxConstraints(minHeight: 24),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -113,7 +112,6 @@ class ClientCardLabel extends StatelessWidget {
 }
 
 class ClienHomes extends StatelessWidget {
-
   const ClienHomes({Key? key, required this.note}) : super(key: key);
   final String note;
 
@@ -137,8 +135,7 @@ class ClienHomes extends StatelessWidget {
               const Space(space: 24),
               IconButton(
                 padding: EdgeInsets.zero,
-                onPressed: () {
-                },
+                onPressed: () {},
                 icon: const AppIcon(
                   AppIcons.state,
                   size: 24,
@@ -148,9 +145,7 @@ class ClienHomes extends StatelessWidget {
           ),
         ),
         Column(
-          children: [
-            
-          ],
+          children: [],
         )
       ],
     );
