@@ -3,6 +3,7 @@ import 'package:build_link/data/styles/fonts.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
@@ -28,9 +29,8 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-
       controller: controller,
-      inputFormatters: [ FilteringTextInputFormatter(RegExp(r"[1234567890.]"), allow: true)],
+      // inputFormatters: [ FilteringTextInputFormatter(RegExp(r"[1234567890.]"), allow: true)],
       cursorColor: AppColors.text,
       textAlign: TextAlign.right,
       decoration: InputDecoration(
@@ -55,7 +55,7 @@ class CustomTextField extends StatelessWidget {
 
         border: InputBorder.none,
         suffixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.only(right: 12),
           child: Text(
             suffix,
             style: AppTextStyles.label.copyWith(
