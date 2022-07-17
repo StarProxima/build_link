@@ -101,8 +101,8 @@ class SideMenuState extends State<SideMenu> {
             appIcon: AppIcons.comment_check,
             label: 'Статистика',
             onTap: () {
-              selectedPageIndex = 4;
-              widget.onChangePage(4);
+              selectedPageIndex = 6;
+              widget.onChangePage(6);
             },
             isSelected: selectedPageIndex == 4,
           ),

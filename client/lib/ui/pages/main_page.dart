@@ -62,6 +62,7 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           const CalculatorPage(initialCost: null),
+          const ChartsPage(),
         ].elementAt(index);
       },
     };
@@ -112,6 +113,7 @@ class _MainPageState extends State<MainPage> {
                     _buildOffstageNavigator(3),
                     _buildOffstageNavigator(4),
                     _buildOffstageNavigator(5),
+                    _buildOffstageNavigator(6),
                   ],
                 ),
               ),
