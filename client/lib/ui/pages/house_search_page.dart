@@ -16,10 +16,10 @@ class HouseSearchPage extends StatefulWidget {
   const HouseSearchPage({Key? key}) : super(key: key);
 
   @override
-  State<HouseSearchPage> createState() => _HouseSearchPageState();
+  State<HouseSearchPage> createState() => HouseSearchPageState();
 }
 
-class _HouseSearchPageState extends State<HouseSearchPage> {
+class HouseSearchPageState extends State<HouseSearchPage> {
   List<House> findedHouses = [];
   List<List<dynamic>> filterValues = [
     [-1, -1],
@@ -30,10 +30,17 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
 
   final ScrollController cardsController = ScrollController();
 
-  @override
-  void initState() {
-    super.initState();
-    HouseRepository.searchHouses().then((value) {
+  void makeSearch() {
+    HouseRepository.searchHouses(
+      minCost: filterValues[0][0] == -1 ? null : filterValues[0][0],
+      maxCost: filterValues[0][1] == -1 ? null : filterValues[0][1],
+      minSq: filterValues[1][0] == -1 ? null : filterValues[1][0],
+      maxSq: filterValues[1][1] == -1 ? null : filterValues[1][1],
+      minRooms: filterValues[2][0] == -1 ? null : filterValues[2][0],
+      maxRooms: filterValues[2][1] == -1 ? null : filterValues[2][1],
+      minHeight: filterValues[3][0] == -1 ? null : filterValues[3][0],
+      maxHeight: filterValues[3][1] == -1 ? null : filterValues[3][1],
+    ).then((value) {
       setState(() {
         findedHouses = value ?? [];
       });
@@ -41,7 +48,16 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    makeSearch();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+
+
     return Consumer<FiltersModel>(
       builder: (context, value, child) {
         filterValues = [
@@ -121,20 +137,7 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
                                         child: TextButton(
                                           style: AppButtonStyle.cardButton,
                                           onPressed: () {
-                                            HouseRepository.searchHouses(
-                                              minCost: filterValues[0][0] == -1 ? null : filterValues[0][0],
-                                              maxCost: filterValues[0][1] == -1 ? null : filterValues[0][1],
-                                              minSq: filterValues[1][0] == -1 ? null : filterValues[1][0],
-                                              maxSq: filterValues[1][1] == -1 ? null : filterValues[1][1],
-                                              minRooms: filterValues[2][0] == -1 ? null : filterValues[2][0],
-                                              maxRooms: filterValues[2][1] == -1 ? null : filterValues[2][1],
-                                              minHeight: filterValues[3][0] == -1 ? null : filterValues[3][0],
-                                              maxHeight: filterValues[3][1] == -1 ? null : filterValues[3][1],
-                                            ).then((value) {
-                                              setState(() {
-                                                findedHouses = value ?? [];
-                                              });
-                                            });
+                                            makeSearch();
                                           },
                                           child: Text(
                                             "Применить",
