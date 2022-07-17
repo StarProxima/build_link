@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
 import 'package:build_link/data/styles/styles.dart';
+import 'package:build_link/ui/widgets/calculator_input.dart';
 import 'package:build_link/ui/widgets/calculator_result.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:build_link/ui/widgets/custom_text_field.dart';
@@ -38,26 +39,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
   @override
   void initState() {
-    costController.addListener(checkButtonEnabled);
-    firstContributionController.addListener(checkButtonEnabled);
-    discountTermController.addListener(checkButtonEnabled);
-    percentsController.addListener(checkButtonEnabled);
     super.initState();
-  }
-
-  void checkButtonEnabled() {
-    setState(() {
-      isButtonPressable = costController.text.replaceAll(' ', '').isNotEmpty &&
-          double.tryParse(costController.text.replaceAll(' ', '')) != null &&
-          firstContributionController.text.replaceAll(' ', '').isNotEmpty &&
-          double.tryParse(
-                  firstContributionController.text.replaceAll(' ', '')) !=
-              null &&
-          discountTermController.text.isNotEmpty &&
-          int.tryParse(discountTermController.text) != null &&
-          percentsController.text.isNotEmpty &&
-          double.tryParse(percentsController.text) != null;
-    });
   }
 
   @override
@@ -76,7 +58,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   style: AppTextStyles.titleLarge,
                 ),
                 Text(
-                  " Кредита",
+                  " Ипотеки",
                   style: AppTextStyles.titleLarge
                       .copyWith(color: AppColors.accent),
                 ),
@@ -87,120 +69,14 @@ class _CalculatorPageState extends State<CalculatorPage> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: 300,
-                  child: Container(
-                    color: AppColors.background,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Входные данные:",
-                              style: AppTextStyles.titleMedium
-                                  .copyWith(fontSize: 20),
-                            ),
-                          ],
-                        ),
-                        const Space(space: 16),
-                        CustomTextField(
-                          controller: costController,
-                          label: "Стоимость жилья:",
-                          suffix: "₽",
-                        ),
-                        const Space(space: 8),
-                        CustomTextField(
-                          controller: firstContributionController,
-                          label: "Первонач. взнос:",
-                          suffix: "₽",
-                        ),
-                        const Space(space: 8),
-                        CustomTextField(
-                          controller: discountTermController,
-                          label: "Срок кредита:",
-                          suffix: "мес",
-                        ),
-                        const Space(space: 8),
-                        CustomTextField(
-                          controller: percentsController,
-                          label: "Процентная ставка:",
-                          suffix: "%",
-                        ),
-                        const Space(space: 16),
-                        Row(
-                          children: [
-                            Text(
-                              "Скидки и льготы:",
-                              style: AppTextStyles.titleMedium.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Space(space: 16),
-                        CustomTextField(
-                          controller: discountController,
-                          label: "Размер скидки:",
-                          suffix: "₽",
-                        ),
-                        const Space(space: 8),
-                        CustomTextField(
-                          controller: benefitController,
-                          label: "Льготная ставка:",
-                          suffix: "%",
-                        ),
-                        const Space(space: 8),
-                        TextButton(
-                          style: AppButtonStyle.cardButton,
-                          onPressed: () {
-                            if (isButtonPressable) {
-                              setState(() {
-                                usingBonus = (benefitController
-                                            .text.isNotEmpty &&
-                                        double.tryParse(
-                                                benefitController.text) !=
-                                            null) ||
-                                    (discountController.text
-                                            .replaceAll(' ', '')
-                                            .isNotEmpty &&
-                                        double.tryParse(discountController.text
-                                                .replaceAll(' ', '')) !=
-                                            null);
-                                calculated = calculateCredit();
-                              });
-                            }
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 48,
-                            constraints:
-                                const BoxConstraints(minWidth: double.infinity),
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(12),
-                              ),
-                              color: isButtonPressable
-                                  ? AppColors.text
-                                  : AppColors.divider,
-                              border: Border.all(
-                                  color: AppColors.divider, width: 0),
-                            ),
-                            child: Text(
-                              "Рассчитать",
-                              style: AppTextStyles.label.copyWith(
-                                fontSize: 16,
-                                color: isButtonPressable
-                                    ? AppColors.background
-                                    : AppColors.textDisable,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                CalculatorInput(
+                  calculateCredit: calculateCredit,
+                  benefitController: benefitController,
+                  costController: costController,
+                  discountController: discountController,
+                  discountTermController: discountTermController,
+                  firstContributionController: firstContributionController,
+                  percentsController: percentsController,
                 ),
                 const Space(
                   space: 24,
@@ -233,7 +109,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   List<double> procentSum = [];
   List<double> procentAndCredit = [];
 
-  bool calculateCredit() {
+  bool calculateCredit(bool usingBonus) {
     procentAndCredit = [];
     procentSum = [];
     mountPay = [];
@@ -299,6 +175,11 @@ class _CalculatorPageState extends State<CalculatorPage> {
       procentSum.add(roundDouble(procentSum[0] - procentSum[1], 2));
       creditSum.add(roundDouble(creditSum[0] - creditSum[1], 2));
     }
+    setState(() {
+      this.usingBonus = usingBonus;
+      calculated = true;
+    });
+
     return true;
   }
 

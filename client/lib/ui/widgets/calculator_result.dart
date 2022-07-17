@@ -82,7 +82,7 @@ class _CalucalorResultState extends State<CalucalorResult> {
                       height: 32,
                     ),
                     Text(
-                      'Итого',
+                      'С учётом скидок и льгот',
                       style: AppTextStyles.titleMedium,
                     ),
                     const SizedBox(
