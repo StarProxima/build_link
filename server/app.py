@@ -152,4 +152,4 @@ def hello4():
     cards = []
     for row in rows:
         cards.append({'description':row[0],'address':row[1],'square_meters':row[2],'room_count':row[3],'ceiling_height':row[4],'repair':row[5],'cost':row[6],'status':row[7],'housing_complex':row[8],'max_date':str(row[9]),'min_date':str(row[10]), 'plan':str(row[11]), 'id':str(row[12]), 'lat':str(row[13]), 'lng':str(row[14])})
-    return json.dumps(cards)
+    return json.dumps({'houses':cards,'filters':ends})

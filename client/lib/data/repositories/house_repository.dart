@@ -9,7 +9,7 @@ abstract class HouseRepository {
   static String serverUrl = "127.0.0.1";
   static bool isDebug = false;
 
-  static Future<List<House>?> noteAnalyze({
+  static Future<List<dynamic>?> noteAnalyze({
     required String note,
   }) async {
     var url;
@@ -26,7 +26,10 @@ abstract class HouseRepository {
     try {
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        var decode = jsonDecode(response.body) as List<dynamic>;
+        var decode = jsonDecode(response.body);
+        var filters = decode["filters"];
+        decode = decode["houses"];
+
         List<House> rezult = [];
         for (int i = 0; i < decode.length; i++) {
           var supUrl = Uri(
@@ -46,7 +49,7 @@ abstract class HouseRepository {
             return [];
           }
         }
-        return rezult;
+        return [rezult,filters];
       } else {
         log('Request failed with status: ${response.statusCode}.');
       }

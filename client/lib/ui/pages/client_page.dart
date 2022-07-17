@@ -4,6 +4,7 @@ import 'package:build_link/data/styles/fonts.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/model/client_model.dart';
+import '../../data/repositories/house_repository.dart';
 import '../widgets/space.dart';
 
 class ClientPage extends StatefulWidget {
@@ -62,7 +63,7 @@ class _ClientPageState extends State<ClientPage> {
                   icon: const AppIcon(AppIcons.info, size: 24),
                   text: widget.client.note,
                 ),
-                const ClienHomes(),
+                ClienHomes(note: widget.client.note),
               ],
             ),
           ),
@@ -112,7 +113,9 @@ class ClientCardLabel extends StatelessWidget {
 }
 
 class ClienHomes extends StatelessWidget {
-  const ClienHomes({Key? key}) : super(key: key);
+
+  const ClienHomes({Key? key, required this.note}) : super(key: key);
+  final String note;
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +137,11 @@ class ClienHomes extends StatelessWidget {
               const Space(space: 24),
               IconButton(
                 padding: EdgeInsets.zero,
-                onPressed: () {},
+                onPressed: () {
+                HouseRepository.noteAnalyze(note: note).then((value) {
+                  // TODO: переход на панель с поиском и фильтрами
+                });
+                },
                 icon: const AppIcon(
                   AppIcons.state,
                   size: 24,
