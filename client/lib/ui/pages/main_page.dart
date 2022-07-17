@@ -1,3 +1,4 @@
+import 'package:build_link/data/model/filters_inherit.dart';
 import 'package:build_link/data/model/house_model.dart';
 import 'package:build_link/data/repositories/house_repository.dart';
 import 'package:build_link/data/styles/colors.dart';
@@ -10,6 +11,7 @@ import 'package:build_link/ui/pages/house_page.dart';
 import 'package:build_link/ui/pages/house_search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/side_menu.dart';
 
@@ -22,6 +24,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
+  FiltersModel filters = FiltersModel()..initValue(square: Range(20, 30));
+
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {
       '/': (context) {
@@ -29,7 +33,6 @@ class _MainPageState extends State<MainPage> {
           const ClientsPage(agentID: 1),
           const CalendarPage(),
           const ForumPage(),
-
           const HouseSearchPage(),
           HousePage(
             house: House(
@@ -49,7 +52,6 @@ class _MainPageState extends State<MainPage> {
               coord: LatLng(48, 48),
             ),
           ),
-          // const ChartsPage(),
           const CalculatorPage(initialCost: null),
         ].elementAt(index);
       },
@@ -75,32 +77,38 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: Row(
-        children: [
-          SideMenu(
-            onChangePage: (index) {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
+      body: FiltersInherit(
+        filterValues: filters,
+        child: ChangeNotifierProvider(
+          create: (_) => filters,
+          child: Row(
+            children: [
+              SideMenu(
+                onChangePage: (index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+              ),
+              Container(
+                width: 1,
+                color: AppColors.divider,
+              ),
+              Expanded(
+                child: Stack(
+                  children: [
+                    _buildOffstageNavigator(0),
+                    _buildOffstageNavigator(1),
+                    _buildOffstageNavigator(2),
+                    _buildOffstageNavigator(3),
+                    _buildOffstageNavigator(4),
+                    _buildOffstageNavigator(5),
+                  ],
+                ),
+              ),
+            ],
           ),
-          Container(
-            width: 1,
-            color: AppColors.divider,
-          ),
-          Expanded(
-            child: Stack(
-              children: [
-                _buildOffstageNavigator(0),
-                _buildOffstageNavigator(1),
-                _buildOffstageNavigator(2),
-                _buildOffstageNavigator(3),
-                _buildOffstageNavigator(4),
-                _buildOffstageNavigator(5),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -6,22 +6,40 @@ import 'package:flutter/services.dart';
 
 class FilterField extends StatefulWidget {
   final String title;
+  final String? initFrom;
+  final String? initTo;
   final Function(String, String) onValuesChange;
 
-  const FilterField({Key? key, required this.title, required this.onValuesChange}) : super(key: key);
+  const FilterField({
+    Key? key,
+    required this.title,
+    required this.onValuesChange,
+    this.initFrom,
+    this.initTo,
+  }) : super(key: key);
 
   @override
   State<FilterField> createState() => _FilterFieldState();
 }
 
 class _FilterFieldState extends State<FilterField> {
-  final fromFieldController = TextEditingController();
-  final toFieldController = TextEditingController();
+  late TextEditingController fromFieldController;
+  late TextEditingController toFieldController;
 
   @override
   void initState() {
-    fromFieldController.addListener(() { widget.onValuesChange(fromFieldController.text, toFieldController.text);});
-    toFieldController.addListener(() { widget.onValuesChange(fromFieldController.text, toFieldController.text);});
+    fromFieldController = TextEditingController(
+      text: double.parse(widget.initFrom ?? "-1") == -1 ? "" : widget.initFrom,
+    );
+    toFieldController = TextEditingController(
+      text: double.parse(widget.initTo ?? "-1") == -1 ? "" : widget.initTo,
+    );
+    fromFieldController.addListener(() {
+      widget.onValuesChange(fromFieldController.text, toFieldController.text);
+    });
+    toFieldController.addListener(() {
+      widget.onValuesChange(fromFieldController.text, toFieldController.text);
+    });
     super.initState();
   }
 
@@ -81,7 +99,7 @@ class _FilterFieldState extends State<FilterField> {
                           alignment: Alignment.center,
                           constraints: const BoxConstraints(minWidth: double.infinity),
                           child: TextField(
-                            inputFormatters: [ FilteringTextInputFormatter(RegExp(r"[1234567890.]"), allow: true)],
+                            inputFormatters: [FilteringTextInputFormatter(RegExp(r"[1234567890.]"), allow: true)],
                             controller: fromFieldController,
                             style: AppTextStyles.title
                                 .copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.text),
@@ -126,7 +144,7 @@ class _FilterFieldState extends State<FilterField> {
                           alignment: Alignment.center,
                           constraints: const BoxConstraints(minWidth: double.infinity),
                           child: TextField(
-                            inputFormatters: [ FilteringTextInputFormatter(RegExp(r"[1234567890.]"), allow: true)],
+                            inputFormatters: [FilteringTextInputFormatter(RegExp(r"[1234567890.]"), allow: true)],
                             controller: toFieldController,
                             style: AppTextStyles.title
                                 .copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.text),
