@@ -1,8 +1,10 @@
 import 'package:build_link/data/model/house_model.dart';
 import 'package:build_link/data/styles/colors.dart';
+import 'package:build_link/ui/pages/calculator_page.dart';
 import 'package:build_link/ui/pages/calendar_page.dart';
 import 'package:build_link/ui/pages/charts_page.dart';
 import 'package:build_link/ui/pages/clients_page.dart';
+import 'package:build_link/ui/pages/forum_page.dart';
 import 'package:build_link/ui/pages/house_page.dart';
 import 'package:build_link/ui/pages/house_search_page.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +45,7 @@ class _MainPageState extends State<MainPage> {
           ),
           const HouseSearchPage(),
           const ChartsPage(),
+          const CalculatorPage(initialCost: null),
         ].elementAt(index);
       },
     };
@@ -88,6 +91,7 @@ class _MainPageState extends State<MainPage> {
                 _buildOffstageNavigator(2),
                 _buildOffstageNavigator(3),
                 _buildOffstageNavigator(4),
+                _buildOffstageNavigator(5),
               ],
             ),
           ),

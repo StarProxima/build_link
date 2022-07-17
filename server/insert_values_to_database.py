@@ -158,7 +158,29 @@ INSERT INTO public.images(
 INSERT INTO public.images(
 	id_object, url)
 	VALUES ( 5, 'https://mir-s3-cdn-cf.behance.net/project_modules/1400/c9b48a95706407.5e9dd9d78b9a6.jpg');
-	
+
+UPDATE public.objects SET
+lat = '45.031030'::real, lng = '38.975903'::real WHERE
+id = 1;
+UPDATE public.objects SET
+lng = '38.975903'::real, lat = '45.031030'::real WHERE
+id = 2;
+UPDATE public.objects SET
+lng = '38.975903'::real, lat = '45.031030'::real WHERE
+id = 3;
+UPDATE public.objects SET
+lng = '38.975903'::real, lat = '45.031030'::real WHERE
+id = 4;
+UPDATE public.objects SET
+lng = '38.975903'::real, lat = '45.031030'::real WHERE
+id = 5;
+
+UPDATE public.objects
+	SET plan='https://bricknews.ru/wp-content/uploads/2017/05/%D0%B3%D0%B3%D1%88%D0%BB.jpeg'
+	WHERE id=4;
+UPDATE public.objects
+	SET plan='https://images.deal.by/217698108_w500_h500_pereplanirovka-kvartiry.jpg'
+	WHERE id=5;
     """)
     # Получить результат
     records = cursor.fetchall()

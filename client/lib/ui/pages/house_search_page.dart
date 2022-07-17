@@ -19,12 +19,13 @@ class HouseSearchPage extends StatefulWidget {
 
 class _HouseSearchPageState extends State<HouseSearchPage> {
   List<House> findedHouses = [];
+  List<List<dynamic>> filterValues = [[-1,-1],[-1,-1],[-1,-1],[-1,-1],];
 
   final ScrollController cardsController = ScrollController();
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     HouseRepository.searchHouses().then((value) {
       setState(() {
@@ -51,13 +52,11 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
           const Space(space: 32),
           Expanded(
             child: Container(
-              constraints: const BoxConstraints(
-                  minWidth: double.infinity, minHeight: double.infinity),
+              constraints: const BoxConstraints(minWidth: double.infinity, minHeight: double.infinity),
               child: Row(
                 children: [
                   Container(
-                    constraints: const BoxConstraints(
-                        maxWidth: 420, minHeight: double.infinity),
+                    constraints: const BoxConstraints(maxWidth: 420, minHeight: double.infinity),
                     color: AppColors.background,
                     child: SingleChildScrollView(
                       child: Column(
@@ -92,13 +91,31 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
                                       color: AppColors.backgroundDark,
                                       border: Border.all(color: AppColors.divider, width: 1),
                                     ),
-                                    child: Text(
-                                      "Применить",
-                                      style: AppTextStyles.titleLarge.copyWith(
-                                        fontSize: 12,
-                                        color: AppColors.accent,
+                                    child: TextButton(
+                                      onPressed: () {
+                                        HouseRepository.searchHouses(
+                                          minCost: filterValues[0][0] == -1 ? null : filterValues[0][0],
+                                          maxCost: filterValues[0][1] == -1 ? null : filterValues[0][1],
+                                          minSq: filterValues[1][0] == -1 ? null : filterValues[1][0],
+                                          maxSq: filterValues[1][1] == -1 ? null : filterValues[1][1],
+                                          minRooms: filterValues[2][0] == -1 ? null : filterValues[2][0],
+                                          maxRooms: filterValues[2][1] == -1 ? null : filterValues[2][1],
+                                          minHeight: filterValues[3][0] == -1 ? null : filterValues[3][0],
+                                          maxHeight: filterValues[3][1] == -1 ? null : filterValues[3][1],
+                                        ).then((value) {
+                                          setState(() {
+                                            findedHouses = value ?? [];
+                                          });
+                                        });
+                                      },
+                                      child: Text(
+                                        "Применить",
+                                        style: AppTextStyles.titleLarge.copyWith(
+                                          fontSize: 12,
+                                          color: AppColors.accent,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                 ),
@@ -108,19 +125,63 @@ class _HouseSearchPageState extends State<HouseSearchPage> {
                           const Space(space: 16),
                           FilterField(
                             title: "Цена",
-                            onValuesChange: (_, __) {},
+                            onValuesChange: (f, t) {
+                              if (f != "" && double.tryParse(f) != null) {
+                                filterValues[0][0] = double.parse(f);
+                              } else {
+                                filterValues[0][0] = -1;
+                              }
+                              if (t != "" && double.tryParse(t) != null) {
+                                filterValues[0][1] = double.parse(t);
+                              } else {
+                                filterValues[0][1] = -1;
+                              }
+                            },
                           ),
                           FilterField(
                             title: "Площадь",
-                            onValuesChange: (_, __) {},
+                            onValuesChange: (f, t) {
+                              if (f != "" && double.tryParse(f) != null) {
+                                filterValues[1][0] = double.parse(f);
+                              } else {
+                                filterValues[1][0] = -1;
+                              }
+                              if (t != "" && double.tryParse(t) != null) {
+                                filterValues[1][1] = double.parse(t);
+                              } else {
+                                filterValues[1][1] = -1;
+                              }
+                            },
                           ),
                           FilterField(
-                            title: "Кол-во квартир",
-                            onValuesChange: (_, __) {},
+                            title: "Кол-во комнат",
+                            onValuesChange: (f, t) {
+                              if (f != "" && int.tryParse(f) != null) {
+                                filterValues[2][0] = int.parse(f);
+                              } else {
+                                filterValues[2][0] = -1;
+                              }
+                              if (t != "" && int.tryParse(t) != null) {
+                                filterValues[2][1] = int.parse(t);
+                              } else {
+                                filterValues[2][1] = -1;
+                              }
+                            },
                           ),
                           FilterField(
-                            title: "Этаж",
-                            onValuesChange: (_, __) {},
+                            title: "Высота потолка",
+                            onValuesChange: (f, t) {
+                              if (f != "" && double.tryParse(f) != null) {
+                                filterValues[3][0] = double.parse(f);
+                              } else {
+                                filterValues[3][0] = -1;
+                              }
+                              if (t != "" && double.tryParse(t) != null) {
+                                filterValues[3][1] = double.parse(t);
+                              } else {
+                                filterValues[3][1] = -1;
+                              }
+                            },
                           ),
                           const Space(space: 24),
                           Row(

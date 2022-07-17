@@ -6,7 +6,7 @@ import 'data/styles/colors.dart';
 import 'package:desktop_window/desktop_window.dart';
 
 void main() {
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {}
+  //if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {}
   runApp(const MyApp());
 }
 

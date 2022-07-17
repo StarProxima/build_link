@@ -18,6 +18,13 @@ class _FilterFieldState extends State<FilterField> {
   final toFieldController = TextEditingController();
 
   @override
+  void initState() {
+    fromFieldController.addListener(() { widget.onValuesChange(fromFieldController.text, toFieldController.text);});
+    toFieldController.addListener(() { widget.onValuesChange(fromFieldController.text, toFieldController.text);});
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -117,7 +124,7 @@ class _FilterFieldState extends State<FilterField> {
                           alignment: Alignment.center,
                           constraints: const BoxConstraints(minWidth: double.infinity),
                           child: TextField(
-                            controller: fromFieldController,
+                            controller: toFieldController,
                             style: AppTextStyles.title
                                 .copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.text),
                             maxLines: 1,

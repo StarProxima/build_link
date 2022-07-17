@@ -13,41 +13,44 @@ class HouseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextButton(
-        style: AppButtonStyle.cardButton,
-        onPressed: () {
-          onPress();
-        },
-        child: Container(
-          padding: const EdgeInsets.only(top: 12, bottom: 12),
-          height: 132 + 24,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(16)),
-            border: Border.all(color: AppColors.divider, width: 1),
-          ),
-          child: Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(left: 12, right: 12),
-                height: 132,
-                width: 184,
+    return TextButton(
+      style: AppButtonStyle.cardButton,
+      onPressed: () {
+        onPress();
+      },
+      child: Container(
+        padding: const EdgeInsets.only(top: 12, bottom: 12),
+        height: 132 + 24,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
+          border: Border.all(color: AppColors.divider, width: 1),
+        ),
+        child: Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 12, right: 12),
+              height: 132,
+              width: 184,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                border: Border.all(color: AppColors.divider, width: 1),
+                color: AppColors.backgroundDark,
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: Container(
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  border: Border.all(color: AppColors.divider, width: 1),
-                  color: AppColors.backgroundDark,
+                  color: AppColors.background,
+                  image: DecorationImage(
+                    image: NetworkImage(house.planUrl),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 clipBehavior: Clip.antiAlias,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    color: AppColors.background,
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.network(house.planUrl.toString()),
-                ),
               ),
-              Column(
+            ),
+            Flexible(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -83,8 +86,8 @@ class HouseCard extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -92,19 +95,20 @@ class HouseCard extends StatelessWidget {
 
   Widget cardLabel(AppIcon icon, String text) {
     return SizedBox(
-      height: 28,
-      child: Expanded(
-        child: Container(
-          color: AppColors.background,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              icon,
-              const Space(
-                space: 8,
-                orientation: Axis.horizontal,
-              ),
-              Text(
+      height: 24,
+      child: Container(
+        alignment: Alignment.topLeft,
+        color: AppColors.background,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            icon,
+            const Space(
+              space: 8,
+              orientation: Axis.horizontal,
+            ),
+            Flexible(
+              child: Text(
                 text,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -114,8 +118,8 @@ class HouseCard extends StatelessWidget {
                   color: AppColors.text,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

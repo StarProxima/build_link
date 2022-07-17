@@ -11,7 +11,50 @@ abstract class HouseRepository {
 
   static Future<List<House>?> noteAnalyze({
     required String note,
-  }) async {}
+  }) async {
+    var url;
+    url = Uri(
+      scheme: "http",
+      host: serverUrl,
+      path: "/autoSearch",
+      port: 5000,
+      queryParameters: {
+        "note": note,
+      },
+    );
+    if (isDebug) log(url.normalizePath().toString());
+    try {
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        var decode = jsonDecode(response.body) as List<dynamic>;
+        List<House> rezult = [];
+        for (int i = 0; i < decode.length; i++) {
+          var supUrl = Uri(
+            scheme: "http",
+            host: serverUrl,
+            path: "/getImages",
+            port: 5000,
+            queryParameters: {
+              "id": decode[i]["id"]!,
+            },
+          );
+          var supResponse = await http.get(supUrl);
+          if (supResponse.statusCode == 200) {
+            rezult.add(House.fromJson(decode[i], jsonDecode(supResponse.body)));
+          } else {
+            log('Request failed with status: ${response.statusCode}.');
+            return [];
+          }
+        }
+        return rezult;
+      } else {
+        log('Request failed with status: ${response.statusCode}.');
+      }
+    } catch (e) {
+      log('Request failed $e');
+    }
+    return [];
+  }
 
   static Future<List<House>?> searchHouses({
     double? minSq,
