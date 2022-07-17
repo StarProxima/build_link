@@ -67,8 +67,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                 ),
                 Text(
                   " Кредита",
-                  style: AppTextStyles.titleLarge
-                      .copyWith(color: AppColors.accent),
+                  style: AppTextStyles.titleLarge.copyWith(color: AppColors.accent),
                 ),
               ],
             ),
@@ -78,51 +77,16 @@ class _CalculatorPageState extends State<CalculatorPage> {
               children: [
                 SizedBox(
                   width: 300,
-                  child: Container(
-                    color: AppColors.background,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Входные данные:",
-                              style: AppTextStyles.titleMedium
-                                  .copyWith(fontSize: 20),
-                            ),
-                          ],
-                        ),
-                        const Space(space: 16),
-                        CustomTextField(
-                          controller: costController,
-                          label: "Стоимость жилья:",
-                          suffix: "₽",
-                        ),
-                        const Space(space: 8),
-                        CustomTextField(
-                          controller: firstContributionController,
-                          label: "Первонач. взнос:",
-                          suffix: "₽",
-                        ),
-                        const Space(space: 8),
-                        CustomTextField(
-                          controller: discountTermController,
-                          label: "Срок кредита:",
-                          suffix: "мес",
-                        ),
-                        const Space(space: 8),
-                        CustomTextField(
-                          controller: percentsController,
-                          label: "Процентная ставка:",
-                          suffix: "%",
-                        ),
-                        const Space(space: 16),
-                        Row(
-                          children: [
-                            Text(
-                              "Скидки и льготы:",
-                              style: AppTextStyles.titleMedium.copyWith(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
+                  child: Expanded(
+                    child: Container(
+                      color: AppColors.background,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Входные данные:",
+                                style: AppTextStyles.titleMedium.copyWith(fontSize: 20),
                               ),
                             ],
                           ),
@@ -206,9 +170,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                              ),
-                            )),
-                      ],
+                              )),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -225,8 +189,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                           children: [
                             Text(
                               "Результаты:",
-                              style: AppTextStyles.titleMedium
-                                  .copyWith(fontSize: 20),
+                              style: AppTextStyles.titleMedium.copyWith(fontSize: 20),
                             ),
                           ],
                         ),
@@ -346,8 +309,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "Сумма кредита:",
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.text),
+              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.text),
             ),
           ),
           Container(
@@ -355,8 +317,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "Ежемесячный платеж:",
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.text),
+              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.text),
             ),
           ),
           Container(
@@ -364,8 +325,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "Начисленные проценты:",
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.text),
+              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.text),
             ),
           ),
           Container(
@@ -373,8 +333,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "Долг + проценты:",
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.text),
+              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.text),
             ),
           ),
         ],
