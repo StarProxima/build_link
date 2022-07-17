@@ -44,6 +44,7 @@ class CustomTextField extends StatelessWidget {
             ),
             Expanded(
               child: TextField(
+                controller: controller,
                 decoration: InputDecoration(
                   isCollapsed: true,
                   border: InputBorder.none,

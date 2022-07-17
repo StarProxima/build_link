@@ -90,9 +90,7 @@ class _SideMenuState extends State<SideMenu> {
             },
             isSelected: selectedPageIndex == 2,
           ),
-          const Space(
-            space: 6,
-          ),
+          const Space(space: 6),
           SideMenuButton(
             appIcon: AppIcons.comment_check,
             label: 'Статистика',
@@ -102,6 +100,7 @@ class _SideMenuState extends State<SideMenu> {
             },
             isSelected: selectedPageIndex == 4,
           ),
+          const Space(space: 6),
           SideMenuButton(
             appIcon: AppIcons.calendar,
             label: 'Калькулятор',
