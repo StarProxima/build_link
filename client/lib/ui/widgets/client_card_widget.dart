@@ -164,13 +164,26 @@ class ClientCardWidget extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              "Нет квартир",
+              "Квартиры не выбраны",
               style: AppTextStyles.label.copyWith(
                 fontSize: 12,
                 color: AppColors.textDisable,
                 fontWeight: FontWeight.w500,
               ),
             ),
+            const Spacer(),
+            TextButton(
+                onPressed: () {
+                  //TODO: go to serach page with filters
+                },
+                child: Text(
+                  "Подобрать",
+                  style: AppTextStyles.label.copyWith(
+                    color: AppColors.accent,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ))
           ],
         ),
       ),
