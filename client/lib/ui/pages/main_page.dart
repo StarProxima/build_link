@@ -4,6 +4,7 @@ import 'package:build_link/ui/pages/calculator_page.dart';
 import 'package:build_link/ui/pages/calendar_page.dart';
 import 'package:build_link/ui/pages/charts_page.dart';
 import 'package:build_link/ui/pages/clients_page.dart';
+import 'package:build_link/ui/pages/forum_page.dart';
 import 'package:build_link/ui/pages/house_page.dart';
 import 'package:build_link/ui/pages/house_search_page.dart';
 import 'package:flutter/material.dart';
