@@ -76,8 +76,8 @@ class _CalculatorInputState extends State<CalculatorInput> {
             Row(
               children: [
                 Text(
-                  "Входные данные:",
-                  style: AppTextStyles.titleMedium.copyWith(fontSize: 20),
+                  "Входные данные",
+                  style: AppTextStyles.titleMedium,
                 ),
               ],
             ),
@@ -109,11 +109,8 @@ class _CalculatorInputState extends State<CalculatorInput> {
             Row(
               children: [
                 Text(
-                  "Скидки и льготы:",
-                  style: AppTextStyles.titleMedium.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  "Скидки и льготы",
+                  style: AppTextStyles.titleMedium,
                 ),
               ],
             ),

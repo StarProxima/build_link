@@ -75,8 +75,12 @@ class _BarChart1State extends State<BarChart1> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
-      elevation: 4,
+      color: AppColors.background,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(width: 1, color: AppColors.divider),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
