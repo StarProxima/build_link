@@ -51,13 +51,17 @@ class _ClientsPageState extends State<ClientsPage> {
             children: [
               SizedBox(
                 height: 48,
-                child: Text(
-                  "Мои клиенты",
-                  style: AppTextStyles.title.copyWith(
-                    color: AppColors.text,
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700,
-                  ),
+                child: Row(
+                  children: [
+                    Text("Мои клиенты", style: AppTextStyles.titleLarge),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.add_circle_outline,
+                        color: AppColors.accent,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
@@ -87,8 +91,7 @@ class _ClientsPageState extends State<ClientsPage> {
                             ) {
                               const begin = Offset(0.0, 1.0);
                               const end = Offset.zero;
-                              final tween = Tween(begin: begin, end: end)
-                                  .chain(CurveTween(curve: Curves.easeOut));
+                              final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: Curves.easeOut));
                               final offsetAnimation = animation.drive(tween);
                               return SlideTransition(
                                 position: offsetAnimation,

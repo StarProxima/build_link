@@ -85,11 +85,7 @@ class _HeatMapCalendarExample extends State<CalendarPage> {
         children: [
           Text(
             "Календарь",
-            style: AppTextStyles.title.copyWith(
-              fontSize: 32,
-              fontWeight: FontWeight.w700,
-              color: AppColors.text,
-            ),
+            style: AppTextStyles.titleLarge,
           ),
           const Spacer(),
           TextButton(
