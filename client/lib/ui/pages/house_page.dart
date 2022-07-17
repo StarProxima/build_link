@@ -1,6 +1,7 @@
 import 'package:build_link/data/styles/icons.dart';
 import 'package:build_link/ui/pages/map_page.dart';
 import 'package:build_link/ui/widgets/action_card_button.dart';
+import 'package:build_link/ui/widgets/custom_scroll_controller.dart';
 import 'package:build_link/ui/widgets/mini_map.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:build_link/ui/widgets/house_tag_card.dart';
@@ -31,6 +32,7 @@ class _HousePageState extends State<HousePage> {
     return Container(
       color: AppColors.background,
       child: SingleChildScrollView(
+        controller: CustumScrollController(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

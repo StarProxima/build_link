@@ -4,6 +4,7 @@ import 'package:build_link/ui/widgets/charts/bar_chart2.dart';
 import 'package:build_link/ui/widgets/charts/bar_chart3.dart';
 import 'package:build_link/ui/widgets/charts/bar_chart4.dart';
 import 'package:build_link/ui/widgets/charts/bar_chart5.dart';
+import 'package:build_link/ui/widgets/custom_scroll_controller.dart';
 import 'package:flutter/material.dart';
 
 class ChartsPage extends StatefulWidget {
@@ -18,6 +19,7 @@ class _ChartsPageState extends State<ChartsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        controller: CustumScrollController(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
