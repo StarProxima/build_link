@@ -161,12 +161,17 @@ class _CalculatorPageState extends State<CalculatorPage> {
                                   color: isButtonPressable ? AppColors.text : AppColors.divider,
                                   border: Border.all(color: AppColors.divider, width: 0),
                                 ),
-                                child: Text(
-                                  "Рассчитать",
-                                  style: AppTextStyles.label.copyWith(
-                                    fontSize: 16,
-                                    color: isButtonPressable ? AppColors.background : AppColors.textDisable,
-                                    fontWeight: FontWeight.w700,
+                                child: TextButton(
+                                  onPressed: () {
+                                    
+                                  },
+                                  child: Text(
+                                    "Рассчитать",
+                                    style: AppTextStyles.label.copyWith(
+                                      fontSize: 16,
+                                      color: isButtonPressable ? AppColors.background : AppColors.textDisable,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ),
                               )),

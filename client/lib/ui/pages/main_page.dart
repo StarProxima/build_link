@@ -41,6 +41,8 @@ class _MainPageState extends State<MainPage> {
               state: 'FEWf',
               planUrl: "",
               images: [],
+              lat: 45,
+              lng: 35,
             ),
           ),
           const HouseSearchPage(),
