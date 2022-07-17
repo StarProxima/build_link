@@ -23,6 +23,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.6.2
   desktop_window: ^0.4.0
   flutter_masked_text2: ^0.9.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

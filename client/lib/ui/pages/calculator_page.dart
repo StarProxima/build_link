@@ -7,6 +7,13 @@ import 'package:build_link/ui/widgets/space.dart';
 import 'package:build_link/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:intl/intl.dart';
+
+final NumberFormat priceFormater = NumberFormat.currency(
+  locale: 'ru_RU',
+  symbol: '₽',
+  decimalDigits: 0,
+);
 
 class CalculatorPage extends StatefulWidget {
   final int? initialCost;
@@ -37,13 +44,11 @@ class _CalculatorPageState extends State<CalculatorPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-
     costController.addListener(checkButtonEnabled);
     firstContributionController.addListener(checkButtonEnabled);
     discountTermController.addListener(checkButtonEnabled);
     percentsController.addListener(checkButtonEnabled);
+    super.initState();
   }
 
   void checkButtonEnabled() {
@@ -152,52 +157,52 @@ class _CalculatorPageState extends State<CalculatorPage> {
                         ),
                         const Space(space: 8),
                         TextButton(
-                            style: AppButtonStyle.cardButton,
-                            onPressed: () {
-                              if (isButtonPressable) {
-                                setState(() {
-                                  usingBonus = (benefitController
-                                              .text.isNotEmpty &&
-                                          double.tryParse(
-                                                  benefitController.text) !=
-                                              null) ||
-                                      (discountController.text
-                                              .replaceAll(' ', '')
-                                              .isNotEmpty &&
-                                          double.tryParse(discountController
-                                                  .text
-                                                  .replaceAll(' ', '')) !=
-                                              null);
-                                  calculated = calculateCredit();
-                                });
-                              }
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 48,
-                              constraints: const BoxConstraints(
-                                  minWidth: double.infinity),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
+                          style: AppButtonStyle.cardButton,
+                          onPressed: () {
+                            if (isButtonPressable) {
+                              setState(() {
+                                usingBonus = (benefitController
+                                            .text.isNotEmpty &&
+                                        double.tryParse(
+                                                benefitController.text) !=
+                                            null) ||
+                                    (discountController.text
+                                            .replaceAll(' ', '')
+                                            .isNotEmpty &&
+                                        double.tryParse(discountController.text
+                                                .replaceAll(' ', '')) !=
+                                            null);
+                                calculated = calculateCredit();
+                              });
+                            }
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 48,
+                            constraints:
+                                const BoxConstraints(minWidth: double.infinity),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                              color: isButtonPressable
+                                  ? AppColors.text
+                                  : AppColors.divider,
+                              border: Border.all(
+                                  color: AppColors.divider, width: 0),
+                            ),
+                            child: Text(
+                              "Рассчитать",
+                              style: AppTextStyles.label.copyWith(
+                                fontSize: 16,
                                 color: isButtonPressable
-                                    ? AppColors.text
-                                    : AppColors.divider,
-                                border: Border.all(
-                                    color: AppColors.divider, width: 0),
+                                    ? AppColors.background
+                                    : AppColors.textDisable,
+                                fontWeight: FontWeight.w700,
                               ),
-                              child: Text(
-                                "Рассчитать",
-                                style: AppTextStyles.label.copyWith(
-                                  fontSize: 16,
-                                  color: isButtonPressable
-                                      ? AppColors.background
-                                      : AppColors.textDisable,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            )),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -220,7 +225,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
                             ),
                           ],
                         ),
-                        infoTable(),
                       ],
                     ),
                   ),
@@ -244,15 +248,20 @@ class _CalculatorPageState extends State<CalculatorPage> {
     mountPay = [];
     creditSum = [];
 
-    creditSum.add(double.parse(costController.text.replaceAll(' ', '')) -
-        double.parse(firstContributionController.text.replaceAll(' ', '')));
+    creditSum.add(
+      double.parse(costController.text.replaceAll(' ', '')) -
+          double.parse(firstContributionController.text.replaceAll(' ', '')),
+    );
     mountPay.add(calculatePay(
         double.parse(costController.text.replaceAll(' ', '')),
         int.parse(discountTermController.text),
         double.parse(percentsController.text)));
-    procentSum.add(roundDouble(
+    procentSum.add(
+      roundDouble(
         mountPay[0] * int.parse(discountTermController.text) - creditSum[0],
-        2));
+        2,
+      ),
+    );
     procentAndCredit.add(procentSum[0] + creditSum[0]);
 
     if (usingBonus) {
@@ -277,14 +286,20 @@ class _CalculatorPageState extends State<CalculatorPage> {
             int.parse(discountTermController.text),
             benefit));
       } else {
-        mountPay.add(calculatePay(
+        mountPay.add(
+          calculatePay(
             double.parse(costController.text.replaceAll(' ', '')) - discount,
             int.parse(discountTermController.text),
-            double.parse(percentsController.text)));
+            double.parse(percentsController.text),
+          ),
+        );
       }
-      procentSum.add(roundDouble(
+      procentSum.add(
+        roundDouble(
           mountPay[1] * int.parse(discountTermController.text) - creditSum[1],
-          2));
+          2,
+        ),
+      );
       procentAndCredit.add(procentSum[1] + creditSum[1]);
 
       procentAndCredit
@@ -306,268 +321,5 @@ class _CalculatorPageState extends State<CalculatorPage> {
     procent /= 12;
     num tmp = pow((1 + procent), mounts);
     return roundDouble(credit * ((procent) * tmp) / (tmp - 1), 2);
-  }
-
-  Widget infoTable() {
-    return calculated
-        ? Container(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-            ),
-            margin: const EdgeInsets.only(top: 16),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(12),
-              ),
-              border: Border.all(
-                color: AppColors.divider,
-                width: 1,
-              ),
-              color: AppColors.background,
-            ),
-            child: Row(
-              children: !usingBonus
-                  ? [
-                      resultTitles(),
-                      calculatedValues(),
-                    ]
-                  : [
-                      resultTitles(),
-                      calculatedValues(),
-                      calculatedValuesWithBonus(),
-                      benefitValues(),
-                    ],
-            ),
-          )
-        : const Spacer();
-  }
-
-  Widget resultTitles() {
-    return Expanded(
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.centerLeft,
-            height: 48,
-            child: Text(
-              "Название",
-              style: AppTextStyles.label.copyWith(
-                fontSize: 14,
-                color: AppColors.text,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            height: 48,
-            child: Text(
-              "Сумма кредита:",
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.text),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            height: 48,
-            child: Text(
-              "Ежемесячный платеж:",
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.text),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            height: 48,
-            child: Text(
-              "Начисленные проценты:",
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.text),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            height: 48,
-            child: Text(
-              "Долг + проценты:",
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.text),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget calculatedValues() {
-    return Expanded(
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              "Значение",
-              style: AppTextStyles.label.copyWith(
-                fontSize: 14,
-                color: AppColors.text,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              creditSum[0].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.accent),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              mountPay[0].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.accent),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              procentSum[0].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.accent),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              procentAndCredit[0].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.accent),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget calculatedValuesWithBonus() {
-    return Expanded(
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              "C бонусом",
-              style: AppTextStyles.label.copyWith(
-                fontSize: 14,
-                color: AppColors.text,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              creditSum[1].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.accent),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              mountPay[1].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.accent),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              procentSum[1].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.accent),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              procentAndCredit[1].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.accent),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget benefitValues() {
-    return Expanded(
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              "Выгода",
-              style: AppTextStyles.label.copyWith(
-                fontSize: 14,
-                color: AppColors.text,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              creditSum[2].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.appGreen),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              mountPay[2].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.appGreen),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              procentSum[2].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.appGreen),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            height: 48,
-            child: Text(
-              procentAndCredit[2].toString(),
-              style: AppTextStyles.label
-                  .copyWith(fontSize: 14, color: AppColors.appGreen),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
