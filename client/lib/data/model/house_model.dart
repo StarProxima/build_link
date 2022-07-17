@@ -55,4 +55,11 @@ class House {
   String get title {
     return "$roomCount-к квартира $squareMeters м²";
   }
+  String get dateRange {
+     String tmp = minDate.replaceAll(RegExp(r'-'), '.');
+     tmp = tmp.substring(0,tmp.length-3);
+     String tmp1 = maxDate.replaceAll(RegExp(r'-'), '.');
+     tmp1 = tmp1.substring(0,tmp1.length-3);
+     return "$tmp-$tmp1";
+  }
 }

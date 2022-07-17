@@ -48,4 +48,5 @@ enum AppIcons {
   comment_check,
   image_alt,
   user,
+  town,
 }
