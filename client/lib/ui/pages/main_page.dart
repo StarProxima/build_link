@@ -27,6 +27,9 @@ class _MainPageState extends State<MainPage> {
         return [
           const ClientsPage(agentID: 1),
           const CalendarPage(),
+          const ForumPage(),
+
+          const HouseSearchPage(),
           HousePage(
             house: House(
               address: 'Erngworu fweofhw',
@@ -45,8 +48,7 @@ class _MainPageState extends State<MainPage> {
               coord: LatLng(48, 48),
             ),
           ),
-          const HouseSearchPage(),
-          const ChartsPage(),
+          // const ChartsPage(),
           const CalculatorPage(initialCost: null),
         ].elementAt(index);
       },

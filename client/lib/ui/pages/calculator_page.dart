@@ -65,7 +65,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                 ),
                 Text(
                   " Кредита",
-                  style: AppTextStyles.titleLarge.copyWith(color: AppColors.accent),
+                  style: AppTextStyles.titleLarge
+                      .copyWith(color: AppColors.accent),
                 ),
               ],
             ),
@@ -75,106 +76,112 @@ class _CalculatorPageState extends State<CalculatorPage> {
               children: [
                 SizedBox(
                   width: 300,
-                  child: Expanded(
-                    child: Container(
-                      color: AppColors.background,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Входные данные:",
-                                style: AppTextStyles.titleMedium.copyWith(fontSize: 20),
+                  child: Container(
+                    color: AppColors.background,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Входные данные:",
+                              style: AppTextStyles.titleMedium
+                                  .copyWith(fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        const Space(space: 16),
+                        CustomTextField(
+                          controller: costController,
+                          label: "Стоимость жилья:",
+                          suffix: "₽",
+                        ),
+                        const Space(space: 8),
+                        CustomTextField(
+                          controller: firstContributionController,
+                          label: "Первонач. взнос:",
+                          suffix: "₽",
+                        ),
+                        const Space(space: 8),
+                        CustomTextField(
+                          controller: discountTermController,
+                          label: "Срок кредита:",
+                          suffix: "мес",
+                        ),
+                        const Space(space: 8),
+                        CustomTextField(
+                          controller: percentsController,
+                          label: "Процентная ставка:",
+                          suffix: "%",
+                        ),
+                        const Space(space: 16),
+                        Row(
+                          children: [
+                            Text(
+                              "Скидки и льготы:",
+                              style: AppTextStyles.titleMedium.copyWith(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
                               ),
-                            ],
-                          ),
-                          const Space(space: 16),
-                          CustomTextField(
-                            controller: costController,
-                            label: "Стоимость жилья:",
-                            suffix: "₽",
-                          ),
-                          const Space(space: 8),
-                          CustomTextField(
-                            controller: firstContributionController,
-                            label: "Первонач. взнос:",
-                            suffix: "₽",
-                          ),
-                          const Space(space: 8),
-                          CustomTextField(
-                            controller: discountTermController,
-                            label: "Срок кредита:",
-                            suffix: "мес",
-                          ),
-                          const Space(space: 8),
-                          CustomTextField(
-                            controller: percentsController,
-                            label: "Процентная ставка:",
-                            suffix: "%",
-                          ),
-                          const Space(space: 16),
-                          Row(
-                            children: [
-                              Text(
-                                "Скидки и льготы:",
-                                style: AppTextStyles.titleMedium.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Space(space: 16),
-                          CustomTextField(
-                            controller: discountController,
-                            label: "Размер скидки:",
-                            suffix: "₽",
-                          ),
-                          const Space(space: 8),
-                          CustomTextField(
-                            controller: benefitController,
-                            label: "Льготная ставка:",
-                            suffix: "%",
-                          ),
-                          const Space(space: 8),
-                          TextButton(
-                              style: AppButtonStyle.cardButton,
-                              onPressed: () {
-                                if (isButtonPressable) {
-                                  setState(() {
-                                    calculateCredit();
-                                    usingBonus =
-                                        benefitController.text.isNotEmpty || discountController.text.isNotEmpty;
+                            ),
+                          ],
+                        ),
+                        const Space(space: 16),
+                        CustomTextField(
+                          controller: discountController,
+                          label: "Размер скидки:",
+                          suffix: "₽",
+                        ),
+                        const Space(space: 8),
+                        CustomTextField(
+                          controller: benefitController,
+                          label: "Льготная ставка:",
+                          suffix: "%",
+                        ),
+                        const Space(space: 8),
+                        TextButton(
+                            style: AppButtonStyle.cardButton,
+                            onPressed: () {
+                              if (isButtonPressable) {
+                                setState(() {
+                                  calculateCredit();
+                                  usingBonus =
+                                      benefitController.text.isNotEmpty ||
+                                          discountController.text.isNotEmpty;
 
-                                    calculated = true;
-                                  });
-                                }
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 48,
-                                constraints: const BoxConstraints(minWidth: double.infinity),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                  color: isButtonPressable ? AppColors.text : AppColors.divider,
-                                  border: Border.all(color: AppColors.divider, width: 0),
+                                  calculated = true;
+                                });
+                              }
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 48,
+                              constraints: const BoxConstraints(
+                                  minWidth: double.infinity),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(12),
                                 ),
-                                child: TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    "Рассчитать",
-                                    style: AppTextStyles.label.copyWith(
-                                      fontSize: 16,
-                                      color: isButtonPressable ? AppColors.background : AppColors.textDisable,
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                                color: isButtonPressable
+                                    ? AppColors.text
+                                    : AppColors.divider,
+                                border: Border.all(
+                                    color: AppColors.divider, width: 0),
+                              ),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "Рассчитать",
+                                  style: AppTextStyles.label.copyWith(
+                                    fontSize: 16,
+                                    color: isButtonPressable
+                                        ? AppColors.background
+                                        : AppColors.textDisable,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                              )),
-                        ],
-                      ),
+                              ),
+                            )),
+                      ],
                     ),
                   ),
                 ),
@@ -191,7 +198,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                           children: [
                             Text(
                               "Результаты:",
-                              style: AppTextStyles.titleMedium.copyWith(fontSize: 20),
+                              style: AppTextStyles.titleMedium
+                                  .copyWith(fontSize: 20),
                             ),
                           ],
                         ),
@@ -268,7 +276,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "Сумма кредита:",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.text),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.text),
             ),
           ),
           Container(
@@ -276,7 +285,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "Ежемесячный платеж:",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.text),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.text),
             ),
           ),
           Container(
@@ -284,7 +294,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "Начисленные проценты:",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.text),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.text),
             ),
           ),
           Container(
@@ -292,7 +303,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "Долг + проценты:",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.text),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.text),
             ),
           ),
         ],
@@ -321,7 +333,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "3.500.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.accent),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.accent),
             ),
           ),
           Container(
@@ -329,7 +342,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "50.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.accent),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.accent),
             ),
           ),
           Container(
@@ -337,7 +351,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "480.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.accent),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.accent),
             ),
           ),
           Container(
@@ -345,7 +360,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "4.480.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.accent),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.accent),
             ),
           ),
         ],
@@ -374,7 +390,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "3.500.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.accent),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.accent),
             ),
           ),
           Container(
@@ -382,7 +399,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "50.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.accent),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.accent),
             ),
           ),
           Container(
@@ -390,7 +408,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "480.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.accent),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.accent),
             ),
           ),
           Container(
@@ -398,7 +417,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "4.480.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.accent),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.accent),
             ),
           ),
         ],
@@ -427,7 +447,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "3.500.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.appGreen),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.appGreen),
             ),
           ),
           Container(
@@ -435,7 +456,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "50.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.appGreen),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.appGreen),
             ),
           ),
           Container(
@@ -443,7 +465,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "480.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.appGreen),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.appGreen),
             ),
           ),
           Container(
@@ -451,7 +474,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             height: 48,
             child: Text(
               "4.480.000",
-              style: AppTextStyles.label.copyWith(fontSize: 14, color: AppColors.appGreen),
+              style: AppTextStyles.label
+                  .copyWith(fontSize: 14, color: AppColors.appGreen),
             ),
           ),
         ],
