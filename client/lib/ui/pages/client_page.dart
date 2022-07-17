@@ -4,8 +4,11 @@ import 'package:build_link/data/styles/fonts.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/model/client_model.dart';
+import '../../data/model/house_model.dart';
 import '../../data/repositories/house_repository.dart';
+import '../widgets/house_card.dart';
 import '../widgets/space.dart';
+import 'house_page.dart';
 
 class ClientPage extends StatefulWidget {
   final Client client;
@@ -17,6 +20,19 @@ class ClientPage extends StatefulWidget {
 }
 
 class _ClientPageState extends State<ClientPage> {
+  List<House> choosedHouses = [];
+
+  @override
+  void initState() {
+    super.initState();
+    HouseRepository.searchHouses(
+    ).then((value) {
+      setState(() {
+        choosedHouses = value ?? [];
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,7 +79,7 @@ class _ClientPageState extends State<ClientPage> {
                   icon: const AppIcon(AppIcons.info, size: 24),
                   text: widget.client.note,
                 ),
-                ClienHomes(note: widget.client.note),
+                ClienHomes(note: widget.client.note, choosedHouses: choosedHouses),
               ],
             ),
           ),
@@ -114,8 +130,9 @@ class ClientCardLabel extends StatelessWidget {
 
 class ClienHomes extends StatelessWidget {
 
-  const ClienHomes({Key? key, required this.note}) : super(key: key);
+  const ClienHomes({Key? key, required this.note, required this.choosedHouses}) : super(key: key);
   final String note;
+  final List<House> choosedHouses;
 
   @override
   Widget build(BuildContext context) {
@@ -147,10 +164,48 @@ class ClienHomes extends StatelessWidget {
             ],
           ),
         ),
-        Column(
-          children: [
-            
-          ],
+        SizedBox(height: 450,
+          child: ListView.separated(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        return HouseCard(
+                                          house: choosedHouses[index],
+                                          onPress: () {
+                                            Navigator.push(
+                                              context,
+                                              PageRouteBuilder(
+                                                pageBuilder: (_, __, ___) {
+                                                  return HousePage(
+                                                    house: choosedHouses[index],
+                                                  );
+                                                },
+                                                transitionsBuilder: (
+                                                  context,
+                                                  animation,
+                                                  secondaryAnimation,
+                                                  child,
+                                                ) {
+                                                  const begin = Offset(0.0, 1.0);
+                                                  const end = Offset.zero;
+                                                  final tween = Tween(begin: begin, end: end)
+                                                      .chain(CurveTween(curve: Curves.easeOut));
+                                                  final offsetAnimation = animation.drive(tween);
+                                                  return SlideTransition(
+                                                    position: offsetAnimation,
+                                                    child: child,
+                                                  );
+                                                },
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      separatorBuilder: (context, index) {
+                                        return const Space(space: 8);
+                                      },
+                                      itemCount: choosedHouses.length,
+                                    ),
         )
       ],
     );
