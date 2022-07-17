@@ -49,7 +49,7 @@ class _SideMenuState extends State<SideMenu> {
           ),
           const Padding(
             padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-            child: AccountCard(name: 'Хахок Рустам', role: 'Агент'),
+            child: AccountCard(name: 'Хахук Рустам', role: 'Агент'),
           ),
           SideMenuButton(
             appIcon: AppIcons.search,
@@ -101,6 +101,15 @@ class _SideMenuState extends State<SideMenu> {
               widget.onChangePage(4);
             },
             isSelected: selectedPageIndex == 4,
+          ),
+          SideMenuButton(
+            appIcon: AppIcons.calendar,
+            label: 'Калькулятор',
+            onTap: () {
+              selectedPageIndex = 5;
+              widget.onChangePage(5);
+            },
+            isSelected: selectedPageIndex == 5,
           ),
         ],
       ),
