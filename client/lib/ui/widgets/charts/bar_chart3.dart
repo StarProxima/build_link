@@ -38,9 +38,7 @@ class _BarChart3State extends State<BarChart3> {
       barRods: [
         BarChartRodData(
           toY: value,
-          color: touchedGroupIndex == x
-              ? AppColors.text
-              : AppColors.text.withOpacity(0.8),
+          color: touchedGroupIndex == x ? AppColors.text : AppColors.textDisable,
           borderRadius: BorderRadius.zero,
           width: 12,
         ),
@@ -50,8 +48,7 @@ class _BarChart3State extends State<BarChart3> {
   }
 
   Widget leftTitles(double value, TitleMeta meta) {
-    TextStyle style = TextStyle(
-        color: AppColors.text, fontSize: 10, fontWeight: FontWeight.bold);
+    TextStyle style = TextStyle(color: AppColors.text, fontSize: 10, fontWeight: FontWeight.bold);
     String text;
     if (value == 0) {
       text = '0';
@@ -74,138 +71,128 @@ class _BarChart3State extends State<BarChart3> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.white,
-      elevation: 4,
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AspectRatio(
-              aspectRatio: 1.4,
-              child: BarChart(
-                BarChartData(
-                  alignment: BarChartAlignment.spaceBetween,
-                  borderData: FlBorderData(
-                    show: true,
-                    border: const Border.symmetric(
-                      horizontal: BorderSide(
-                        color: Color(0xFFececec),
-                      ),
-                    ),
-                  ),
-                  titlesData: FlTitlesData(
-                    show: true,
-                    leftTitles: AxisTitles(
-                      drawBehindEverything: true,
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 40,
-                        getTitlesWidget: leftTitles,
-                      ),
-                    ),
-                    bottomTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 47,
-                        getTitlesWidget: (value, meta) {
-                          final index = value.toInt();
-                          return SideTitleWidget(
-                            axisSide: meta.axisSide,
-                            child: _IconWidget(
-                              [
-                                'Павел',
-                                'Игорь',
-                                'Владислав',
-                                'Михаил',
-                                'Кирилл',
-                                'Гиренка',
-                                'Хахок',
-                                'Виктор',
-                                'Сергей',
-                                'Александр',
-                              ][index],
-                              isSelected: touchedGroupIndex == index,
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    rightTitles: AxisTitles(),
-                    topTitles: AxisTitles(),
-                  ),
-                  gridData: FlGridData(
-                    show: true,
-                    drawVerticalLine: false,
-                    getDrawingHorizontalLine: (value) => FlLine(
-                      color: const Color(0xFFececec),
-                      dashArray: null,
-                      strokeWidth: 1,
-                    ),
-                  ),
-                  barGroups: BarChart3.dataList.asMap().entries.map((e) {
-                    final index = e.key;
-                    final data = e.value;
-                    return generateBarGroup(
-                      index,
-
-                      data.value,
-                      //data.shadowValue,
-                    );
-                  }).toList(),
-                  maxY: 1.2,
-                  minY: 0.7,
-                  barTouchData: BarTouchData(
-                    enabled: true,
-                    handleBuiltInTouches: false,
-                    touchTooltipData: BarTouchTooltipData(
-                      tooltipBgColor: Colors.transparent,
-                      tooltipMargin: 0,
-                      getTooltipItem: (
-                        BarChartGroupData group,
-                        int groupIndex,
-                        BarChartRodData rod,
-                        int rodIndex,
-                      ) {
-                        return BarTooltipItem(
-                          rod.toY.toString(),
-                          TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: rod.color!,
-                            fontSize: 18,
-                            shadows: const [
-                              Shadow(
-                                color: Colors.black26,
-                                blurRadius: 12,
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    touchCallback: (event, response) {
-                      if (event.isInterestedForInteractions &&
-                          response != null &&
-                          response.spot != null) {
-                        setState(() {
-                          touchedGroupIndex =
-                              response.spot!.touchedBarGroupIndex;
-                        });
-                      } else {
-                        setState(() {
-                          touchedGroupIndex = -1;
-                        });
-                      }
-                    },
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AspectRatio(
+          aspectRatio: 1.4,
+          child: BarChart(
+            BarChartData(
+              alignment: BarChartAlignment.spaceBetween,
+              borderData: FlBorderData(
+                show: true,
+                border: const Border.symmetric(
+                  horizontal: BorderSide(
+                    color: Color(0xFFececec),
                   ),
                 ),
               ),
+              titlesData: FlTitlesData(
+                show: true,
+                leftTitles: AxisTitles(
+                  drawBehindEverything: true,
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    reservedSize: 40,
+                    getTitlesWidget: leftTitles,
+                  ),
+                ),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    reservedSize: 47,
+                    getTitlesWidget: (value, meta) {
+                      final index = value.toInt();
+                      return SideTitleWidget(
+                        axisSide: meta.axisSide,
+                        child: _IconWidget(
+                          [
+                            'Павел',
+                            'Игорь',
+                            'Владислав',
+                            'Михаил',
+                            'Кирилл',
+                            'Гиренка',
+                            'Хахок',
+                            'Виктор',
+                            'Сергей',
+                            'Александр',
+                          ][index],
+                          isSelected: touchedGroupIndex == index,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                rightTitles: AxisTitles(),
+                topTitles: AxisTitles(),
+              ),
+              gridData: FlGridData(
+                show: true,
+                drawVerticalLine: false,
+                getDrawingHorizontalLine: (value) => FlLine(
+                  color: const Color(0xFFececec),
+                  dashArray: null,
+                  strokeWidth: 1,
+                ),
+              ),
+              barGroups: BarChart3.dataList.asMap().entries.map((e) {
+                final index = e.key;
+                final data = e.value;
+                return generateBarGroup(
+                  index,
+
+                  data.value,
+                  //data.shadowValue,
+                );
+              }).toList(),
+              maxY: 1.2,
+              minY: 0.7,
+              barTouchData: BarTouchData(
+                enabled: true,
+                handleBuiltInTouches: false,
+                touchTooltipData: BarTouchTooltipData(
+                  tooltipBgColor: Colors.transparent,
+                  tooltipMargin: 0,
+                  getTooltipItem: (
+                    BarChartGroupData group,
+                    int groupIndex,
+                    BarChartRodData rod,
+                    int rodIndex,
+                  ) {
+                    return BarTooltipItem(
+                      rod.toY.toString(),
+                      TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: rod.color!,
+                        fontSize: 18,
+                        shadows: const [
+                          Shadow(
+                            color: Colors.black26,
+                            blurRadius: 12,
+                          )
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                touchCallback: (event, response) {
+                  if (event.isInterestedForInteractions && response != null && response.spot != null) {
+                    setState(() {
+                      touchedGroupIndex = response.spot!.touchedBarGroupIndex;
+                    });
+                  } else {
+                    setState(() {
+                      touchedGroupIndex = -1;
+                    });
+                  }
+                },
+              ),
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -227,8 +214,7 @@ class _IconWidget extends ImplicitlyAnimatedWidget {
   }) : super(duration: const Duration(milliseconds: 200));
 
   @override
-  ImplicitlyAnimatedWidgetState<ImplicitlyAnimatedWidget> createState() =>
-      _IconWidgetState();
+  ImplicitlyAnimatedWidgetState<ImplicitlyAnimatedWidget> createState() => _IconWidgetState();
 }
 
 class _IconWidgetState extends AnimatedWidgetBaseState<_IconWidget> {
@@ -247,9 +233,7 @@ class _IconWidgetState extends AnimatedWidgetBaseState<_IconWidget> {
             children: [
               Icon(
                 widget.isSelected ? Icons.face : Icons.face,
-                color: widget.isSelected
-                    ? AppColors.text
-                    : AppColors.text.withOpacity(0.8),
+                color: widget.isSelected ? AppColors.text : AppColors.text.withOpacity(0.8),
                 size: 26,
               ),
             ],

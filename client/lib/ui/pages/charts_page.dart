@@ -3,8 +3,8 @@ import 'package:build_link/ui/widgets/charts/bar_chart1.dart';
 import 'package:build_link/ui/widgets/charts/bar_chart2.dart';
 import 'package:build_link/ui/widgets/charts/bar_chart3.dart';
 import 'package:build_link/ui/widgets/charts/bar_chart4.dart';
-import 'package:build_link/ui/widgets/charts/bar_chart5.dart';
 import 'package:build_link/ui/widgets/custom_scroll_controller.dart';
+import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
 
 class ChartsPage extends StatefulWidget {
@@ -42,6 +42,7 @@ class _ChartsPageState extends State<ChartsPage> {
               'Топ агентов по коммисии',
               style: AppTextStyles.titleSmall,
             ),
+            const Space(space: 16),
             Align(
               alignment: Alignment.topCenter,
               child: ConstrainedBox(
@@ -56,6 +57,7 @@ class _ChartsPageState extends State<ChartsPage> {
               'Топ агентов по среднему чеку',
               style: AppTextStyles.titleSmall,
             ),
+            const Space(space: 16),
             Align(
               alignment: Alignment.topCenter,
               child: ConstrainedBox(
@@ -70,6 +72,7 @@ class _ChartsPageState extends State<ChartsPage> {
               'Топ агентов по конверсии (CR)',
               style: AppTextStyles.titleSmall,
             ),
+            const Space(space: 16),
             Align(
               alignment: Alignment.topCenter,
               child: ConstrainedBox(
@@ -84,6 +87,7 @@ class _ChartsPageState extends State<ChartsPage> {
               'Топ агентов по кол-ву сделок',
               style: AppTextStyles.titleSmall,
             ),
+            const Space(space: 16),
             Align(
               alignment: Alignment.topCenter,
               child: ConstrainedBox(
