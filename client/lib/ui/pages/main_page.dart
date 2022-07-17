@@ -3,6 +3,7 @@ import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/ui/pages/calendar_page.dart';
 import 'package:build_link/ui/pages/charts_page.dart';
 import 'package:build_link/ui/pages/clients_page.dart';
+import 'package:build_link/ui/pages/forum_page.dart';
 import 'package:build_link/ui/pages/house_page.dart';
 import 'package:build_link/ui/pages/house_search_page.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,8 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           const HouseSearchPage(),
-          const ChartsPage(),
+          const ForumPage(),
+          //const ChartsPage(),
         ].elementAt(index);
       },
     };
