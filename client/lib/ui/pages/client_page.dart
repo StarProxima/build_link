@@ -138,9 +138,6 @@ class ClienHomes extends StatelessWidget {
               IconButton(
                 padding: EdgeInsets.zero,
                 onPressed: () {
-                HouseRepository.noteAnalyze(note: note).then((value) {
-                  // TODO: переход на панель с поиском и фильтрами
-                });
                 },
                 icon: const AppIcon(
                   AppIcons.state,
@@ -149,6 +146,11 @@ class ClienHomes extends StatelessWidget {
               ),
             ],
           ),
+        ),
+        Column(
+          children: [
+            
+          ],
         )
       ],
     );

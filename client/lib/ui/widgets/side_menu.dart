@@ -12,11 +12,17 @@ class SideMenu extends StatefulWidget {
   final Function(int) onChangePage;
 
   @override
-  State<SideMenu> createState() => _SideMenuState();
+  State<SideMenu> createState() => SideMenuState();
 }
 
-class _SideMenuState extends State<SideMenu> {
+class SideMenuState extends State<SideMenu> {
   var selectedPageIndex = 0;
+
+  void changeSelected(index){
+    setState(() {
+      selectedPageIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
