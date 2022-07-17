@@ -135,6 +135,7 @@ class HouseSearchPageState extends State<HouseSearchPage> {
                                           border: Border.all(color: AppColors.divider, width: 1),
                                         ),
                                         child: TextButton(
+                                          style: AppButtonStyle.cardButton,
                                           onPressed: () {
                                             makeSearch();
                                           },
@@ -142,6 +143,7 @@ class HouseSearchPageState extends State<HouseSearchPage> {
                                             "Применить",
                                             style: AppTextStyles.titleLarge.copyWith(
                                               fontSize: 12,
+                                              fontWeight: FontWeight.w600,
                                               color: AppColors.accent,
                                             ),
                                             textAlign: TextAlign.center,
