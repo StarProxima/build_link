@@ -8,6 +8,7 @@ import 'package:build_link/ui/pages/forum_page.dart';
 import 'package:build_link/ui/pages/house_page.dart';
 import 'package:build_link/ui/pages/house_search_page.dart';
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../widgets/side_menu.dart';
 
@@ -41,6 +42,7 @@ class _MainPageState extends State<MainPage> {
               state: 'FEWf',
               planUrl: "",
               images: [],
+              coord: LatLng(48, 48),
             ),
           ),
           const HouseSearchPage(),

@@ -113,11 +113,8 @@ class _HousePageState extends State<HousePage> {
                         text: 'Цена: ${widget.house.cost} руб',
                       ),
                       HousePageField(
-                        icon:  AppIcon(
-                          AppIcons.town,
-                          size: 18,
-                          color: AppColors.accent
-                        ),
+                        icon: AppIcon(AppIcons.town,
+                            size: 18, color: AppColors.accent),
                         text: 'ЖК: ${widget.house.housingComplex}',
                       ),
                       HousePageField(
@@ -321,14 +318,13 @@ class _HousePageState extends State<HousePage> {
                   SizedBox(
                     height: 250,
                     child: MiniMap(
-                      coord: LatLng(45, 48),
+                      coord: widget.house.coord,
                       onTap: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute(
-                            settings: RouteSettings(),
                             builder: (context) {
                               return MapPage(
-                                initialPosition: LatLng(45, 48),
+                                initialPosition: widget.house.coord,
                                 isFullScreen: true,
                               );
                             },
