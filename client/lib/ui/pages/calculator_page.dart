@@ -47,6 +47,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     return Container(
       padding: const EdgeInsets.all(24),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             margin: const EdgeInsets.only(bottom: 32),
@@ -66,38 +67,73 @@ class _CalculatorPageState extends State<CalculatorPage> {
             ),
           ),
           Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CalculatorInput(
-                  calculateCredit: calculateCredit,
-                  benefitController: benefitController,
-                  costController: costController,
-                  discountController: discountController,
-                  discountTermController: discountTermController,
-                  firstContributionController: firstContributionController,
-                  percentsController: percentsController,
-                ),
-                const Space(
-                  space: 24,
-                  orientation: Axis.horizontal,
-                ),
-                calculated
-                    ? Expanded(
-                        child: Container(
-                          color: AppColors.background,
-                          child: CalucalorResult(
-                            creditSum: creditSum,
-                            mountPay: mountPay,
-                            procentSum: procentSum,
-                            procentAndCredit: procentAndCredit,
-                            usingBonus: usingBonus,
-                          ),
-                        ),
-                      )
-                    : const SizedBox(),
-              ],
-            ),
+            child: MediaQuery.of(context).size.width < 950
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CalculatorInput(
+                        calculateCredit: calculateCredit,
+                        benefitController: benefitController,
+                        costController: costController,
+                        discountController: discountController,
+                        discountTermController: discountTermController,
+                        firstContributionController:
+                            firstContributionController,
+                        percentsController: percentsController,
+                      ),
+                      const Space(
+                        space: 24,
+                        orientation: Axis.vertical,
+                      ),
+                      calculated
+                          ? Expanded(
+                              child: Container(
+                                color: AppColors.background,
+                                child: CalucalorResult(
+                                  creditSum: creditSum,
+                                  mountPay: mountPay,
+                                  procentSum: procentSum,
+                                  procentAndCredit: procentAndCredit,
+                                  usingBonus: usingBonus,
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
+                    ],
+                  )
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CalculatorInput(
+                        calculateCredit: calculateCredit,
+                        benefitController: benefitController,
+                        costController: costController,
+                        discountController: discountController,
+                        discountTermController: discountTermController,
+                        firstContributionController:
+                            firstContributionController,
+                        percentsController: percentsController,
+                      ),
+                      const Space(
+                        space: 24,
+                        orientation: Axis.horizontal,
+                      ),
+                      calculated
+                          ? Expanded(
+                              child: Container(
+                                color: AppColors.background,
+                                child: CalucalorResult(
+                                  creditSum: creditSum,
+                                  mountPay: mountPay,
+                                  procentSum: procentSum,
+                                  procentAndCredit: procentAndCredit,
+                                  usingBonus: usingBonus,
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
+                    ],
+                  ),
           ),
         ],
       ),
