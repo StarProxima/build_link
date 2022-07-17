@@ -2,6 +2,7 @@ import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FilterField extends StatefulWidget {
   final String title;
@@ -80,6 +81,7 @@ class _FilterFieldState extends State<FilterField> {
                           alignment: Alignment.center,
                           constraints: const BoxConstraints(minWidth: double.infinity),
                           child: TextField(
+                            inputFormatters: [ FilteringTextInputFormatter(RegExp(r"[1234567890.]"), allow: true)],
                             controller: fromFieldController,
                             style: AppTextStyles.title
                                 .copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.text),
@@ -124,6 +126,7 @@ class _FilterFieldState extends State<FilterField> {
                           alignment: Alignment.center,
                           constraints: const BoxConstraints(minWidth: double.infinity),
                           child: TextField(
+                            inputFormatters: [ FilteringTextInputFormatter(RegExp(r"[1234567890.]"), allow: true)],
                             controller: toFieldController,
                             style: AppTextStyles.title
                                 .copyWith(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.text),

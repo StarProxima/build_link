@@ -2,6 +2,7 @@ import 'package:build_link/data/styles/colors.dart';
 import 'package:build_link/data/styles/fonts.dart';
 import 'package:build_link/ui/widgets/space.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
@@ -27,7 +28,9 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+
       controller: controller,
+      inputFormatters: [ FilteringTextInputFormatter(RegExp(r"[1234567890.]"), allow: true)],
       cursorColor: AppColors.text,
       textAlign: TextAlign.right,
       decoration: InputDecoration(
