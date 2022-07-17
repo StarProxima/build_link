@@ -111,6 +111,22 @@ class _HousePageState extends State<HousePage> {
                         text: 'Цена: ${widget.house.cost} руб',
                       ),
                       HousePageField(
+                        icon:  AppIcon(
+                          AppIcons.town,
+                          size: 18,
+                          color: AppColors.accent
+                        ),
+                        text: 'ЖК: ${widget.house.housingComplex}',
+                      ),
+                      HousePageField(
+                        icon: AppIcon(
+                          AppIcons.calendar,
+                          size: 18,
+                          color: AppColors.accent,
+                        ),
+                        text: 'Сдача: ${widget.house.dateRange}',
+                      ),
+                      HousePageField(
                         icon: const AppIcon(AppIcons.check),
                         text: widget.house.repair
                             ? "Сделан ремонт"
