@@ -26,6 +26,7 @@ class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
   FiltersModel filters = FiltersModel()..initValue(square: Range(20, 30));
   GlobalKey<HouseSearchPageState> keyForSearch = GlobalKey<HouseSearchPageState>();
+  GlobalKey<SideMenuState> sideMenu = GlobalKey<SideMenuState>();
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
     return {
@@ -35,6 +36,7 @@ class _MainPageState extends State<MainPage> {
             { setState(() {
               selectedIndex = 3;
               keyForSearch.currentState!.makeSearch();
+              sideMenu.currentState!.changeSelected(3);
             }
           ); 
           },),
@@ -60,6 +62,7 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           const CalculatorPage(initialCost: null),
+          const ChartsPage(),
         ].elementAt(index);
       },
     };
@@ -90,7 +93,7 @@ class _MainPageState extends State<MainPage> {
           create: (_) => filters,
           child: Row(
             children: [
-              SideMenu(
+              SideMenu(key: sideMenu,
                 onChangePage: (index) {
                   setState(() {
                     selectedIndex = index;
@@ -110,6 +113,7 @@ class _MainPageState extends State<MainPage> {
                     _buildOffstageNavigator(3),
                     _buildOffstageNavigator(4),
                     _buildOffstageNavigator(5),
+                    _buildOffstageNavigator(6),
                   ],
                 ),
               ),

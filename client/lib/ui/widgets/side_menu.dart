@@ -12,11 +12,17 @@ class SideMenu extends StatefulWidget {
   final Function(int) onChangePage;
 
   @override
-  State<SideMenu> createState() => _SideMenuState();
+  State<SideMenu> createState() => SideMenuState();
 }
 
-class _SideMenuState extends State<SideMenu> {
+class SideMenuState extends State<SideMenu> {
   var selectedPageIndex = 0;
+
+  void changeSelected(index){
+    setState(() {
+      selectedPageIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +101,8 @@ class _SideMenuState extends State<SideMenu> {
             appIcon: AppIcons.comment_check,
             label: 'Статистика',
             onTap: () {
-              selectedPageIndex = 4;
-              widget.onChangePage(4);
+              selectedPageIndex = 6;
+              widget.onChangePage(6);
             },
             isSelected: selectedPageIndex == 4,
           ),
