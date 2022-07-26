@@ -1,4 +1,3 @@
-import 'package:build_link/data/styles/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -67,12 +66,9 @@ class BarChart5State extends State<BarChart5> {
     return AspectRatio(
       aspectRatio: 1.66,
       child: Card(
-        color: AppColors.background,
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(width: 1, color: AppColors.divider),
-        ),
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: BarChart(
