@@ -3,5 +3,5 @@
 
 ## Сервис взаимодействия агента с застройшиком. Был спроектирован и разработан за 48 часов в рамках хакатана.
 
-Для ознакомления доступна презентация проекта - 
-[Презентация](https://docs.google.com/presentation/d/1yGd3v7yIs4_b0hsORZZOypo_OyEySTmL/edit#slide=id.p3).
+Для ознакомления доступна презентация проекта - [Презентация](https://docs.google.com/presentation/d/1yGd3v7yIs4_b0hsORZZOypo_OyEySTmL/edit#slide=id.p3).
+
